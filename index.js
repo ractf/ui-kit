@@ -1,5 +1,5 @@
 export { default as Modal, ModalPrompt } from "./components/Modal";
-export { SiteNav, SBTSection, Section } from "./components/SidebarTabs";
+export { SideNav, SBTSection, Section } from "./components/SidebarTabs";
 export { default as TabbedView, Tab } from "./components/TabbedView";
 export { FormError, default as Form } from "./components/Form";
 export { default as ToggleButton } from "./components/ToggleButton";
