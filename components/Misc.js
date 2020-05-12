@@ -28,10 +28,13 @@ export const FlexRow = ({ children, left, right, className }) => (
         {children}
     </div>
 );
-export const FlashText = ({ children, warning, bold }) => (
-    <div className={"flashText" + (warning ? " warning" : "") + (bold ? " embolden" : "")}>
-        {children}
-    </div>
+export const FlashText = ({ children, warning, bold, button }) => (
+    <FlexRow>
+        <div className={"flashText" + (warning ? " warning" : "") + (bold ? " embolden" : "")}>
+            {children}
+        </div>
+        {button}
+    </FlexRow>
 );
 export const FormGroup = ({ children, label, htmlFor }) => (
     <div className={"formGroup"}>

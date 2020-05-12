@@ -29,7 +29,6 @@ $hr_color: $back_600;
 }
 
 .textBlock {
-    margin: 1.5em 0.5em;
     font-size: 1rem;
     background-color: $textblock_back;
     padding: 1em 2em;
@@ -99,9 +98,9 @@ $hr_color: $back_600;
     background-color: $back_600;
     padding: 16px 24px;
     border-radius: 2px;
-    margin: 14px 0 24px;
     width: 100%;
     transition: 150ms background-color ease;
+    flex: 1;
     position: relative;
 
     > .loadingSpinner {
