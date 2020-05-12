@@ -36,6 +36,7 @@ $hr_color: $back_600;
     white-space: pre-wrap;
     font-family: $monoStack;
     word-wrap: break-word;
+    flex-grow: 1;
 
     & img {
         max-width: 100%;
@@ -60,6 +61,7 @@ $hr_color: $back_600;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
 
     &.frRight {
         justify-content: flex-end;
