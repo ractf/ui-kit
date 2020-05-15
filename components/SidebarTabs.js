@@ -48,7 +48,7 @@ export const SideNav = ({ header, footer, items, children }) => {
                 {items.map(({ name, submenu, startOpen }) => (
                     <SubMenu key={name} name={name} initial={startOpen}>
                         {submenu.map(([text, url]) => (
-                            <Link onClick={close} to={url} className={"sbtSubitem"}>{text}</Link>
+                            <Link onClick={close} to={url} key={text} className={"sbtSubitem"}>{text}</Link>
                         ))}
                     </SubMenu>
                 ))}
