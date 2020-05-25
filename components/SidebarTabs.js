@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
 
 import { Link } from "@ractf/ui-kit";
-import { fastClick } from "ractf";
+//import { fastClick } from "ractf";
 import Scrollbar from "./Scrollbar";
 
-import "./SidebarTabs.scss";
+import style from "./SidebarTabs.module.scss";
 
 
 export const SubMenu = ({ name, children, initial }) => {
@@ -22,10 +22,10 @@ export const SubMenu = ({ name, children, initial }) => {
     };
 
     return <>
-        <div onClick={toggle} className={"sbtItem" + (height === 0 ? "" : " sbtActive")}>
+        <div onClick={toggle} className={style.sbtItem + (height === 0 ? "" : (" " + style.sbtActive))}>
             {children && children.length && <MdKeyboardArrowLeft />}{name}
         </div>
-        <div className={"sbtChildren"} style={{ height: height }} ref={childs}>
+        <div className={style.sbtChildren} style={{ height: height }} ref={childs}>
             {children}
         </div>
     </>;
@@ -37,50 +37,29 @@ export const SideNav = ({ header, footer, items, children }) => {
 
     const close = () => setSbOpen(false);
 
-    return <div className={"sbtWrap" + (sbOpen ? " sbtOpen" : "")}>
-        <div onClick={() => setSbOpen(false)} {...fastClick} className={"sbtBurgerUnderlay"} />
-        <div onClick={() => setSbOpen(!sbOpen)} {...fastClick} className={"sbtBurger"}><MdMenu /></div>
-        <Scrollbar className={"sbtSidebar"}>
-            <div className={"sbtsInner"}>
-                <div className={"sbtHead"}>
+    return <div className={style.sbtWrap + (sbOpen ? " " + style.sbtOpen : "")}>
+        <div onClick={() => setSbOpen(false)} /*{...fastClick}*/ className={style.sbtBurgerUnderlay} />
+        <div onClick={() => setSbOpen(!sbOpen)} /*{...fastClick}*/ className={style.sbtBurger}><MdMenu /></div>
+        <Scrollbar className={style.sbtSidebar}>
+            <div className={style.sbtsInner}>
+                <div className={style.sbtHead}>
                     {header}
                 </div>
                 {items.map(({ name, submenu, startOpen }) => (
                     <SubMenu key={name} name={name} initial={startOpen}>
                         {submenu.map(([text, url]) => (
-                            <Link onClick={close} to={url} key={text} className={"sbtSubitem"}>{text}</Link>
+                            <Link onClick={close} to={url} key={text} className={style.sbtSubitem}>{text}</Link>
                         ))}
                     </SubMenu>
                 ))}
-                <div className="sbtSkip" />
-                <div className="sbtFoot">
+                <div className={style.sbtSkip} />
+                <div className={style.sbtFoot}>
                     {footer}
                 </div>
             </div>
         </Scrollbar>
-
-        {children}
-    </div>;
-};
-
-
-export const SBTSection = ({ title, children, subTitle, back, noHead }) => {
-    return <>
-        {!noHead && <div className={"abTitle"}>{title}{back && <div className={"abBack"}>
-            {back}
-        </div>}{subTitle && <div className={"abSub"}>
-            {subTitle}
-        </div>}</div>}
-        {children}
-    </>;
-};
-
-
-export const Section = ({ title, children }) => <>
-    <div className={"abSection"}>
-        <div className={"absTitle"}>{title}</div>
-        <div className={"absBody"}>
+        <div className={style.sbtBody}>
             {children}
         </div>
-    </div>
-</>;
+    </div>;
+};

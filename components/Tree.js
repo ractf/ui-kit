@@ -3,11 +3,11 @@ import { FaFolder, FaFolderOpen, FaRegFolder, FaPencilAlt, FaReceipt } from "rea
 
 import { appContext } from "ractf";
 
-import "./Tree.scss";
+import style from "./Tree.module.scss";
 
 
 export const TreeWrap = ({ children }) => {
-    return <div className={"tree"}>
+    return <div className={style.tree}>
         <ul>{children}</ul>
     </div>;
 };
@@ -18,8 +18,8 @@ export const Tree = ({ name, children, startOpen }) => {
 
     return <li>
         <i />
-        <span className={"parent"} onClick={() => setOpen(!open)}>
-            <i className={"treeItem"}>{
+        <span className={style.parent} onClick={() => setOpen(!open)}>
+            <i className={style.treeItem}>{
                 children.length === 0 ? <FaRegFolder /> : open ? <FaFolderOpen /> : <FaFolder />
             }</i>
             {name}
@@ -52,11 +52,11 @@ export const TreeValue = ({ name, value, setValue }) => {
 
     return <li onClick={setValue ? openEdit : null}>
         <i />
-        <span className={"parent"}>
-            <i className={"treeItem"}>{setValue ? <FaPencilAlt /> : <FaReceipt />}</i>
+        <span className={style.parent}>
+            <i className={style.treeItem}>{setValue ? <FaPencilAlt /> : <FaReceipt />}</i>
             {name}
         </span>
-        <span className={"value"}>{
+        <span className={style.value}>{
             ((typeof value === "boolean") || (typeof value === "number")) ? value.toString() : value
         }</span>
     </li>;

@@ -1,14 +1,14 @@
 @import "../Colours.scss";
 
 
-$body_background: $back_750;
+$body_background: $back_lift;
 $tab_background: transparent;
-$tab_selected: $back_750;
-$tab_hover: rgba($back_750, .5);
+$tab_selected: rgba(map-get($colours, "black"), 0.03);
+$tab_hover: rgba(map-get($colours, "black"), 0.03);
 
-$tab_text: $back_50;
-$tab_active_text: $white_100;
-$tab_hover_text: $white_100;
+$tab_text: map-get($colours, "black");
+$tab_active_text: map-get($colours, "black");
+$tab_hover_text: map-get($colours, "black");
 
 
 .tabButtonRow {
@@ -27,9 +27,12 @@ $tab_hover_text: $white_100;
         transition: none;
 
         font-size: 1.1em;
-        background-color: $tab_background;
-        color: $tab_text;
+        background-color: $tab_background !important;
+        color: $tab_text !important;
         min-height: 42px;
+
+        border: 1px solid transparent !important;
+        border-bottom: none !important;
     
         &:hover, &:focus {
             background-color: $tab_hover !important;
@@ -42,7 +45,9 @@ $tab_hover_text: $white_100;
 
         &.active {
             background-color: $tab_selected !important;
-            color: $tab_active_text;
+            border: 1px solid $back_lift !important;
+            border-bottom: none !important;
+            color: $tab_active_text !important;
         }
     }
 }
@@ -51,7 +56,7 @@ $tab_hover_text: $white_100;
     padding: 32px;
     width: 100%;
 
-    background-color: $body_background;
+    border: 1px solid $back_lift;
     padding: 1em 2em;
     border-radius: 1px;
 }

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 import { Input, Button } from "@ractf/ui-kit";
 
-import "./InputButton.scss";
+import style from "./InputButton.module.scss";
+
 
 export default class InputButton extends Component {
     constructor(props) {
@@ -24,9 +25,9 @@ export default class InputButton extends Component {
     }
 
     render() {
-        return <div className={"inlineButton" + (this.props.className ? " " + this.props.className : "")}>
-            <Input {...this.props} onSubmit={this.onSubmit} onChange={this.onChange} val={this.state.val} />
-            <Button large ref={this.button} click={this.onSubmit} disabled={this.props.disabled}>
+        return <div className={style.inlineButton + (this.props.className ? " " + this.props.className : "")}>
+            <Input {...this.props} onSubmit={this.onSubmit} onChange={this.onChange} val={this.state.val} className={style.input} />
+            <Button large ref={this.button} click={this.onSubmit} disabled={this.props.disabled} className={style.btn}>
                 {this.props.button || "Submit"}
             </Button>
         </div>;

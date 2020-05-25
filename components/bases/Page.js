@@ -11,7 +11,7 @@ export default ({ children, vCentre, selfContained, noPad, maxWidth, title }) =>
         if (title) document.title = title;
     }, [title]);
     
-    return (<div className="sbtBody" style={style}>
+    return (<div style={style}>
         {selfContained ? children :
             <div className={"pageContent" + (vCentre ? " vCentre" : "")} style={innerStyle}>
                 {children}

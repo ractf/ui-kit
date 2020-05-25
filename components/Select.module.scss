@@ -1,11 +1,5 @@
 @import "../Colours.scss";
-@import "./Input.scss";
-
-
-$select_back: $back_700;
-$select_hover: $back_600;
-$select_gap: $back_800;
-$select_open: $back_600;
+@import "./Input.vars.scss";
 
 
 .select {
@@ -29,9 +23,9 @@ $select_open: $back_600;
     }
 
     .head {
-        border-radius: 2px;
+        border-radius: $radius;
         &.sOpen {
-            background-color: $select_open;
+            border-radius: $radius $radius 0 0;
         }
 
         &:after {
@@ -50,23 +44,27 @@ $select_open: $back_600;
         min-width: 100px;
         min-height: $min_height;
         padding: $padding;
-
+        
         cursor: pointer;
-
-        background-color: $select_back;
+        
+        background-color: map-get($colours, "white");
+        border: 1px solid $input_color;
 
         &:hover {
-            background-color: $select_hover;
+            background-color: hover(map-get($colours, "white"));
         }
     }
     .items div {
-        border-top: 1px solid $select_gap;
+        border-top: none;
+
+        &:last-child {
+            border-radius: 0 0 $radius $radius;
+        }
     }
 
     .items {
         position: fixed;
         z-index: 99;
-        border-radius: 2px;
         overflow-y: auto;
         bottom: 0;
     }

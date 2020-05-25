@@ -10,7 +10,7 @@
     .box {
         width: 1.1em;
         height: 1.1em;
-        background-color: $back_600;
+        background-color: $back_lift;
         border-radius: 2px;
         flex-shrink: 0;
         margin-right: .4em;
@@ -19,14 +19,16 @@
     .cbLabel {
         flex-grow: 1;
         font-size: .9em;
-        color: $back_100;
+        opacity: .8;
     }
 
     &:hover .box {
-        background-color: $back_500;
+        background-color: rgba(map-get($colours, "black"), 0.25);
     }
     &.checked {
         .box {
+            background-color: map-get($colours, "accent");
+
             &::after {
                 display: block;
                 content: "";
@@ -35,7 +37,7 @@
                 left: 50%;
                 width: 25%;
                 height: 55%;
-                border: 2px solid $back_50;
+                border: 2px solid map-get($colours, "white");
                 border-top: 0;
                 border-left: 0;
                 transform: translate(-50%, -50%) rotate(45deg);

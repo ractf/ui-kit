@@ -1,6 +1,6 @@
 import React, { useState, useRef, forwardRef } from "react";
 
-import "./Select.scss";
+import style from "./Select.module.scss";
 
 
 export default forwardRef(({ name, options, initial }, ref) => {
@@ -29,15 +29,15 @@ export default forwardRef(({ name, options, initial }, ref) => {
     if (ref)
         ref.current = { props: { name }, state: { val: selected.key } };
 
-    return <div className={"select"}>
+    return <div className={style.select}>
         <select>
             {options.map(i => <option key={i.key} value={i.key}>{i.value}</option>)}
         </select>
         {itemsStyle.display === "block" && <div onClick={doOpen} className={"blanker"} />}
-        <div ref={head} onClick={doOpen} className={"head" + (itemsStyle.display === "block" ? " sOpen" : "")}>
+        <div ref={head} onClick={doOpen} className={style.head + (itemsStyle.display === "block" ? " " + style.sOpen : "")}>
             {selected.value}
         </div>
-        <div className={"items"} onClick={doOpen} style={itemsStyle}>
+        <div className={style.items} onClick={doOpen} style={itemsStyle}>
             {options.map(i => <div onClick={() => select(i)} key={i.key}>{i.value}</div>)}
         </div>
     </div>;

@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "@ractf/ui-kit";
 
-import "./Leader.scss";
+import style from "./Leader.module.scss";
 
 
 export default ({ link, children, sub, green, x, none, click }) => {
     return <Link to={link} onClick={click}
-        className={"leader" + (green ? " leaderGreen" : "") + (x ? " leaderX" : "") + (none ? " leaderNone" : "")}>
-        <div className={"leaderName"}>{children}</div>
-        <div className={"leaderSub"}>{sub}</div>
+        className={style.leader + (green ? " " + style.leaderGreen : "") + (x ? " " + style.leaderX : "") + (none ? " " + style.leaderNone : "")}>
+        <div className={style.leaderName}>{children}</div>
+        <div className={style.leaderSub}>{sub}</div>
     </Link>;
 };

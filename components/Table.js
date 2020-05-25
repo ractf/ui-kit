@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { Link } from "./Link";
+import { Link } from "@ractf/ui-kit";
 
-import "./Table.scss";
+import style from "./Table.module.scss";
 
 
 export default ({ sorter, headings, data, noSort }) => {
@@ -28,25 +28,28 @@ export default ({ sorter, headings, data, noSort }) => {
         };
     };
 
-    return <div className={"tableWrap"}><table>
+    return <div className={style.tableWrap}><table>
         <thead>
-            <tr className={"heading"}>
+            <tr className={style.heading}>
                 {headings.map((i, n) => (
-                    <td key={n} onClick={noSort || toggleSort(n)} className={noSort ? "" : "sortable"}>
+                    <th key={n} onClick={noSort || toggleSort(n)} className={noSort ? "" : style.sortable}>
                         <span>{i}</span>
-                    </td>
+                    </th>
                 ))}
             </tr>
         </thead>
         <tbody>
-            {sorterFunc(data, sortMode).map((i, n) => (
-                <tr key={n}>
-                    {i.slice(0, headings.length).map(
-                        (j, m) => <td key={m}>
-                            {i.length > headings.length ? <Link to={i[i.length - 1]}>{j}</Link> : <span>{j}</span>}
+            {sorterFunc(data, sortMode).map((i, n) => {
+                const meta = i[headings.length] || {};
+
+                return <tr key={n} className={style[meta.type] || ""}>
+                    {i.slice(0, headings.length).map((j, m) => (
+                        <td key={m}>
+                            {meta.link ? <Link to={meta.link}>{j}</Link> : <span>{j}</span>}
                         </td>
-                    )}
-                </tr>))}
+                    ))}
+                </tr>;
+            })}
         </tbody>
     </table></div>;
 };

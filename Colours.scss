@@ -6,7 +6,12 @@ $monoStack: 'Roboto Mono', monospace;
 $green: #115423;
 $bgreen: #7cb342;
 
-$do-lighten: true;
+@function hover($col) {
+    @return darken($col, 5%);
+}
+@function focus($col) {
+    @return darken($col, 15%);
+}
 
 /* #region Colour definitions */
 // Background shades
@@ -56,34 +61,66 @@ $cta_grad_1: $red_200;
 $background: $back_800;
 $foreground: $white_50;
 
+$colours: (
+    "white": #fff,
+    "grey": #adb5bd,
+    "dgrey": #868e96,
+    "black": #343a40,
+
+    "red": #d9534f,
+    "green": #02B875,
+    "blue": #17a2b8,
+    "yellow": #f0ad4e,
+    "pink": #f0f,
+
+    "accent": #4582ec
+);
+$types: (
+    primary: (
+        bg: map-get($colours, "accent"),
+        fg: map-get($colours, "white")
+    ),
+    secondary: (
+        bg: map-get($colours, "grey"),
+        fg: map-get($colours, "white")
+    ),
+    success: (
+        bg: map-get($colours, "green"),
+        fg: map-get($colours, "white")
+    ),
+    info: (
+        bg: map-get($colours, "blue"),
+        fg: map-get($colours, "white")
+    ),
+    warning: (
+        bg: map-get($colours, "yellow"),
+        fg: map-get($colours, "black")
+    ),
+    danger: (
+        bg: map-get($colours, "red"),
+        fg: map-get($colours, "white")
+    ),
+    light: (
+        bg: map-get($colours, "white"),
+        fg: map-get($colours, "black")
+    )
+);
+
+$background: #fff;
+$back_lift: rgba(map-get($colours, "black"), 0.125);
 
 
 $bg: $background;
 $fg: $foreground;
 
 
-
-$bg_l0: saturate(lighten($bg, 3%), 1%);
-$bg_l1: desaturate(lighten($bg, 7%), 5%);
 $bg_l2: desaturate(lighten($bg, 14%), 9%);
 $bg_l3: desaturate(lighten($bg, 28%), 11%);
 $bg_l4: desaturate(lighten($bg, 42%), 11%);
 $bg_l5: desaturate(lighten($bg, 56%), 12%);
 
-$bg_d00: saturate(darken($bg, 2%), 4%);
 $bg_d0: saturate(darken($bg, 4%), 4%);
-$bg_d05: saturate(darken($bg, 6%), 4%);
 $bg_d1: saturate(darken($bg, 8%), 4%);
-
-@if $do-lighten {
-    $bg_d00: desaturate(lighten($bg, 2%), 4%);
-    $bg_d0: desaturate(lighten($bg, 4%), 4%);
-    $bg_d05: desaturate(lighten($bg, 6%), 4%);
-    $bg_d1: desaturate(lighten($bg, 8%), 4%);
-}
-
-$link_color: $bg_l5;
-$link_hover: $bg_l4;
 
 
 :export {
@@ -95,15 +132,11 @@ $link_hover: $bg_l4;
     red: $red;
     
     accent: $accent;
-
-    bg_l0: $bg_l0;
-    bg_l1: $bg_l1;
     bg_l2: $bg_l2;
     bg_l3: $bg_l3;
     bg_l4: $bg_l4;
     bg_l5: $bg_l5;
     bg_d1: $bg_d1;
-    bg_d05: $bg_d05;
     bg_d0: $bg_d0;
 
     fontStack: $fontStack;

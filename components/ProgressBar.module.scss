@@ -1,9 +1,9 @@
 @import "../Colours.scss";
 
-$pb_background: $back_600;
-$pb_fill: $back_300;
-$pb_done: desaturate($bgreen, 20%);
-$pb_over: desaturate($red_600, 20%);
+$pb_background: $back_lift;
+$pb_fill: map-get($colours, "accent");
+$pb_done: map-get($colours, "green");
+$pb_over: map-get($colours, "red");
 
 .progressBar {
     height: 8px;

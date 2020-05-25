@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
-import "./Scrollbar.scss";
+import style from "./Scrollbar.module.scss";
 
 export default ({ children, className, primary }) => {
     const inner = useRef();
@@ -8,7 +8,7 @@ export default ({ children, className, primary }) => {
 
     const [dragStart, setDragStart] = useState(null);
 
-    const [style, setStyle] = useState({ height: 0, top: 0 });
+    const [barStyle, setBarStyle] = useState({ height: 0, top: 0 });
     const [trackStyle, setTrackStyle] = useState({ opacity: primary ? 1 : 0 });
 
     const rafRef = useRef();
@@ -34,7 +34,7 @@ export default ({ children, className, primary }) => {
         if (!inner.current || !track.current) return;
         let [top, barHeight, scrollDist] = barMetrics();
 
-        setStyle({ top: top, height: barHeight });
+        setBarStyle({ top: top, height: barHeight });
         setTrackStyle({ opacity: scrollDist === 0 ? 0 : 1 });
     }, [inner, track]);
 
@@ -109,13 +109,13 @@ export default ({ children, className, primary }) => {
     useEffect(updateBar, [inner]);
 
     return <div onScroll={updateBar} className={
-        "scrolled" + (className ? (" " + className) : "") + (primary ? " primary" : "")
+        style.scrolled + (className ? (" " + className) : "") + (primary ? " " + style.primary : "")
     }>
-        <div ref={inner} className={"scrollInner"}>
+        <div ref={inner} className={style.scrollInner}>
             {children}
         </div>
-        <div ref={track} style={trackStyle} className={"scrollTrack" + (dragStart ? " trackActive" : "")}>
-            <div style={style} onMouseDown={onMouseDown} className={"scrollbar"} />
+        <div ref={track} style={trackStyle} className={style.scrollTrack + (dragStart ? " " + style.trackActive : "")}>
+            <div style={barStyle} onMouseDown={onMouseDown} className={style.scrollbar} />
         </div>
     </div>;
 };

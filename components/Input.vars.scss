@@ -1,0 +1,15 @@
+$input_color: #ced4da;
+$input_focus: #afb6bd;
+
+$disabled_color: rgba(map-get($colours, "black"), .15);
+$disabled_text: #595675;
+
+$foreground: #495057;
+
+$error_color: #3f2637;
+$error_focus: #522836;
+
+$padding: .7rem 24px;
+$font_size: 18px;
+$min_height: 46px;
+$radius: .25rem;

@@ -1,10 +1,10 @@
 @import "../Colours.scss";
 
-$background: $back_600;
-$hover: $back_400;
-$arrow: $back_400;
-$arrow_hover: $back_50;
-$sub: $back_50;
+$background: $back_lift;
+$hover: map-get($colours, "accent");
+$arrow: lighten(map-get($colours, "black"), 15%);
+$arrow_hover: lighten(map-get($colours, "black"), 15%);
+$sub: lighten(map-get($colours, "black"), 30%);
 
 .leader {
     background-color: $background;
@@ -14,22 +14,24 @@ $sub: $back_50;
     cursor: pointer;
     transition: 150ms background-color ease;
     display: block;
-    color: $fg;
+    color: map-get($colours, "black");
 
     &.leaderGreen {
-        background-color: desaturate($green, 10%);
+        color: map-get($colours, "white");
+        background-color: map-get($colours, "green");
         .leaderSub {
-            color: $bgreen;
+            color: map-get($colours, "white");
+            opacity: .9;
         }
         &::after {
-            border-color: desaturate($bgreen, 20%);
+            border-color: desaturate(map-get($colours, "green"), 20%);
         }
 
         &:hover,
         &:focus {
-            background-color: desaturate(lighten($green, 7%), 4%);
+            background-color: hover(map-get($colours, "green"));
             &::after {
-                border-color: desaturate($bgreen, 10%);
+                border-color: desaturate(map-get($colours, "green"), 10%);
             }
         }
     }
@@ -90,6 +92,10 @@ $sub: $back_50;
             }
         }
         text-decoration: none;
-        color: $fg;
+        color: map-get($colours, "white");
+
+        .leaderSub {
+            color: darken(map-get($colours, "white"), 15%);
+        }
     }
 }

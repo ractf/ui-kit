@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import { Button, FlexRow } from "@ractf/ui-kit";
+import { Button, Row } from "@ractf/ui-kit";
 
-import "./ToggleButton.scss";
+import style from "./ToggleButton.module.scss";
 
 
 export default class SwitchButton extends Component {
@@ -36,14 +36,15 @@ export default class SwitchButton extends Component {
         let buttons = [];
         this.props.options.map((val) =>
             buttons.push(<Button
-                key={val[1]}
-                click={this.makeActive(buttons.length)} large
+                small={this.props.small} large={!this.props.small} key={val[1]}
+                className={style.btn + (this.props.small ? " " + style.small : "")}
+                click={this.makeActive(buttons.length)}
                 lesser={this.state.active !== buttons.length}
             >{val[0]}</Button>)
         );
 
-        return <FlexRow left className={"switchButtonWrap"}>
+        return <Row left className={style.switchButtonWrap}>
             {buttons}
-        </FlexRow>;
+        </Row>;
     }
 }

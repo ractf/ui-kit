@@ -1,19 +1,16 @@
 @import "../Colours.scss";
 
 
-$sidebar: saturate($back_750, 7%);
-$sidebar_accent: $accent;
+$sidebar: saturate(#201f31, 7%);
+$sidebar_accent: #aa3031;
 $sidebar_focus: rgba(0, 0, 0, .4);
-$footer_text: $back_200;
-
-$ab_rule: $back_700;
-$ab_background: $back_750;
+$footer_text: #7f7b99;
 
 $sidebar_link: (
-    color: $back_200,
-    hover: $back_50
+    color: #7f7b99,
+    hover: #a8a5b7
 );
-$sidebar_heading: $white_100;
+$sidebar_heading: #dfddeb;
 
 
 .sbtWrap {
@@ -143,111 +140,6 @@ $sidebar_heading: $white_100;
     position: relative;
     margin-right: 0;
     transition: margin-right 200ms ease;
-}
-
-.abTitle {
-    padding: 16px;
-    font-size: 1.5em;
-    font-weight: 600;
-    font-family: $titleStack;
-    border-bottom: 2px solid $ab_rule;
-    word-wrap: break-word;
-
-    > .abBack, > .abSub {
-        font-size: 0.6em;
-        margin-top: 0.3em;
-        font-weight: initial;
-        white-space: pre-line;
-        font-family: $fontStack;
-    }
-    > .abBack {
-        margin-top: .5em;
-        > a {
-            margin-top: 0;
-        }
-
-        ~.abSub {
-            margin-top: .5em;
-        }
-    }
-}
-
-.abSection {
-    margin-top: 16px;
-    background: $ab_background;
-    border-radius: 4px;
-
-    .absTitle {
-        border-bottom: 1px solid $ab_rule;
-        font-size: 1em;
-        font-weight: 600;
-        font-family: $titleStack;
-        padding: 16px;
-    }
-    .absBody {
-        padding: 24px;
-    }
-
-    .absIndicator {
-        &::before {
-            content: "";
-            display: block;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #0006;
-        }
-        display: flex;
-        align-items: center;
-
-        &::after {
-            display: block;
-            margin-left: 8px;
-            font-size: 0.9em;
-        }
-
-        &.online {
-            &::before {
-                background: $bgreen;
-            }
-            &::after {
-                content: "Online";
-            }
-        }
-        &.offline {
-            &::before {
-                background: $red;
-            }
-            &::after {
-                content: "Offline";
-            }
-        }
-        &.partial {
-            &::before {
-                background: orange;
-            }
-            &::after {
-                content: "Partial Outage";
-            }
-        }
-        &.unknown {
-            &::before {
-                background: #777;
-            }
-            &::after {
-                content: "Unknown";
-            }
-        }
-    }
-
-    label {
-        &:first-child {
-            margin-top: 0;
-        }
-        &:last-child {
-            margin-bottom: 0 !important;
-        }
-    }
 }
 
 .sbtBurgerUnderlay {

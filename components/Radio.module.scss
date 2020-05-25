@@ -1,8 +1,8 @@
 @import "../Colours.scss";
 
-$radio_color: $back_200;
-$radio_text: $back_100;
-$radio_select: desaturate($bgreen, 10%);
+$radio_color: $back_lift;
+$radio_text: map-get($colours, "black");
+$radio_select: map-get($colours, "accent");
 
 .radioWrap {
     display: flex;
@@ -15,6 +15,7 @@ $radio_select: desaturate($bgreen, 10%);
         display: flex;
         align-items: center;
         cursor: pointer;
+        outline: none;
         color: $radio_text;
 
         &>.radioButton {

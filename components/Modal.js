@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 
-import { Button, Form, Input, Select, FlexRow, Scrollbar } from "@ractf/ui-kit";
+import { Button, Form, Input, Select, Row, Scrollbar } from "@ractf/ui-kit";
 
 import "./Modal.scss";
 
@@ -57,10 +57,10 @@ export const ModalPrompt = ({ body, promise, onHide, inputs }) => {
                 return parts;
             })}
 
-            <FlexRow>
+            <Row>
                 <Button submit>{body.okay || t("okay")}</Button>
                 {!body.noCancel &&
-                    <Button click={() => { promise.reject(); onHide && onHide(); }}>
+                    <Button click={() => { promise.reject(); onHide && onHide(); }} lesser>
                         {body.cancel || t("cancel")}
                     </Button>}
                 {body.remove &&
@@ -69,7 +69,7 @@ export const ModalPrompt = ({ body, promise, onHide, inputs }) => {
                             promise.reject(); onHide && onHide();
                         });
                     }}>Remove</Button>}
-            </FlexRow>
+            </Row>
         </Form>
     </Modal>;
 };

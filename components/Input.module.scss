@@ -1,26 +1,9 @@
 @import "../Colours.scss";
+@import "./Input.vars.scss";
 
 
-$input_color: $back_600;
-$input_focus: $back_500;
-
-$disabled_color: $back_700;
-$disabled_text: $back_400;
-
-$foreground: $white_50;
-$placeholder: $back_100;
-$placeholder_focus: $white_200;
-
-$error_color: #3f2637;
-$error_focus: #522836;
-
-$padding: .7rem 24px;
-$font_size: 18px;
-$min_height: 46px;
-
-
-input,
-textarea {
+.input,
+.textarea {
     background: none;
     border: 0;
     width: 100%;
@@ -33,9 +16,13 @@ textarea {
         border: none;
         outline: none;
     }
+
+    &.monosspaced {
+        font-family: $monoStack;
+    }
 }
 
-textarea {
+.textarea {
     resize: vertical;
 }
 
@@ -57,17 +44,17 @@ textarea {
     position: relative;
 
     font-size: 0;
-    border-radius: 2px;
+    border-radius: $radius;
 
     color: $foreground;
     outline: none;
 
-    background-color: $input_color;
+    border: 1px solid $input_color;
     &:focus-within {
-        background-color: $input_focus;
+        border-color: $input_focus;
 
         .placeholder {
-            color: $placeholder_focus;
+            opacity: .4;
         }
 
         > div:nth-of-type(1) {
@@ -79,10 +66,10 @@ textarea {
         text-align: center;
     }
     &.invalid {
-        background-color: $error_color;
+        border-color: $error_color;
 
         &:focus-within {
-            background-color:$error_focus;
+            border-color: $error_focus;
         }
     }
     &.password {
@@ -142,7 +129,8 @@ textarea {
         height: $min_height;
         padding: inherit;
         text-align: left;
-        color: $placeholder;
+        color: $foreground;
+        opacity: .7;
         padding: $padding;
         font-size: $font_size;
 

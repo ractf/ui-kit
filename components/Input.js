@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-import "./Input.scss";
+import style from "./Input.module.scss";
 
 
 export default class Input extends Component {
@@ -64,14 +64,14 @@ export default class Input extends Component {
     }
 
     render() {
-        let wrapClass = "inputWrapper";
-        if (this.props.center) wrapClass += " center";
-        if (!(this.state.val.length === 0 || this.state.valid)) wrapClass += " invalid";
-        if (this.props.password) wrapClass += " password";
-        if (this.props.disabled) wrapClass += " disabled";
-        if (this.props.hidden) wrapClass += " hidden";
+        let wrapClass = style.inputWrapper;
+        if (this.props.center) wrapClass += " " + style.center;
+        if (!(this.state.val.length === 0 || this.state.valid)) wrapClass += " " + style.invalid;
+        if (this.props.password) wrapClass += " " + style.password;
+        if (this.props.disabled) wrapClass += " " + style.disabled;
+        if (this.props.hidden) wrapClass += " " + style.hidden;
 
-        return <div className={"inputMetaWrap"}>
+        return <div className={style.inputMetaWrap + (this.props.className ? " " + this.props.className : "")}>
             <div style={{ minWidth: this.props.width || "100%" }} className={wrapClass}>
                 {this.props.rows ?
                     <textarea
@@ -80,30 +80,38 @@ export default class Input extends Component {
                         onChange={this.handleChange}
                         rows={this.state.rows}
                         autofill={this.props.autofill}
-                        className={this.props.monospace ? "monospaced" : ""}
+                        className={
+                            style.textarea +
+                            (this.props.monospace ? " " + style.monospaced : "")
+                        }
                         disabled={this.props.disabled} />
                     : <input
                         onKeyDown={this.keyDown}
                         ref={this.inputRef}
                         value={this.state.val}
-                        type={(this.props.password && !this.state.showPass) ? "password" : "text"}
+                        type={
+                            (this.props.password && !this.state.showPass) ? "password" : "text"
+                        }
                         onChange={this.handleChange}
                         autofill={this.props.autofill}
-                        className={this.props.monospace ? "monospaced" : ""}
+                        className={
+                            style.input + 
+                            (this.props.monospace ? " " + style.monospaced : "")
+                        }
                         disabled={this.props.disabled} />}
                 {this.props.center || this.props.noCount ? null
-                    : <div className={"lengthCounter"}>{this.state.val.length}{this.props.limit
+                    : <div className={style.lengthCounter}>{this.state.val.length}{this.props.limit
                         ? "/" + this.props.limit
                         : ""
                     }</div>}
-                {this.props.password ? <div className={"styledEye"} onClick={this.togglePwd}>
+                {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
                     {this.state.showPass ? <FaEyeSlash /> : <FaEye />}
                 </div> : null}
                 {this.props.zxcvbn &&
-                    <div className={"inputStrength"}
+                    <div className={style.inputStrength}
                          data-val={this.state.val.length ? this.props.zxcvbn(this.state.val).score + 1 : 0} />}
                 {this.props.placeholder && this.state.val.length === 0 &&
-                    <div className={"placeholder" + (this.props.monospace ? " monospaced" : "")}>
+                    <div className={style.placeholder + (this.props.monospace ? " " + style.monospaced : "")}>
                         <span>{this.props.placeholder}</span></div>}
             </div>
         </div>;

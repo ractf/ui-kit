@@ -1,10 +1,19 @@
 .switchButtonWrap {
-    > button.large {
+    > .btn {
         display: inline-block;
         margin-left: 0;
         margin-right: 0;
-        min-width: 100px;
+        &:not(.small) {
+            min-width: 100px;
+        }
         transition: none;
+
+        &:not(:first-child) {
+            border-left: none;
+        }
+        &:not(:last-child) {
+            border-right: none;
+        }
 
         &:first-child {
             border-top-right-radius: 0;

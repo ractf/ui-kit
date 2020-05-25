@@ -3,17 +3,13 @@
 
 $bar: (
     width: 4px,
-    track: $back_800,
-    base: $back_700,
-    hover: $back_600,
-    focus: $back_500
+    track: $back_lift,
+    handle: map-get($colours, "accent")
 );
 $primary: (
     width: 8px,
-    track: $back_900,
-    base: $back_600,
-    hover: $back_500,
-    focus: $back_400
+    track: $back_lift,
+    handle: map-get($colours, "accent")
 );
 
 
@@ -53,16 +49,16 @@ $primary: (
                 top: 0;
                 width: 100%;
                 height: 50%;
-                background-color: map-get($bar, "base");
+                background-color: map-get($bar, "handle");
                 border-radius: map-get($bar, "width") / 2;
 
                 &:hover {
-                    background-color: map-get($bar, "hover");
+                    background-color: hover(map-get($bar, "handle"));
                 }
             }
             &.trackActive {
                 > .scrollbar {
-                    background-color: map-get($bar, "focus");
+                    background-color: focus(map-get($bar, "handle"));
                 }
             }
         }
@@ -77,16 +73,16 @@ $primary: (
                 border-radius: map-get($primary, "width") / 2;
 
                 > .scrollbar {
-                    background-color: map-get($primary, "base");
+                    background-color: map-get($primary, "handle");
                     border-radius: map-get($primary, "width") / 2;
 
                     &:hover {
-                        background-color: map-get($primary, "hover");
+                        background-color: hover(map-get($primary, "handle"));
                     }
                 }
                 &.trackActive {
                     > .scrollbar {
-                        background-color: map-get($primary, "focus");
+                        background-color: focus(map-get($primary, "handle"));
                     }
                 }
             }
