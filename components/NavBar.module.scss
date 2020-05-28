@@ -1,0 +1,232 @@
+@import "../Colours.scss";
+
+.navGap {
+    flex-grow: 1;
+}
+
+.navItem {
+    padding: 0 0.5rem;
+}
+
+.navLink {
+    color: map-get($colours, "black");
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: hover(map-get($colours, "black"));
+        text-decoration: none;
+    }
+}
+
+@each $type, $color in $types {
+    &.#{$type} .navLink {
+        color: map-get($color, "fg");
+        &:hover,
+        &:focus {
+            color: hover(map-get($color, "fg"));
+        }
+    }
+}
+
+.navMenu {
+    position: relative;
+
+    .navLink::after {
+        content: "";
+        margin-left: 0.3em;
+        vertical-align: 0.15em;
+        display: inline-block;
+        height: 0;
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+    }
+
+    .navMenuDropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        font-size: 1rem;
+        border-radius: 2px;
+
+        background-color: map-get($colours, "white");
+        color: map-get($colours, "black");
+        border: 1px solid $back_lift;
+
+        .navLink {
+            color: inherit;
+
+            &::after {
+                vertical-align: middle;
+                margin-left: 0.5em;
+
+                border-left: 0.3em solid;
+                border-top: 0.3em solid transparent;
+                border-right: 0;
+                border-bottom: 0.3em solid transparent;
+            }
+        }
+
+        .navMenuDropdown {
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .navMenuLink,
+        .navItem {
+            display: block;
+            width: 100%;
+            line-height: 1.5;
+            padding: 0.25rem 1.5rem;
+
+            color: map-get($colours, "black");
+            text-decoration: none;
+
+            &:hover,
+            &:focus,
+            &:focus-within {
+                color: map-get($colours, "black");
+                background-color: $back_lift;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.navCollapse, .navBar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navCollapse {
+    flex-grow: 1;
+    transition: height 200ms ease;
+}
+
+.navBar {
+    padding: 0.5rem 1rem;
+    flex-basis: 100%;
+
+    background-color: $back_lift;
+    color: map-get($colours, "black");
+
+    @each $type, $color in $types {
+        &.#{$type} {
+            background-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+    }
+}
+
+.navBurgerIcon {
+    display: none;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    outline: none;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    position: relative;
+
+    .burgerStripe {
+        position: absolute;
+        height: 2px;
+        background-color: map-get($colours, "black");
+        width: 80%;
+        flex-shrink: 0;
+        opacity: 1;
+        left: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+        &:nth-of-type(1) {
+            top: 30%;
+        }
+        &:nth-of-type(3) {
+            top: 70%;
+        }
+        transition-property: opacity, transform, left, top;
+        transition-duration: 100ms;
+        transition-timing-function: ease;
+    }
+
+    &.navCrossIcon {
+        .burgerStripe:nth-of-type(1) {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .burgerStripe:nth-of-type(2) {
+            opacity: 0;
+        }
+        .burgerStripe:nth-of-type(3) {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+    }
+
+    &:hover, &:focus {
+        background-color: $back_lift;
+    }
+}
+
+@each $type, $color in $types {
+    &.#{$type} .burgerStripe {
+        background-color: map-get($color, "fg");
+    }
+}
+
+.navBrand {
+    font-family: $titleStack;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    padding: 0.3125rem 0;
+}
+
+@media (min-width: 1001px) {
+    .navCollapse {
+        height: auto !important;
+    }
+}
+@media (max-width: 1000px) {
+    .navCollapse {
+        overflow-y: hidden;
+        flex-basis: 100%;
+        display: block;
+        margin: 0 -1rem;
+
+        & > * {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+    .navBurgerIcon {
+        display: flex;
+    }
+    .navItem {
+        margin: 0;
+        padding: 0.5rem 1rem;
+
+        &:hover {
+            background-color: $back_lift;
+        }
+    }
+    .navGap {
+        margin: .5rem 0;
+        height: 1px;
+        background-color: $back_lift;
+    }
+}

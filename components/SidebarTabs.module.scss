@@ -1,16 +1,18 @@
 @import "../Colours.scss";
 
 
-$sidebar: saturate(#201f31, 7%);
-$sidebar_accent: #aa3031;
+//$sidebar: map-get($colours, "accent");
+$sidebar: map-get($colours, "black");
+$text: map-get($colours, "white");
+$sidebar_accent: map-get($colours, "accent");
 $sidebar_focus: rgba(0, 0, 0, .4);
-$footer_text: #7f7b99;
+$footer_text: rgba($text, .8);
 
 $sidebar_link: (
-    color: #7f7b99,
-    hover: #a8a5b7
+    color: rgba($text, .6),
+    hover: rgba($text, .9)
 );
-$sidebar_heading: #dfddeb;
+$sidebar_heading: $text;
 
 
 .sbtWrap {
@@ -46,14 +48,18 @@ $sidebar_heading: #dfddeb;
             padding: 20px 25px;
             font-size: 0.8em;
             color: $footer_text;
-            .sbtfCopy {
+            footer {
                 display: flex;
                 align-items: center;
                 margin-bottom: 8px;
             }
 
-            a:hover {
-                text-decoration: none;
+            a {
+                color: inherit;
+                &:hover {
+                    color: inherit;
+                    text-decoration: underline;
+                }
             }
 
             img {

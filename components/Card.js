@@ -1,11 +1,11 @@
 import React from "react";
-import { propsToTypeClass } from "@ractf/util";
+import { makeClass, propsToTypeClass } from "@ractf/util";
 import { H4 } from "@ractf/ui-kit";
 
 import style from "./Card.module.scss";
 
 export default ({ title, header, children, ...props }) => {
-    return <div className={style.card + " " +propsToTypeClass(props, style, "light")}>
+    return <div className={makeClass(style.card, propsToTypeClass(props, style, "light"))}>
         <div className={style.cardHeader}>
             { header }
         </div>

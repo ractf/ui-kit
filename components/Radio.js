@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { makeClass } from "@ractf/util";
+
 import style from "./Radio.module.scss";
 
 //import { fastClick } from "ractf";
@@ -36,7 +38,7 @@ export default class Radio extends Component {
             {this.props.options.map((i, n) => <div key={n}>
                 <div onClick={e => this.change(i[1])} /*{...fastClick}*/
                     onKeyDown={this.okd} tabIndex="0"
-                    className={style.radioLabel + (i[1] === this.state.val ? " " + style.checked : "")}
+                    className={makeClass(style.radioLabel, (i[1] === this.state.val) && style.checked)}
                     htmlFor={this.ids[n]}>
                     <div className={style.radioButton} />
                     <div className={style.radioLab}>{i[0]}</div>

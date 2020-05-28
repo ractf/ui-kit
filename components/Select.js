@@ -1,5 +1,7 @@
 import React, { useState, useRef, forwardRef } from "react";
 
+import { makeClass } from "@ractf/util";
+
 import style from "./Select.module.scss";
 
 
@@ -34,7 +36,9 @@ export default forwardRef(({ name, options, initial }, ref) => {
             {options.map(i => <option key={i.key} value={i.key}>{i.value}</option>)}
         </select>
         {itemsStyle.display === "block" && <div onClick={doOpen} className={"blanker"} />}
-        <div ref={head} onClick={doOpen} className={style.head + (itemsStyle.display === "block" ? " " + style.sOpen : "")}>
+        <div ref={head} onClick={doOpen}
+            className={makeClass(style.head, (itemsStyle.display === "block") && style.sOpen)}
+        >
             {selected.value}
         </div>
         <div className={style.items} onClick={doOpen} style={itemsStyle}>

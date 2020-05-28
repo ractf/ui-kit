@@ -1,3 +1,6 @@
+@import "../Colours.scss";
+@import "./Input.vars.scss";
+
 .inlineButton {
     display: flex;
 
@@ -7,6 +10,16 @@
     .input {
         flex-grow: 1;
         margin-right: .5em;
+    }
+
+    .btn, .input {
+        border-radius: 0;
+        &:first-child {
+            border-radius: $radius 0 0 $radius;
+        }
+        &:last-child {
+            border-radius: 0 $radius $radius 0;
+        }
     }
 
     @media (max-width: 500px) {

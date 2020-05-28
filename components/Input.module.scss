@@ -1,7 +1,6 @@
 @import "../Colours.scss";
 @import "./Input.vars.scss";
 
-
 .input,
 .textarea {
     background: none;
@@ -30,12 +29,8 @@
     z-index: 2 !important;
 }
 
-.inputMetaWrap, .react-datepicker-wrapper {
-    position: relative;
-    z-index: 1;
-}
-
-.inputWrapper, .react-datepicker__input-container {
+.inputWrapper,
+.react-datepicker__input-container {
     ::-ms-reveal,
     ::-ms-clear {
         display: none;
@@ -46,7 +41,8 @@
     font-size: 0;
     border-radius: $radius;
 
-    color: $foreground;
+    background: map-get($colours, "white");
+    color: map-get($colours, "black");
     outline: none;
 
     border: 1px solid $input_color;
@@ -54,14 +50,27 @@
         border-color: $input_focus;
 
         .placeholder {
-            opacity: .4;
+            opacity: 0.4;
         }
 
         > div:nth-of-type(1) {
             opacity: 0.8;
         }
     }
-    
+
+    &.slim {
+        .input, .textarea {
+            padding: $slim_padding;
+            min-height: $slim_height;
+            font-size: $slim_font;
+        }
+
+        .placeholder {
+            padding: $slim_padding;
+            font-size: $slim_font;
+            height: $slim_height;
+        }
+    }
     &.center {
         text-align: center;
     }
@@ -130,9 +139,11 @@
         padding: inherit;
         text-align: left;
         color: $foreground;
-        opacity: .7;
+        opacity: 0.7;
         padding: $padding;
         font-size: $font_size;
+        display: flex;
+        align-items: center;
 
         user-select: none;
         pointer-events: none;
@@ -179,4 +190,45 @@
             background-color: green;
         }
     }
+}
+
+.inputGroup {
+    display: flex;
+
+    & > * {
+        margin: 0;
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+        &:first-child {
+            border-radius: $radius 0 0 $radius;
+        }
+        &:last-child {
+            border-radius: 0 $radius $radius 0;
+        }
+    }
+
+    &:focus-within {
+        .inputHint {
+            border-color: $input_focus;
+        }
+    }
+
+    .igInput {
+        flex-grow: 1;
+        &:not(:first-child) {
+            border-left: none;
+        }
+        &:not(:last-child) {
+            border-right: none;
+        }
+    }
+}
+
+.inputHint {
+    border: 1px solid $input_color;
+    background-color: $disabled_color;
+    font-size: $font_size;
+    padding: 0.7rem 18px;
 }

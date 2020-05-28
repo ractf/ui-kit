@@ -18,7 +18,7 @@ header {
     &>a {
         font-size: 1.4em;
         font-weight: 500;
-        color: $fg !important;
+        color: map-get($colours, "white") !important;
         flex-basis: 0;
         flex-grow: 1;
     }

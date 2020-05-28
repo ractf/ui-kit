@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import { makeClass } from "@ractf/util";
 import { Button, Row } from "@ractf/ui-kit";
 
 import style from "./ToggleButton.module.scss";
@@ -36,8 +37,8 @@ export default class SwitchButton extends Component {
         let buttons = [];
         this.props.options.map((val) =>
             buttons.push(<Button
-                small={this.props.small} large={!this.props.small} key={val[1]}
-                className={style.btn + (this.props.small ? " " + style.small : "")}
+                tiny={this.props.small} large={!this.props.small} key={val[1]}
+                className={makeClass(style.btn, this.props.small && style.small)}
                 click={this.makeActive(buttons.length)}
                 lesser={this.state.active !== buttons.length}
             >{val[0]}</Button>)

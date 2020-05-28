@@ -52,7 +52,7 @@ export const ModalPrompt = ({ body, promise, onHide, inputs }) => {
                 if (i.options) parts.push(
                     <Select key={n} {...i} />
                 ); else parts.push(
-                    <Input key={n} width={'auto'} {...i} />
+                    <Input key={n} {...i} />
                 );
                 return parts;
             })}

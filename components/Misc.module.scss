@@ -4,10 +4,20 @@ $spinner_color: map-get($colours, "accent");
 
 
 .hr {
-    width: 80%;
-    margin: 1rem auto;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     height: 1px;
-    background-color: $back_lift;
+    flex-basis: 100%;
+    
+    &::after {
+        display: block;
+        content: "";
+        margin-left: 10%;
+        background-color: $back_lift;
+        width: 80%;
+        height: 1px;
+    }
 }
 
 .textBlock {
@@ -19,6 +29,7 @@ $spinner_color: map-get($colours, "accent");
     font-family: $monoStack;
     word-wrap: break-word;
     flex-grow: 1;
+    width: 100%;
 
     & img {
         max-width: 100%;
@@ -29,34 +40,6 @@ $spinner_color: map-get($colours, "accent");
         & {
             margin: 1.5em 8px;
         }
-    }
-}
-
-.flexRow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-
-    &.frRight {
-        justify-content: flex-end;
-    }
-    &.frLeft {
-        justify-content: flex-start;
-    }
-
-    & > .formGroup {
-        flex-grow: 1;
-    }
-
-    & > * {
-        margin: 0.5rem 0;
-        margin-left: 0;
-        margin-right: 16px;
-    }
-    & > :last-child {
-        margin-right: 0;
     }
 }
 
@@ -87,12 +70,20 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .pageHead {
-    padding: 16px;
+    padding: 16px 16px 0;
     border-bottom: 2px solid $back_lift;
+    margin-bottom: 1rem;
 
     p, a {
-        margin: .5rem 0 0;
+        margin: 0 0 .5rem;
         font-size: .95rem;
+    }
+
+    .pageTitle {
+        margin-right: 16px;
+        font-family: $titleStack;
+        font-weight: 600;
+        font-size: 1.5945rem;
     }
 }
 
@@ -103,7 +94,9 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .formGroup {
-    margin: 0.5rem 1rem 1rem 0;
+    flex-grow: 1;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
 
     > label {
         display: block;
@@ -117,9 +110,11 @@ $spinner_color: map-get($colours, "accent");
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $titleStack;
-    margin: 0 0 0.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
     font-weight: 600;
     line-height: 1.2;
+    flex-basis: 100%;
 }
 .h1 {
     font-size: 2.6575rem;
@@ -141,6 +136,22 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .loadingSpinner {
+    border: .25rem solid map-get($colours, "accent");
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    vertical-align: text-bottom;
+    border-radius: 50%;
+    border-bottom-color: transparent;
+
+    animation: spin .75s linear infinite;
+
+    @each $type, $color in $types {
+        &.#{$type} {
+            border-color: map-get($color, "bg");
+        }
+    }
+    /*
     &, &:before, &:after {
         border-radius: 50%;
         width: 2.5em;
@@ -168,6 +179,19 @@ $spinner_color: map-get($colours, "accent");
     }
     &:after {
         left: 3.5em;
+    }
+    */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
 

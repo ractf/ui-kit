@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
+import { makeClass } from "@ractf/util";
+
 import style from "./Scrollbar.module.scss";
 
 export default ({ children, className, primary }) => {
@@ -109,12 +111,12 @@ export default ({ children, className, primary }) => {
     useEffect(updateBar, [inner]);
 
     return <div onScroll={updateBar} className={
-        style.scrolled + (className ? (" " + className) : "") + (primary ? " " + style.primary : "")
+        makeClass(style.scrolled, className, primary && style.primary)
     }>
         <div ref={inner} className={style.scrollInner}>
             {children}
         </div>
-        <div ref={track} style={trackStyle} className={style.scrollTrack + (dragStart ? " " + style.trackActive : "")}>
+        <div ref={track} style={trackStyle} className={makeClass(style.scrollTrack, dragStart && style.trackActive)}>
             <div style={barStyle} onMouseDown={onMouseDown} className={style.scrollbar} />
         </div>
     </div>;

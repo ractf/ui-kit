@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import { makeClass } from "@ractf/util";
 import { Input, Button } from "@ractf/ui-kit";
 
 import style from "./InputButton.module.scss";
@@ -25,8 +26,9 @@ export default class InputButton extends Component {
     }
 
     render() {
-        return <div className={style.inlineButton + (this.props.className ? " " + this.props.className : "")}>
-            <Input {...this.props} onSubmit={this.onSubmit} onChange={this.onChange} val={this.state.val} className={style.input} />
+        return <div className={makeClass(style.inlineButton, this.props.className)}>
+            <Input {...this.props} onSubmit={this.onSubmit} onChange={this.onChange} val={this.state.val}
+                className={style.input} />
             <Button large ref={this.button} click={this.onSubmit} disabled={this.props.disabled} className={style.btn}>
                 {this.props.button || "Submit"}
             </Button>

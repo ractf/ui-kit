@@ -1,9 +1,9 @@
 @import "../Colours.scss";
 
-$baseColor: $back_400;
-$valueColor: $back_200;
-$hoverColor: $back_50;
-$lineColor: $back_600;
+$baseColor: map-get($colours, "accent");
+$valueColor: map-get($colours, "accent");
+$hoverColor: hover(map-get($colours, "black"));
+$lineColor: map-get($colours, "accent");
 
 .tree {
     & > ul > li {

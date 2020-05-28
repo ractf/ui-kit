@@ -10,7 +10,7 @@ $sub: lighten(map-get($colours, "black"), 30%);
     background-color: $background;
     padding: 16px 24px;
     border-radius: 2px;
-    margin: 14px 0;
+    width: 100%;
     cursor: pointer;
     transition: 150ms background-color ease;
     display: block;

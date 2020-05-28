@@ -30,6 +30,7 @@ $primary: (
         > .scrollInner {
             height: 100%;
             margin-right: -64px;
+            padding-right: 64px;
             overflow-y: scroll;
         }
         > .scrollTrack {

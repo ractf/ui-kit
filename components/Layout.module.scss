@@ -1,0 +1,81 @@
+.flexRow {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-right: -0.5rem;
+    margin-bottom: -0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    flex-grow: 1;
+    flex-basis: 100%;
+
+    &.frRight {
+        justify-content: flex-end;
+    }
+    &.frLeft {
+        justify-content: flex-start;
+    }
+
+    & > * {
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    &.frTight {
+        margin-right: -0.25rem;
+        margin-bottom: -0.25rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+        > * {
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    > .flexRow {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+.flexColumn {
+    flex-grow: 1;
+    flex-basis: 100%;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > .flexRow {
+        flex-grow: 0;
+        flex-basis: 0;
+    }
+
+    @for $i from 1 through 12 {
+        &.col#{$i} {
+            max-width: (100% / 12) * $i;
+        }
+        @media (min-width: 576px) {
+            &.col-sm#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+        @media (min-width: 768px) {
+            &.col-md#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+        @media (min-width: 992px) {
+            &.col-lg#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+        @media (min-width: 1200px) {
+            &.col-xl#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+    }
+}

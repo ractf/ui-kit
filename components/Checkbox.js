@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
+import { makeClass } from "@ractf/util";
+
 import style from "./Checkbox.module.scss";
+
 
 export default class Checkbox extends Component {
     constructor(props) {
@@ -15,7 +18,7 @@ export default class Checkbox extends Component {
     };
 
     render() {
-        return <div className={style.checkbox + (this.state.val ? " " + style.checked : "")} onClick={this.click}>
+        return <div className={makeClass(style.checkbox, this.state.val && style.checked)} onClick={this.click}>
             <div className={style.box} />
             <div className={style.cbLabel}>{this.props.children}</div>
         </div>;
