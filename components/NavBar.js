@@ -39,24 +39,32 @@ export const NavMenu = ({ name, children }) => {
                 ...oldState, style: newFocus ? oldState.style : {}
             };
 
-            if (ref.current && ref.current.parentElement.className !== style.navMenuDropdown)
-                return { ...oldState, style: {}, hasFocus: newFocus };
-
             let miRect = ref.current.getBoundingClientRect();
             let ddRect = dropDown.current.getBoundingClientRect();
 
             let pad = ddRect.width * 0.05;
             let right = miRect.right + ddRect.width - pad;
 
-            console.log(window.getComputedStyle(dropDown.current).width, dropDown.current.offsetWidth);
+            if (ref.current && ref.current.parentElement.className !== style.navMenuDropdown) {
+                if (newFocus)
+                    return {
+                        ...oldState, hasFocus: true, style: {
+                            position: "absolute", top: "100%",
+                            [(right > window.innerWidth) ? "right" : "left"]: 0,
+                            [(right > window.innerWidth) ? "left" : "right"]: "auto"
+                        }
+                    };
+                return { ...oldState, hasFocus: false };
+            }
+
             if (newFocus)
                 return {
-                    ...oldState, hasFocus: newFocus, style: {
+                    ...oldState, hasFocus: true, style: {
                         position: "absolute", top: "-0.5rem",
                         left: (right > window.innerWidth) ? "-95%" : "95%"
                     }
                 };
-            return { ...oldState, hasFocus: newFocus, style: {} };
+            return { ...oldState, hasFocus: false };
         });
     }, [focus, mouseOver]);
 
@@ -65,7 +73,7 @@ export const NavMenu = ({ name, children }) => {
         <div className={style.navLink}>{name}</div>
         <div className={style.navMenuDropdown} ref={dropDown} style={{
             visibility: state.hasFocus ? "visible" : "hidden",
-            ...state.style
+            ...(state.hasFocus ? state.style : {})
         }}>
             {children}
         </div>

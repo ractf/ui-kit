@@ -1,9 +1,10 @@
-$input_color: #ced4da;
-$input_focus: #afb6bd;
+$input_color: rgba($color, .2);
+$input_focus: rgba($color, .4);
 
-$disabled_color: rgba(map-get($colours, "black"), .15);
-$disabled_text: #595675;
+$disabled_color: rgba($color, .15);
+$disabled_text: rgba($color, .6);
 
+$input_background: rgba(map-get($colours, "black"), .2);
 $foreground: #495057;
 
 $error_color: #3f2637;

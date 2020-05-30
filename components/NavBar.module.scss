@@ -9,12 +9,12 @@
 }
 
 .navLink {
-    color: map-get($colours, "black");
+    color: $color;
     text-decoration: none;
 
     &:hover,
     &:focus {
-        color: hover(map-get($colours, "black"));
+        color: hover($color);
         text-decoration: none;
     }
 }
@@ -45,18 +45,20 @@
     }
 
     .navMenuDropdown {
-        position: absolute;
+        position: fixed;
         top: 100%;
-        left: 0;
         z-index: 1000;
+        left: 0;
+        top: 0;
+        cursor: pointer;
 
         min-width: 10rem;
         padding: 0.5rem 0;
         font-size: 1rem;
         border-radius: 2px;
 
-        background-color: map-get($colours, "white");
-        color: map-get($colours, "black");
+        background-color: $background-color;
+        color: $color;
         border: 1px solid $back_lift;
 
         .navLink {
@@ -72,13 +74,7 @@
                 border-bottom: 0.3em solid transparent;
             }
         }
-
-        .navMenuDropdown {
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-
+        
         .navMenuLink,
         .navItem {
             display: block;
@@ -86,13 +82,13 @@
             line-height: 1.5;
             padding: 0.25rem 1.5rem;
 
-            color: map-get($colours, "black");
+            color: $color;
             text-decoration: none;
 
             &:hover,
             &:focus,
             &:focus-within {
-                color: map-get($colours, "black");
+                color: $color;
                 background-color: $back_lift;
                 text-decoration: none;
             }
@@ -115,10 +111,10 @@
 
 .navBar {
     padding: 0.5rem 1rem;
-    flex-basis: 100%;
+    width: 100%;
 
     background-color: $back_lift;
-    color: map-get($colours, "black");
+    color: $color;
 
     @each $type, $color in $types {
         &.#{$type} {
@@ -144,7 +140,7 @@
     .burgerStripe {
         position: absolute;
         height: 2px;
-        background-color: map-get($colours, "black");
+        background-color: $color;
         width: 80%;
         flex-shrink: 0;
         opacity: 1;
@@ -194,6 +190,7 @@
     margin-right: 1rem;
     font-size: 1.25rem;
     padding: 0.3125rem 0;
+    color: inherit;
 }
 
 @media (min-width: 1001px) {
@@ -206,11 +203,18 @@
         overflow-y: hidden;
         flex-basis: 100%;
         display: block;
-        margin: 0 -1rem;
+        margin: 0 -3rem 0 -1rem;
+        will-change: height;
 
         & > * {
             margin-left: 1rem;
             margin-right: 1rem;
+        }
+
+        .navGap:not(:last-child) {
+            margin: .5rem 0;
+            height: 1px;
+            background-color: $back_lift;
         }
     }
     .navBurgerIcon {
@@ -223,10 +227,5 @@
         &:hover {
             background-color: $back_lift;
         }
-    }
-    .navGap {
-        margin: .5rem 0;
-        height: 1px;
-        background-color: $back_lift;
     }
 }

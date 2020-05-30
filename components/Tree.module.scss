@@ -2,7 +2,7 @@
 
 $baseColor: map-get($colours, "accent");
 $valueColor: map-get($colours, "accent");
-$hoverColor: hover(map-get($colours, "black"));
+$hoverColor: hover($color);
 $lineColor: map-get($colours, "accent");
 
 .tree {

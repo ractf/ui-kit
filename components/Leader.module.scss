@@ -2,9 +2,9 @@
 
 $background: $back_lift;
 $hover: map-get($colours, "accent");
-$arrow: lighten(map-get($colours, "black"), 15%);
-$arrow_hover: lighten(map-get($colours, "black"), 15%);
-$sub: lighten(map-get($colours, "black"), 30%);
+$arrow: lighten($color, 15%);
+$arrow_hover: lighten($color, 15%);
+$sub: lighten($color, 30%);
 
 .leader {
     background-color: $background;
@@ -14,7 +14,7 @@ $sub: lighten(map-get($colours, "black"), 30%);
     cursor: pointer;
     transition: 150ms background-color ease;
     display: block;
-    color: map-get($colours, "black");
+    color: $color;
 
     &.leaderGreen {
         color: map-get($colours, "white");

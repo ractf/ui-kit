@@ -8,7 +8,6 @@ export { default as Checkbox } from "./components/Checkbox";
 export { default as DatePick } from "./components/DatePick";
 export { default as Markdown } from "./components/Markdown";
 export { default as Button } from "./components/Button";
-export { default as Header } from "./components/Header";
 export { default as Leader } from "./components/Leader";
 export { default as Select } from "./components/Select";
 export { default as Badge } from "./components/Badge";

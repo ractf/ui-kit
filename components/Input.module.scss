@@ -41,8 +41,8 @@
     font-size: 0;
     border-radius: $radius;
 
-    background: map-get($colours, "white");
-    color: map-get($colours, "black");
+    background: $input_background;
+    color: $color;
     outline: none;
 
     border: 1px solid $input_color;
@@ -138,7 +138,7 @@
         height: $min_height;
         padding: inherit;
         text-align: left;
-        color: $foreground;
+        color: $color;
         opacity: 0.7;
         padding: $padding;
         font-size: $font_size;

@@ -51,5 +51,7 @@ export const H3 = basicComponent(style.h3, "h3");
 export const H4 = basicComponent(style.h4, "h4");
 export const H5 = basicComponent(style.h5, "h5");
 export const H6 = basicComponent(style.h6, "h6");
+export const SiteWrap = basicComponent(style.siteWrap);
+export const Container = basicComponent(style.container);
 
 export const Spinner = () => <div className={style.loadingSpinner}/>;

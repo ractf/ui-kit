@@ -1,7 +1,7 @@
 @import "../Colours.scss";
 
 $radio_color: $back_lift;
-$radio_text: map-get($colours, "black");
+$radio_text: $color;
 $radio_select: map-get($colours, "accent");
 
 .radioWrap {
