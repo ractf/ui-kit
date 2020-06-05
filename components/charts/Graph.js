@@ -8,8 +8,10 @@ import usePlotlyReady from "./usePlotlyReady";
 import "./Charts.scss";
 
 
-const Graph = ({ data, width, height }) => {
+const Graph = ({ data, width, height, size }) => {
     const plReady = usePlotlyReady();
+
+    if (!width) return null;
 
     if (!plReady) return <div className={"graph-loading"}>
         <Spinner />
@@ -21,7 +23,7 @@ const Graph = ({ data, width, height }) => {
     return <Plot
         data={data}
         layout={{
-            width: (width || 300), height: (height || 300),
+            width: (width || 300), height: (height || 400),
             margin: { l: 50, r: 50, t: 50, pad: 0 },
             hovermode: "closest",
             legend: { orientation: "h", font: { color: colours.bg_l4 } },
@@ -46,8 +48,8 @@ const Graph = ({ data, width, height }) => {
 
 export default props => {
     if (props.width) return <Graph {...props} />;
-    return <SizeMe noPlaceholder>{({ size }) => <>
+    return <SizeMe>{({ size }) => <>
         <div className={"selfResizingSpacer"} style={{ width: "100%" }} />
-        <Graph {...props} width={size.width} />
+        <Graph {...props} width={size.width} size={size} />
     </>}</SizeMe>;
 };
