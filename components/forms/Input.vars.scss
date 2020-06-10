@@ -1,0 +1,20 @@
+$input_color: rgba($color, .2);
+$input_focus: rgba($color, .4);
+
+$disabled_color: rgba($color, .15);
+$disabled_text: rgba($color, .6);
+
+//$input_background: rgba(map-get($colours, "black"), .2);
+$input_background: transparent;
+$foreground: #495057;
+
+$error_color: map-get($colours, "red");
+$error_focus: focus(map-get($colours, "red"));
+
+$padding: .7rem 24px;
+$font_size: 18px;
+$min_height: 46px;
+$slim_height: 38px;
+$slim_padding: .375rem .75rem;
+$slim_font: 1rem;
+$radius: .25rem;

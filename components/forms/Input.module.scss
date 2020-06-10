@@ -1,0 +1,235 @@
+@import "../../Colours.scss";
+@import "./Input.vars.scss";
+
+.input,
+.textarea {
+    background: none;
+    border: 0;
+    width: 100%;
+    color: inherit;
+    padding: $padding;
+    font-size: $font_size;
+    min-height: $min_height;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+
+    &.monospaced {
+        font-family: $monoStack;
+    }
+}
+
+.textarea {
+    resize: vertical;
+}
+
+.react-datepicker-popper {
+    z-index: 2 !important;
+}
+
+.inputWrapper,
+.react-datepicker__input-container {
+    ::-ms-reveal,
+    ::-ms-clear {
+        display: none;
+    }
+
+    position: relative;
+
+    font-size: 0;
+    border-radius: $radius;
+
+    background: $input_background;
+    color: $color;
+    outline: none;
+
+    border: 1px solid $input_color;
+    &:focus-within {
+        border-color: $input_focus;
+
+        .placeholder {
+            opacity: 0.4;
+        }
+
+        > div:nth-of-type(1) {
+            opacity: 0.8;
+        }
+    }
+
+    &.slim {
+        .input, .textarea {
+            padding: $slim_padding;
+            min-height: $slim_height;
+            font-size: $slim_font;
+        }
+
+        .placeholder {
+            padding: $slim_padding;
+            font-size: $slim_font;
+            height: $slim_height;
+        }
+    }
+    &.center {
+        text-align: center;
+    }
+    &.invalid {
+        border-color: $error_color;
+
+        &:focus-within {
+            border-color: $error_focus;
+        }
+    }
+    &.password {
+        input {
+            padding-left: 50px;
+        }
+        .placeholder {
+            padding-left: 50px;
+        }
+    }
+    &.disabled {
+        background-color: $disabled_color;
+        cursor: not-allowed;
+        input {
+            cursor: not-allowed;
+        }
+        .placeholder {
+            color: $disabled_text;
+        }
+    }
+    &.hidden {
+        display: none;
+    }
+
+    .lengthCounter {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        font-size: 0.8em;
+        opacity: 0.4;
+        user-select: none;
+    }
+    .styledEye {
+        position: absolute;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        left: 16px;
+        font-size: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        opacity: 0.4;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+
+    .placeholder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: $min_height;
+        padding: inherit;
+        text-align: left;
+        color: $color;
+        opacity: 0.7;
+        padding: $padding;
+        font-size: $font_size;
+        display: flex;
+        align-items: center;
+
+        user-select: none;
+        pointer-events: none;
+
+        & > span {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .inputStrength {
+        position: absolute;
+        height: 2px;
+        background-color: #000;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        transition: width 200ms ease-out, color 200ms ease;
+
+        &[data-val="0"] {
+            width: 0%;
+            background-color: darkred;
+        }
+        &[data-val="1"] {
+            width: 20%;
+            background-color: darkred;
+        }
+        &[data-val="2"] {
+            width: 40%;
+            background-color: orangered;
+        }
+        &[data-val="3"] {
+            width: 60%;
+            background-color: orange;
+        }
+        &[data-val="4"] {
+            width: 80%;
+            background-color: yellowgreen;
+        }
+        &[data-val="5"] {
+            width: 100%;
+            background-color: green;
+        }
+    }
+
+}
+
+.inputGroup {
+    display: flex;
+
+    & > * {
+        margin: 0;
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+        &:first-child {
+            border-radius: $radius 0 0 $radius;
+        }
+        &:last-child {
+            border-radius: 0 $radius $radius 0;
+        }
+    }
+
+    &:focus-within {
+        .inputHint {
+            border-color: $input_focus;
+        }
+    }
+
+    .igInput {
+        flex-grow: 1;
+        &:not(:first-child) {
+            border-left: none;
+        }
+        &:not(:last-child) {
+            border-right: none;
+        }
+    }
+}
+
+.inputHint {
+    border: 1px solid $input_color;
+    background-color: $disabled_color;
+    font-size: $font_size;
+    padding: 0.7rem 18px;
+}

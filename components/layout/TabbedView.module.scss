@@ -1,0 +1,54 @@
+@import "../../Colours.scss";
+
+
+$body_background: $back_lift;
+$tab_background: transparent;
+$tab_selected: rgba(map-get($colours, "black"), 0.2);
+$tab_hover: rgba(map-get($colours, "black"), 0.03);
+
+$tab_text: map-get($colours, "black");
+$tab_active_text: map-get($colours, "black");
+$tab_hover_text: map-get($colours, "black");
+
+
+$edge_colour: $back_lift;
+
+.tabRow {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    width: 100%;
+
+    outline: none;
+
+    .tabButton {
+        display: block;
+        padding: 9px 24px;
+        text-decoration: none;
+        color: map-get($colours, "black");
+        outline: none;
+        cursor: pointer;
+
+        &.active {
+            border-top-color: $edge_colour;
+            border-left-color: $edge_colour;
+            border-right-color: $edge_colour;
+        }
+        &:not(.active) {
+            border-bottom-color: $edge_colour;
+        }
+
+        border: 1px solid transparent;
+        margin-right: -1px;
+
+        &:hover, &:focus {
+            border-top-color: $edge_colour;
+            border-left-color: $edge_colour;
+            border-right-color: $edge_colour;
+        }
+    }
+    .tabTrailer {
+        border-bottom: 1px solid $edge_colour;
+        flex-grow: 1;
+    }
+}

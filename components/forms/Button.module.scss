@@ -1,0 +1,70 @@
+@import "../../Colours.scss";
+
+
+.btn {
+    border-radius: 5px;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 9px 12px;
+    text-decoration: none;
+    transition: background-color 200ms, color 200ms;
+    min-width: 100px;
+    border: 1px solid transparent;
+    user-select: none;
+
+    &.large {
+        padding: 9px 24px;
+        min-width: 140px;
+        min-height: 46px;
+    }
+    &.small {
+        min-width: 46px;
+        padding: 6px 12px;
+    }
+    &.tiny {
+        min-width: 0;
+        padding: 6px 12px;
+    }
+
+    @each $type, $color in $types {
+        &.#{$type} {
+            background-color: map-get($color, "bg");
+            border-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+        &.#{$type}:not(.disabled):hover,
+        &.#{$type}:not(.disabled):focus {
+            background-color: hover(map-get($color, "bg"));
+            outline: none;
+        }
+        &.#{$type}:not(.disabled):active {
+            background-color: focus(map-get($color, "bg"));
+            outline: none;
+        }
+        &.#{$type}.lesser {
+            background-color: transparent;
+            border-color: map-get($color, "bg");
+            color: map-get($color, "bg");
+        }
+        &.#{$type}.lesser:not(.disabled):hover,
+        &.#{$type}.lesser:not(.disabled):focus {
+            background-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+        &.#{$type}.lesser:not(.disabled):active {
+            background-color: focus(map-get($color, "bg"));
+            color: map-get($color, "fg");
+        }
+    }
+
+    &.disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    &:hover {
+        text-decoration: none !important;
+    }
+}
