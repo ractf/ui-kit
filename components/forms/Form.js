@@ -1,5 +1,5 @@
 import React, { cloneElement, useState, useEffect } from "react";
-import { api } from "ractf";
+import { http } from "ractf";
 
 import "./Form.scss";
 
@@ -49,11 +49,11 @@ export const BareForm = ({
     const submit = () => {
         setFormState(oldFormState => {
             const performRequest = () => {
-                api.makeRequest(method, action, { ...oldFormState.values }, headers).then(resp => {
+                http.makeRequest(method, action, { ...oldFormState.values }, headers).then(resp => {
                     setFormState(ofs => ({ ...ofs, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: { ...oldFormState.values }, resp: resp });
                 }).catch(e => {
-                    const errorStr = api.getError(e);
+                    const errorStr = http.getError(e);
                     setFormState(ofs => ({ ...ofs, errors: getErrorDetails(e), error: errorStr }));
                     if (onError) onError(errorStr, e);
                 });
