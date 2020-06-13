@@ -1,0 +1,97 @@
+@import "../../Colours.scss";
+
+
+$bar: (
+    width: 4px,
+    track: $back_lift,
+    handle: map-get($colours, "accent")
+);
+$primary: (
+    width: 8px,
+    track: $back_lift,
+    handle: map-get($colours, "accent")
+);
+
+
+.scrollTrack {
+    display: none;
+}
+
+.scrolled {
+    height: 100%;
+}
+.scrollInner {
+    height: 100%;
+}
+
+@media (min-width: 800px) {
+    .scrolled {
+        overflow-x: hidden;
+        overflow-y: hidden !important;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        > .scrollInner {
+            margin-right: -64px;
+            padding-right: 64px;
+            overflow-y: scroll;
+        }
+        > .scrollTrack {
+            position: absolute;
+            top: 6px;
+            right: 2px;
+            bottom: 6px;
+            width: map-get($bar, "width");
+            display: block;
+            background-color: map-get($bar, "track");
+            border-radius: map-get($bar, "width") / 2;
+            transition: 500ms opacity ease;
+            opacity: 0;
+
+            > .scrollbar {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 50%;
+                background-color: map-get($bar, "handle");
+                border-radius: map-get($bar, "width") / 2;
+
+                &:hover {
+                    background-color: hover(map-get($bar, "handle"));
+                }
+            }
+            &.trackActive {
+                > .scrollbar {
+                    background-color: focus(map-get($bar, "handle"));
+                }
+            }
+        }
+
+        &.primary {
+            > .scrollTrack {
+                right: 4px;
+                top: 8px;
+                bottom: 8px;
+                width: map-get($primary, "width");
+                background-color: map-get($primary, "track");
+                border-radius: map-get($primary, "width") / 2;
+
+                > .scrollbar {
+                    background-color: map-get($primary, "handle");
+                    border-radius: map-get($primary, "width") / 2;
+
+                    &:hover {
+                        background-color: hover(map-get($primary, "handle"));
+                    }
+                }
+                &.trackActive {
+                    > .scrollbar {
+                        background-color: focus(map-get($primary, "handle"));
+                    }
+                }
+            }
+        }
+    }
+}

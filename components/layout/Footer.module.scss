@@ -1,0 +1,100 @@
+@import "../../Colours.scss";
+
+.footer {
+    background-color: map-get($colours, "black");
+    color: map-get($colours, "white");
+    font-size: .9rem;
+    width: 100%;
+
+    @each $type, $color in $types {
+        &.#{$type} {
+            background-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+    }
+}
+
+.footRow {
+    @each $type, $color in $types {
+        &.#{$type} {
+            background-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+    }
+
+    .footRowInner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 0;
+        max-width: 1100px;
+        margin: auto;
+
+        > * {
+            margin: 0 1rem;
+        }
+    }
+
+    &.center .footRowInner {
+        justify-content: center;
+    }
+    &.right .footRowInner {
+        justify-content: flex-end;
+    }
+    &.slim .footRowInner {
+        padding: 1rem 0;
+    }
+    &.main .footRowInner {
+        padding-top: 3rem;
+        align-items: flex-start;
+    }
+    &.darken {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+.footCol {
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+    flex-grow: 1;
+    width: calc(100% - 4rem);
+
+    @media (min-width: 576px) {
+        width: 200px;
+    }
+    flex-shrink: 0;
+
+    .footColTitle {
+        padding-bottom: .5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+
+        &::after {
+            width: 100%;
+            max-width: 60px;
+            background-color: map-get($colours, "accent");
+            height: 1px;
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+    }
+
+    > * {
+        display: block;
+        margin-bottom: 1rem;
+    }
+}
+
+.footLink {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover, &:focus {
+        color: inherit;
+    }
+}

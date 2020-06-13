@@ -1,44 +1,57 @@
 import React from "react";
+import { makeClass, basicComponent, propsToTypeClass } from "@ractf/util";
 
-import "./Misc.scss";
+import { Row } from "@ractf/ui-kit";
+
+import style from "./Misc.module.scss";
 
 
-export const HR = ({ children }) => (
-    <div className={"hr"}>{children}</div>
-);
-export const SectionTitle = ({ children }) => (
-    <div className={"sectionTitle"}>{children}</div>
-);
-export const SectionTitle2 = ({ children }) => (
-    <div className={"sectionTitle2"}>{children}</div>
-);
-export const SectionHeading = ({ children }) => (
-    <div className={"sectionHeading"}>{children}</div>
-);
 export const TextBlock = ({ children, className, ...props }) => (
-    <div {...props} className={"textBlock" + (className ? " "+  className : "")}>{children}</div>
+    <div {...props} className={makeClass(style.textBlock, className)}>{children}</div>
 );
-export const SubtleText = ({ children }) => (
-    <div className={"subtleText"}>{children}</div>
-);
-export const FlexRow = ({ children, left, right, className }) => (
-    <div className={"flexRow" + (right ? " frRight" : "")
-        + (left ? " frLeft" : "") + (className ? " " + className : "")}
-    >
+
+export const FlashText = ({ children, title, button, ...props }) => {
+    const className = propsToTypeClass(props, style);
+    const inner = <div className={makeClass(style.flashText, className)}>
+        {title && <H4>{title}</H4>}
         {children}
-    </div>
-);
-export const FlashText = ({ children, warning, bold, button }) => (
-    <FlexRow>
-        <div className={"flashText" + (warning ? " warning" : "") + (bold ? " embolden" : "")}>
-            {children}
-        </div>
-        {button}
-    </FlexRow>
-);
+    </div>;
+    if (button)
+        return <Row>
+            {inner}
+            {button}
+        </Row>;
+    return inner;
+};
 export const FormGroup = ({ children, label, htmlFor }) => (
-    <div className={"formGroup"}>
+    <div className={style.formGroup}>
         <label htmlFor={htmlFor}>{label}</label>
         {children}
     </div>
 );
+
+export const SubtleText = ({ children }) => (
+    <div className={style.subtleText}>{children}</div>
+);
+export const PageHead = ({ title, subTitle, back, children, tags }) => (
+    <div className={style.pageHead}>
+        <Row tight left>
+            <div className={style.pageTitle}>{title || children}</div>
+            { tags }
+        </Row>
+        {back}
+        {subTitle && <p>{subTitle}</p>}
+    </div>
+);
+
+export const HR = basicComponent(style.hr, "HR");
+export const H1 = basicComponent(style.h1, "H1", "h1");
+export const H2 = basicComponent(style.h2, "H2", "h2");
+export const H3 = basicComponent(style.h3, "H3", "h3");
+export const H4 = basicComponent(style.h4, "H4", "h4");
+export const H5 = basicComponent(style.h5, "H5", "h5");
+export const H6 = basicComponent(style.h6, "H6", "h6");
+export const SiteWrap = basicComponent(style.siteWrap, "SiteWrap");
+export const Container = basicComponent(style.container, "Container");
+
+export const Spinner = () => <div className={style.loadingSpinner}/>;

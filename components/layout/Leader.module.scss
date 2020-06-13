@@ -1,0 +1,101 @@
+@import "../../Colours.scss";
+
+$background: $back_lift;
+$hover: map-get($colours, "accent");
+$arrow: lighten($color, 15%);
+$arrow_hover: lighten($color, 15%);
+$sub: lighten($color, 30%);
+
+.leader {
+    background-color: $background;
+    padding: 16px 24px;
+    border-radius: 2px;
+    width: 100%;
+    cursor: pointer;
+    transition: 150ms background-color ease;
+    display: block;
+    color: $color;
+
+    &.leaderGreen {
+        color: map-get($colours, "white");
+        background-color: map-get($colours, "green");
+        .leaderSub {
+            color: map-get($colours, "white");
+            opacity: .9;
+        }
+        &::after {
+            border-color: desaturate(map-get($colours, "green"), 20%);
+        }
+
+        &:hover,
+        &:focus {
+            background-color: hover(map-get($colours, "green"));
+            &::after {
+                border-color: desaturate(map-get($colours, "green"), 10%);
+            }
+        }
+    }
+
+    .leaderName {
+        font-weight: 600;
+        font-family: $titleStack;
+    }
+    .leaderSub {
+        color: $sub;
+        font-size: 0.9em;
+    }
+
+    position: relative;
+    &:not(.leaderX):not(.leaderNone) {
+        &::after {
+            transition: 150ms border-color ease;
+            content: "";
+            display: block;
+            border: 4px solid $arrow;
+            border-left: 0;
+            border-top: 0;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            width: 10px;
+            height: 10px;
+        }
+    }
+    &.leaderX {
+        &::after, &::before {
+            transition: 150ms background-color ease;
+            content: "";
+            display: block;
+            width: 4px;
+            background-color: $arrow;
+            position: absolute;
+            top: 50%;
+            height: 20px;
+            right: 20px;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+
+    &:hover,
+    &:focus {
+        background-color: $hover;
+        &::after {
+            border-color: $arrow_hover !important;
+        }
+        &.leaderX {
+            &::after, &::before {
+                background-color: $arrow_hover;
+            }
+        }
+        text-decoration: none;
+        color: map-get($colours, "white");
+
+        .leaderSub {
+            color: darken(map-get($colours, "white"), 15%);
+        }
+    }
+}

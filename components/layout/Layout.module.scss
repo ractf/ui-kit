@@ -1,0 +1,77 @@
+.flexRow {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-right: -0.5rem;
+    margin-bottom: -0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    flex-grow: 1;
+    flex-basis: 100%;
+
+    &.frRight {
+        justify-content: flex-end;
+    }
+    &.frLeft {
+        justify-content: flex-start;
+    }
+
+    & > * {
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    &.frTight {
+        margin-right: -0.25rem;
+        margin-bottom: -0.25rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+        > * {
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    > .flexRow {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+@mixin colBlock($name, $size) {
+    @for $i from 1 through 12 {
+        @if $size {
+            @media (min-width: 576px) {
+                &.#{$name}#{$i} {
+                    max-width: (100% / 12) * $i;
+                }
+            }
+        } @else {
+            &.#{$name}#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+    }
+}
+
+.flexColumn {
+    flex-grow: 1;
+    flex-basis: 100%;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > .flexRow {
+        flex-grow: 0;
+        flex-basis: 0;
+    }
+
+    @include colBlock("col", 0);
+    @include colBlock("col-sm", 576px);
+    @include colBlock("col-md", 768px);
+    @include colBlock("col-lg", 992px);
+    @include colBlock("col-xl", 1200px);
+}

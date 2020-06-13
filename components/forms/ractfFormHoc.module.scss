@@ -1,0 +1,13 @@
+@import "../../Colours.scss";
+@import "./Input.vars.scss";
+
+.inputErrorWrap {
+    width: 100%;
+}
+
+.inputError {
+    color: $error_color;
+    font-size: .8rem;
+    margin-left: 8px;
+    margin-top: .125rem;
+}

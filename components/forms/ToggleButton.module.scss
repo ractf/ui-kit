@@ -1,0 +1,32 @@
+.switchButtonWrap {
+    > .btn {
+        display: inline-block;
+        margin-left: 0;
+        margin-right: 0;
+        &.large {
+            min-width: 100px;
+        }
+        transition: none;
+
+        &:not(:first-child) {
+            border-left: none;
+        }
+        &:not(:last-child) {
+            border-right: none;
+        }
+
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &:not(:last-child):not(:first-child) {
+            border-radius: 0;
+        }
+    }
+}

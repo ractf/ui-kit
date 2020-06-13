@@ -1,21 +1,15 @@
 import React, { useEffect } from "react";
+import { makeClass } from "@ractf/util";
 
-import "./Page.scss";
+import style from "./Page.module.scss";
 
 
-export default ({ children, vCentre, selfContained, noPad, maxWidth, title }) => {
-    const style = noPad ? {padding: 0} : {};
-    const innerStyle = maxWidth ? {maxWidth: maxWidth} : {};
-
+export default ({ centre, title, children }) => {
     useEffect(() => {
         if (title) document.title = title;
     }, [title]);
     
-    return (<div className="sbtBody" style={style}>
-        {selfContained ? children :
-            <div className={"pageContent" + (vCentre ? " vCentre" : "")} style={innerStyle}>
-                {children}
-            </div>
-        }
-    </div>);
+    return <div className={makeClass(style.pageContent, centre && style.centre)}>
+        {children}
+    </div>;
 };

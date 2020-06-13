@@ -1,0 +1,53 @@
+/*
+$colours: (
+    "white": #fff,
+    "grey": #adb5bd,
+    "dgrey": #868e96,
+    "black": #292b2c,
+
+    "red": #d9534f,
+    "green": #02B875,
+    "blue": #17a2b8,
+    "yellow": #f0ad4e,
+    "pink": #f0f,
+
+    "accent": #4582ec
+);
+
+$types: (
+    primary: (
+        bg: map-get($colours, "accent"),
+        fg: map-get($colours, "white")
+    ),
+    secondary: (
+        bg: map-get($colours, "grey"),
+        fg: map-get($colours, "white")
+    ),
+    success: (
+        bg: map-get($colours, "green"),
+        fg: map-get($colours, "white")
+    ),
+    info: (
+        bg: map-get($colours, "blue"),
+        fg: map-get($colours, "white")
+    ),
+    warning: (
+        bg: map-get($colours, "yellow"),
+        fg: map-get($colours, "black")
+    ),
+    danger: (
+        bg: map-get($colours, "red"),
+        fg: map-get($colours, "white")
+    ),
+    light: (
+        bg: map-get($colours, "white"),
+        fg: map-get($colours, "black")
+    )
+);
+
+$back_lift: rgba(map-get($colours, "white"), 0.125);
+
+//$background-color: map-get($colours, "black");
+$background-color: #181626;
+$color: map-get($colours, "white");
+*/

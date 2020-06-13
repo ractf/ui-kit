@@ -1,0 +1,29 @@
+@import "../../Colours.scss";
+
+.badge {
+    display: inline-block;
+    vertical-align: middle;
+    align-self: center;
+
+    background-color: $back_lift;
+    color: $color;
+
+    padding: .6em 1.2em;
+    line-height: 1;
+    white-space: nowrap;
+    font-size: .75em;
+    border-radius: .25rem;
+    
+    &.pill {
+        padding-right: .8em;
+        padding-left: .8em;
+        border-radius: 10rem;
+    }
+
+    @each $type, $color in $types {
+        &.#{$type} {
+            background-color: map-get($color, "bg");
+            color: map-get($color, "fg");
+        }
+    }
+}
