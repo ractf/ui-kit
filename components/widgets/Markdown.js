@@ -15,6 +15,8 @@ const WHITELIST = {
     // Grouping
     div: [...BASE, "align"],
     span: ["id", "class", "xml:lang", "dir", "title", "align"],
+    // Images
+    img: [...BASE, "src", "alt", "longdesc", "name", "align", "width", "height", "border", "hspace", "vspace"],
     // Headings
     h1: [...BASE, "align"],
     h2: [...BASE, "align"],
