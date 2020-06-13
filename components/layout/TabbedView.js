@@ -30,7 +30,7 @@ export default ({ center, children, callback, initial }) => {
                 return newActive;
             });
         }
-    }
+    };
 
     return <>
         <nav className={style.tabRow} onKeyDown={onKeyDown} ref={nav} tabIndex={"0"}>

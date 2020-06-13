@@ -5,12 +5,14 @@
 }
 
 .navItem {
-    padding: 0 0.5rem;
+    padding: 0.5rem;
+    display: block;
 }
 
 .navLink {
     color: $color;
     text-decoration: none;
+    cursor: pointer;
 
     &:hover,
     &:focus {
@@ -204,7 +206,7 @@
         overflow-y: hidden;
         flex-basis: 100%;
         display: block;
-        margin: 0 -3rem 0 -1rem;
+        //margin: 0 -3rem 0 -1rem;
         will-change: height;
 
         & > * {
@@ -227,6 +229,44 @@
 
         &:hover {
             background-color: $back_lift;
+        }
+    }
+    .navMenu {
+        padding-bottom: 0;
+        position: initial !important;
+
+        .navMenuDropdown .navLink, .navLink {
+            position: relative;
+            padding-bottom: .25em;
+            font-weight: 800;
+            &::after {
+                content: "";
+                display: block;
+                margin: 0;
+                position: absolute;
+                height: 1px;
+                left: -1rem;
+                right: -1rem;
+                top: -.5rem;
+                background-color: $back_lift;
+                border: none;
+            }
+        }
+
+        .navMenuDropdown {
+            visibility: visible !important;
+            position: unset !important;
+            background-color: transparent;
+            color: unset;
+            border: none;
+            padding: 0;
+            > * {
+                width: auto;
+                color: unset !important;
+                margin: 0;
+                line-height: unset !important;
+                padding: 0.5rem 1rem !important;
+            }
         }
     }
 }

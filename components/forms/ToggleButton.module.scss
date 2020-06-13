@@ -3,7 +3,7 @@
         display: inline-block;
         margin-left: 0;
         margin-right: 0;
-        &:not(.small) {
+        &.large {
             min-width: 100px;
         }
         transition: none;

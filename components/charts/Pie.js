@@ -1,5 +1,5 @@
 import React from "react";
-import { SizeMe } from 'react-sizeme';
+import { SizeMe } from "react-sizeme";
 
 import { Spinner } from "@ractf/ui-kit";
 import colours from "@ractf/ui-kit/Colours.scss";
@@ -17,7 +17,7 @@ const Pie = ({ data, width, height }) => {
 
     const defaultConfig = {
         hole: .4,
-        hovertemplate: '%{label}<br>%{value}<extra></extra>', 
+        hovertemplate: "%{label}<br>%{value}<extra></extra>", 
         sort: false,
     };
     data = (data || []).map(i => ({...defaultConfig, ...i, type: "pie"}));

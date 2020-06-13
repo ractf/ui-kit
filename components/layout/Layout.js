@@ -14,11 +14,11 @@ export const Row = ({ left, right, tight, className, ...props }) => (
 export const Column = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...props }) => (
     <div className={makeClass(
         style.flexColumn,
-        width && style['col' + width],
-        smWidth && style['col-sm' + smWidth],
-        mdWidth && style['col-md' + mdWidth],
-        lgWidth && style['col-lg' + lgWidth],
-        xlWidth && style['col-xl' + xlWidth],
+        width && style["col" + width],
+        smWidth && style["col-sm" + smWidth],
+        mdWidth && style["col-md" + mdWidth],
+        lgWidth && style["col-lg" + lgWidth],
+        xlWidth && style["col-xl" + xlWidth],
         className
     )} {...props} />
 );

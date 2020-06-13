@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import createPlotlyComponent from 'react-plotly.js/factory';
+import createPlotlyComponent from "react-plotly.js/factory";
 
 
 export default () => {

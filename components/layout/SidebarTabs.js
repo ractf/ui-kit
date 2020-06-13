@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
 
-import { getHeight, makeClass } from "@ractf/util";
+import { useReactRouter, getHeight, makeClass } from "@ractf/util";
 import { Link } from "@ractf/ui-kit";
 //import { fastClick } from "ractf";
 import Scrollbar from "./Scrollbar";
@@ -10,7 +10,7 @@ import style from "./SidebarTabs.module.scss";
 
 
 export const SubMenu = ({ name, children, isOpen, onClick }) => {
-    const [height, setHeight] = useState(isOpen ? 'auto' : 0);
+    const [height, setHeight] = useState(isOpen ? "auto" : 0);
     const childs = useRef();
 
     useEffect(() => {
@@ -36,13 +36,14 @@ export const SubMenu = ({ name, children, isOpen, onClick }) => {
 
 
 export const SideNav = ({ header, footer, items, children, exclusive }) => {
+    const { history } = useReactRouter();
     const [sbOpen, setSbOpen] = useState(false);
     const [openSubs, setOpenSubs] = useState(
         items.reduce((acc, cur) => ((acc[cur.name] = !!cur.startOpen, acc)), {})
     );
 
     useEffect(() => {
-        let open = {};
+        const open = {};
         items.forEach(({ name, startOpen }) => {
             open[name] = startOpen;
         });
@@ -61,8 +62,7 @@ export const SideNav = ({ header, footer, items, children, exclusive }) => {
             e.preventDefault();
         };
     };
-
-    const close = () => setSbOpen(false);
+    useEffect(() => history.listen(() => setSbOpen(false)), [history]);
 
     return <div className={makeClass(style.wrap, sbOpen && style.open)}>
         <div onClick={() => setSbOpen(false)} /*{...fastClick}*/ className={style.burgerUnderlay} />
@@ -75,7 +75,7 @@ export const SideNav = ({ header, footer, items, children, exclusive }) => {
                 {items.map(({ name, submenu, startOpen }) => (
                     <SubMenu key={name} name={name} isOpen={openSubs[name]} onClick={toggle(name)}>
                         {submenu.map(([text, url]) => (
-                            <Link onClick={close} to={url} key={text} className={style.subitem}>{text}</Link>
+                            <Link to={url} key={text} className={style.subitem}>{text}</Link>
                         ))}
                     </SubMenu>
                 ))}

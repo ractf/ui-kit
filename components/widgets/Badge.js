@@ -1,13 +1,13 @@
 import React from "react";
-import { propsToTypeClass } from "@ractf/util";
+import { makeClass, propsToTypeClass } from "@ractf/util";
 
 import style from "./Badge.module.scss";
 
 
 export default ({ children, ...props }) => {
-    let extra = propsToTypeClass(props, style, "primary");
+    const extra = propsToTypeClass(props, style, "primary");
 
-    return <div className={`${style.badge} ${extra}`}>
+    return <div className={makeClass(style.badge, props.pill && style.pill, extra)}>
         {children}
     </div>;
 };

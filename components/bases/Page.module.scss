@@ -1,7 +1,7 @@
 @import "@ractf/ui-kit/Colours.scss";
 
 .pageContent {
-    padding: 32px;
+    padding: 2rem;
     max-width: 1200px;
     margin: auto;
     flex-grow: 1;
@@ -26,19 +26,19 @@
     &::before {
         content: "< ";
     }
-    margin-top: 8px;
-    margin-left: 4px;
+    margin-top: 0.5rem;
+    margin-left: 0.25rem;
     display: block;
 }
 
 @media (max-width: 1200px) {
     .pageContent {
-        padding: 16px 24px;
+        padding: 1rem 1.5rem;
     }
 }
 
 @media (max-width: 800px) {
     .pageContent {
-        padding: 4px 8px;
+        padding: 0.5rem;
     }
 }

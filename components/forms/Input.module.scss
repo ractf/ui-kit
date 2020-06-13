@@ -1,6 +1,7 @@
 @import "../../Colours.scss";
 @import "./Input.vars.scss";
 
+
 .input,
 .textarea {
     background: none;
@@ -8,8 +9,9 @@
     width: 100%;
     color: inherit;
     padding: $padding;
+    line-height: $line_height;
     font-size: $font_size;
-    min-height: $min_height;
+    min-height: inherit;
 
     &:focus {
         border: none;
@@ -25,18 +27,14 @@
     resize: vertical;
 }
 
-.react-datepicker-popper {
-    z-index: 2 !important;
-}
-
-.inputWrapper,
-.react-datepicker__input-container {
+.inputWrapper {
     ::-ms-reveal,
     ::-ms-clear {
         display: none;
     }
 
     position: relative;
+    min-height: $min_height;
 
     font-size: 0;
     border-radius: $radius;
@@ -53,24 +51,11 @@
             opacity: 0.4;
         }
 
-        > div:nth-of-type(1) {
-            opacity: 0.8;
+        > .lengthCounter {
+            opacity: 0.7;
         }
     }
-
-    &.slim {
-        .input, .textarea {
-            padding: $slim_padding;
-            min-height: $slim_height;
-            font-size: $slim_font;
-        }
-
-        .placeholder {
-            padding: $slim_padding;
-            font-size: $slim_font;
-            height: $slim_height;
-        }
-    }
+    
     &.center {
         text-align: center;
     }
@@ -107,8 +92,8 @@
         position: absolute;
         right: 8px;
         top: 8px;
-        font-size: 0.8em;
-        opacity: 0.4;
+        font-size: 0.7rem;
+        opacity: 0.5;
         user-select: none;
     }
     .styledEye {
@@ -135,12 +120,12 @@
         left: 0;
         top: 0;
         width: 100%;
-        height: $min_height;
         padding: inherit;
         text-align: left;
         color: $color;
         opacity: 0.7;
         padding: $padding;
+        line-height: $line_height;
         font-size: $font_size;
         display: flex;
         align-items: center;
@@ -195,6 +180,15 @@
 
 .inputGroup {
     display: flex;
+
+    & > *:not(.inputWrapper) {
+        padding: $padding;
+        min-height: auto;
+        min-width: auto;
+        line-height: $line_height;
+        font-size: $font_size;
+        height: auto;
+    }
 
     & > * {
         margin: 0;

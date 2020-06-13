@@ -1,11 +1,13 @@
 import React, { forwardRef } from "react";
-import { propsToTypeClass, useReactRouter, makeClass } from "@ractf/util";
+import { propsToTypeClass, makeClass } from "@ractf/util";
+import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
 import style from "./Button.module.scss";
 
 
 const Button = (props, ref) => {
-    const { history } = useReactRouter();
+    const dispatch = useDispatch();
 
     const onClick = e => {
         if (props.onClick)
@@ -13,11 +15,11 @@ const Button = (props, ref) => {
         if (props.form && props.form.callback)
             props.form.callback();
         if (props.to)
-            history.push(props.to);
+            dispatch(push(props.to));
     };
     
     const buttonClass = makeClass(
-        style.btn, props.className,
+        style.btn, props.className, props.pill && style.pill,
         props.tiny && style.tiny, props.small && style.small,
         props.large && style.large, props.lesser && style.lesser,
         props.disabled && style.disabled,

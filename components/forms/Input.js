@@ -95,7 +95,6 @@ class Input_ extends Component {
             this.props.password && style.password,
             this.props.disabled && style.disabled,
             this.props.hidden && style.hidden,
-            this.props.slim && style.slim,
             (!(this.props.val.length === 0 || this.state.valid) || this.props.error) && style.invalid,
         );
 
@@ -120,11 +119,9 @@ class Input_ extends Component {
                     autofill={this.props.autofill}
                     className={makeClass(style.input, this.props.monospace && style.monospaced)}
                     disabled={this.props.disabled} />}
-            {this.props.center || this.props.noCount ? null
-                : <div className={style.lengthCounter}>{this.props.val.length}{this.props.limit
-                    ? "/" + this.props.limit
-                    : ""
-                }</div>}
+            {this.props.limit && (
+                <div className={style.lengthCounter}>{this.props.val.length}/{this.props.limit}</div>
+            )}
             {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
                 {this.state.showPass ? <FaEyeSlash /> : <FaEye />}
             </div> : null}

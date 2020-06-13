@@ -1,17 +1,18 @@
 import React, { useCallback } from "react";
-
-import { useReactRouter } from "@ractf/util";
+import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
 
 export const Link = React.memo(({ to, children, onClick, ...props }) => {
-    const { history } = useReactRouter();
+    const dispatch = useDispatch();
 
     const click = useCallback((e) => {
         if (onClick) onClick(e);
-        history.push(to);
+        if (to)
+            dispatch(push(to));
         e.preventDefault();
         return false;
-    }, [onClick, to, history]);
+    }, [onClick, to, dispatch]);
 
     return <a href={to} onClick={click} {...props}>
         {children}

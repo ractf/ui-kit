@@ -7,7 +7,7 @@
     user-select: none;
     text-align: left;
     z-index: 10;
-    min-height: $min_height;
+    line-height: $line_height;
 
     .blanker {
         position: fixed;
@@ -42,7 +42,6 @@
     .items div,
     .head {
         min-width: 100px;
-        min-height: $min_height;
         padding: $padding;
         
         cursor: pointer;

@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
-import { basicComponent, getHeight, makeClass, propsToTypeClass } from "@ractf/util";
 
+import {
+    useReactRouter, basicComponent, getHeight, makeClass, propsToTypeClass
+} from "@ractf/util";
 import { Link } from "@ractf/ui-kit";
 
 import style from "./NavBar.module.scss";
 
 
-export const NavBrand = basicComponent(style.navBrand);
-export const NavItem = basicComponent(style.navItem);
+export const NavBrand = basicComponent(style.navBrand, "NavBrand");
+export const NavItem = basicComponent(style.navItem, "NavItem");
 
 export const NavLink = ({ children, ...props }) => (
-    <NavItem>
-        <Link tabIndex={"0"} {...props} className={style.navLink}>{children}</Link>
-    </NavItem>
+    <Link tabIndex={"0"} {...props} className={`${style.navItem} ${style.navLink}`}>{children}</Link>
 );
 
 export const NavMenu = ({ name, children }) => {
@@ -34,16 +34,16 @@ export const NavMenu = ({ name, children }) => {
 
     useEffect(() => {
         setState(oldState => {
-            let newFocus = focus || mouseOver;
+            const newFocus = focus || mouseOver;
             if (newFocus === oldState.hasFocus) return {
                 ...oldState, style: newFocus ? oldState.style : {}
             };
 
-            let miRect = ref.current.getBoundingClientRect();
-            let ddRect = dropDown.current.getBoundingClientRect();
+            const miRect = ref.current.getBoundingClientRect();
+            const ddRect = dropDown.current.getBoundingClientRect();
 
-            let pad = ddRect.width * 0.05;
-            let right = miRect.right + ddRect.width - pad;
+            const pad = ddRect.width * 0.05;
+            const right = miRect.right + ddRect.width - pad;
 
             if (ref.current && ref.current.parentElement.className !== style.navMenuDropdown) {
                 if (newFocus)
@@ -73,6 +73,7 @@ export const NavMenu = ({ name, children }) => {
         <div className={style.navLink}>{name}</div>
         <div className={style.navMenuDropdown} ref={dropDown} style={{
             visibility: state.hasFocus ? "visible" : "hidden",
+            display: state.hasFocus ? "block" : "",
             ...(state.hasFocus ? state.style : {})
         }}>
             {children}
@@ -96,7 +97,10 @@ export const NavBar = ({ children, ...props }) => (
 
 export const NavCollapse = ({ children }) => {
     const [height, setHeight] = useState(0);
+    const { history } = useReactRouter();
     const childs = useRef();
+
+    useEffect(() => history.listen(() => setHeight(0)), [history]);
 
     const onClick = () => {
         setHeight(oldHeight => {

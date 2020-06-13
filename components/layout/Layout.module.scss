@@ -38,6 +38,22 @@
     }
 }
 
+@mixin colBlock($name, $size) {
+    @for $i from 1 through 12 {
+        @if $size {
+            @media (min-width: 576px) {
+                &.#{$name}#{$i} {
+                    max-width: (100% / 12) * $i;
+                }
+            }
+        } @else {
+            &.#{$name}#{$i} {
+                max-width: (100% / 12) * $i;
+            }
+        }
+    }
+}
+
 .flexColumn {
     flex-grow: 1;
     flex-basis: 100%;
@@ -53,29 +69,9 @@
         flex-basis: 0;
     }
 
-    @for $i from 1 through 12 {
-        &.col#{$i} {
-            max-width: (100% / 12) * $i;
-        }
-        @media (min-width: 576px) {
-            &.col-sm#{$i} {
-                max-width: (100% / 12) * $i;
-            }
-        }
-        @media (min-width: 768px) {
-            &.col-md#{$i} {
-                max-width: (100% / 12) * $i;
-            }
-        }
-        @media (min-width: 992px) {
-            &.col-lg#{$i} {
-                max-width: (100% / 12) * $i;
-            }
-        }
-        @media (min-width: 1200px) {
-            &.col-xl#{$i} {
-                max-width: (100% / 12) * $i;
-            }
-        }
-    }
+    @include colBlock("col", 0);
+    @include colBlock("col-sm", 576px);
+    @include colBlock("col-md", 768px);
+    @include colBlock("col-lg", 992px);
+    @include colBlock("col-xl", 1200px);
 }

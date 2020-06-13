@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
-import { makeClass } from "@ractf/util";
+import { useReactRouter, makeClass } from "@ractf/util";
 
 import style from "./Scrollbar.module.scss";
 
@@ -19,11 +19,11 @@ export default ({ children, className, primary }) => {
     const mouseOver = useRef();
 
     const barMetrics = () => {
-        let scrollDist = inner.current.scrollHeight - inner.current.offsetHeight;
-        let scrollRatio = inner.current.scrollTop / scrollDist;
+        const scrollDist = inner.current.scrollHeight - inner.current.offsetHeight;
+        const scrollRatio = inner.current.scrollTop / scrollDist;
 
-        let barHeight = (inner.current.offsetHeight / inner.current.scrollHeight) * track.current.offsetHeight;
-        let trackSlack = track.current.offsetHeight - barHeight;
+        const barHeight = (inner.current.offsetHeight / inner.current.scrollHeight) * track.current.offsetHeight;
+        const trackSlack = track.current.offsetHeight - barHeight;
 
         return [
             scrollDist === 0 ? 0 : trackSlack * scrollRatio,
@@ -34,7 +34,7 @@ export default ({ children, className, primary }) => {
 
     const updateBar = useCallback(() => {
         if (!inner.current || !track.current) return;
-        let [top, barHeight, scrollDist] = barMetrics();
+        const [top, barHeight, scrollDist] = barMetrics();
 
         setBarStyle({ top: top, height: barHeight });
         setTrackStyle({ opacity: scrollDist === 0 ? 0 : 1 });
@@ -46,14 +46,14 @@ export default ({ children, className, primary }) => {
     };
     const onMouseMove = useCallback(e => {
         if (!dragStart) return;
-        let scroll = (e.pageY - track.current.offsetTop);
-        let delta = scroll - dragStart[0];
+        const scroll = (e.pageY - track.current.offsetTop);
+        const delta = scroll - dragStart[0];
 
-        let scrollDist = inner.current.scrollHeight - inner.current.offsetHeight;
-        let barHeight = (inner.current.offsetHeight / inner.current.scrollHeight) * track.current.offsetHeight;
-        let trackSlack = track.current.offsetHeight - barHeight;
+        const scrollDist = inner.current.scrollHeight - inner.current.offsetHeight;
+        const barHeight = (inner.current.offsetHeight / inner.current.scrollHeight) * track.current.offsetHeight;
+        const trackSlack = track.current.offsetHeight - barHeight;
 
-        let top = dragStart[1] + delta;
+        const top = dragStart[1] + delta;
 
         inner.current.scrollTop = (top / trackSlack) * scrollDist;
 
@@ -81,7 +81,7 @@ export default ({ children, className, primary }) => {
     useEffect(() => {
         window.addEventListener("mousemove", onMouseMove);
         window.addEventListener("mouseup", onMouseUp);
-        let inner_current = inner.current;
+        const inner_current = inner.current;
         if (inner_current) {
             inner_current.addEventListener("mouseover", onMouseOver);
             inner_current.addEventListener("mouseleave", onMouseLeave);
@@ -109,6 +109,14 @@ export default ({ children, className, primary }) => {
     }, [animate]);
 
     useEffect(updateBar, [inner]);
+
+    const { history } = useReactRouter();
+    useEffect(() => history.listen(() => {
+        if (primary) {
+            inner.current.scrollTop = 0;
+            updateBar();
+        }
+    }), [primary, updateBar, history]);
 
     return <div onScroll={updateBar} className={
         makeClass(style.scrolled, className, primary && style.primary)

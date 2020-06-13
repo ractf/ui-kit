@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 import { Button, Form, Input, Select, Row, Scrollbar } from "@ractf/ui-kit";
 
@@ -45,7 +45,7 @@ export const ModalPrompt = ({ body, promise, onHide, inputs }) => {
 
         <Form handle={promise.resolve}>
             {inputs.map((i, n) => {
-                let parts = [];
+                const parts = [];
                 if (i.label) parts.push(
                     <label htmlFor={i.name}>{i.label}</label>
                 );

@@ -1,5 +1,5 @@
 import React from "react";
-import { compiler } from 'markdown-to-jsx';
+import { compiler } from "markdown-to-jsx";
 
 import {
     Row, Card, FlashText, HR, Leader
@@ -70,17 +70,17 @@ const WHITELIST = {
     redact: []
 };
 
-const PROTOCOLS = ['http', 'https', 'mailto', 'tel'];
+const PROTOCOLS = ["http", "https", "mailto", "tel"];
 
 
 const uriTransformer = uri => {
-    const url = (uri || '').trim();
+    const url = (uri || "").trim();
     const first = url.charAt(0);
 
-    if (first === '#' || first === '/')
+    if (first === "#" || first === "/")
         return url;
 
-    const colon = url.indexOf(':');
+    const colon = url.indexOf(":");
     if (colon === -1) return url;
 
     for (const protocol of PROTOCOLS)
@@ -88,14 +88,14 @@ const uriTransformer = uri => {
             return url;
 
     let index;
-    index = url.indexOf('?');
+    index = url.indexOf("?");
     if (index !== -1 && colon > index) return url;
 
-    index = url.indexOf('#');
+    index = url.indexOf("#");
     if (index !== -1 && colon > index) return url;
 
     // eslint-disable-next-line no-script-url
-    return 'javascript:void(0)';
+    return "javascript:void(0)";
 };
 
 
@@ -112,7 +112,7 @@ export default ({ source }) => {
         if (!WHITELIST[type])
             return null;
         
-        let safeProps = {};
+        const safeProps = {};
         for (const i of WHITELIST[type])
             safeProps[i] = props[i];
 
@@ -138,6 +138,6 @@ export default ({ source }) => {
         return React.createElement(type, safeProps, ...children);
     };
 
-    let children = compiler(source, { forceBlock: true, createElement });
+    const children = compiler(source, { forceBlock: true, createElement });
     return children;
 };

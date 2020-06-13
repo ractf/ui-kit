@@ -2,7 +2,7 @@
 
 
 .btn {
-    border-radius: 5px;
+    border-radius: .25em;
     border: none;
     display: block;
     cursor: pointer;
@@ -26,6 +26,9 @@
     &.tiny {
         min-width: 0;
         padding: 6px 12px;
+    }
+    &.pill {
+        border-radius: 10rem;
     }
 
     @each $type, $color in $types {

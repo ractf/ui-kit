@@ -3,18 +3,22 @@
 .badge {
     display: inline-block;
     vertical-align: middle;
+    align-self: center;
 
     background-color: $back_lift;
     color: $color;
 
-    padding: 0 .8em;
-    line-height: 1.6em;
-    border-radius: .8em;
-    height: 1.6em;
-    font-size: .8em;
-    font-weight: 400;
-    font-family: $fontStack;
-    user-select: none;
+    padding: .6em 1.2em;
+    line-height: 1;
+    white-space: nowrap;
+    font-size: .75em;
+    border-radius: .25rem;
+    
+    &.pill {
+        padding-right: .8em;
+        padding-left: .8em;
+        border-radius: 10rem;
+    }
 
     @each $type, $color in $types {
         &.#{$type} {

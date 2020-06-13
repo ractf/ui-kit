@@ -34,11 +34,13 @@ export default class SwitchButton extends Component {
     }
 
     render() {
-        let buttons = [];
+        const buttons = [];
         this.props.options.map((val) =>
             buttons.push(<Button
-                tiny={this.props.small} large={!this.props.small} key={val[1]}
-                className={makeClass(style.btn, this.props.small && style.small)}
+                tiny={this.props.small} large={this.props.large} key={val[1]}
+                pill={this.props.pill}
+                className={makeClass(style.btn, this.props.small && style.small,
+                    this.props.large && style.large)}
                 onClick={this.makeActive(buttons.length)}
                 lesser={this.state.active !== buttons.length}
             >{val[0]}</Button>)

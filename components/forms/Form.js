@@ -1,5 +1,5 @@
-import React, { cloneElement, useState, useEffect, useContext } from "react";
-import { apiEndpoints } from "ractf";
+import React, { cloneElement, useState, useEffect } from "react";
+import { api } from "ractf";
 
 import "./Form.scss";
 
@@ -7,7 +7,6 @@ import "./Form.scss";
 export const BareForm = ({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
 }) => {
-    const api = useContext(apiEndpoints);
     const [formState, setFormState] = useState({ values: {}, error: null, errors: {}, disabled: false });
 
     useEffect(() => {
@@ -18,13 +17,14 @@ export const BareForm = ({
                     if (!i.props) return;
 
                     getValues(i.props.children);
-                    if (i.props.name && i.props.value) {
-                        if (!oldFormState.values.hasOwnProperty(i.props.name))
+                    if (i.props.name && !oldFormState.values.hasOwnProperty(i.props.name)) {
+                        if (i.props.value) {
                             values[i.props.name] = i.props.value;
-                    }
-                    if (i.props.name && i.props.val) {
-                        if (!oldFormState.values.hasOwnProperty(i.props.name))
+                        } else if (i.props.val) {
                             values[i.props.name] = i.props.val;
+                        } else {
+                            values[i.props.name] = "";
+                        }
                     }
                 });
             };
@@ -87,14 +87,14 @@ export const BareForm = ({
     };
 
     const recurseChildren = (children) => {
-        let newChildren = React.Children.toArray(children).filter(Boolean);
+        const newChildren = React.Children.toArray(children).filter(Boolean);
         newChildren.forEach((i, n) => {
             if (!i.props) return;
 
-            let myChildren = recurseChildren(i.props.children);
-            let props = { ...i.props };
+            const myChildren = recurseChildren(i.props.children);
+            const props = { ...i.props };
 
-            props.disabled = locked || formState.disabled;
+            props.disabled = locked || formState.disabled || props.disabled;
             props.children = myChildren;
             if (props.name) {
                 props.onChange = onChange.bind(this, props.name);
@@ -103,7 +103,7 @@ export const BareForm = ({
                     props.val = props.value = "";
                 else
                     props.val = props.value = formState.values[props.name];
-                props.error = formState.errors[props.name];
+                props.error = formState.errors[props.name] || props.error;
             } else {
                 props.val = props.value = "";
             }
@@ -118,7 +118,7 @@ export const BareForm = ({
         return newChildren;
     };
 
-    let components = recurseChildren(children);
+    const components = recurseChildren(children);
     return <>
         {components}
         {formState.error && <FormError>

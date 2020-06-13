@@ -1,5 +1,5 @@
 import React from "react";
-import { SizeMe } from 'react-sizeme';
+import { SizeMe } from "react-sizeme";
 
 import { Spinner } from "@ractf/ui-kit";
 import colours from "@ractf/ui-kit/Colours.scss";

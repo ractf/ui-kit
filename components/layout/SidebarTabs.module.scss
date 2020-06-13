@@ -181,7 +181,7 @@ $sidebar_heading: $text;
         z-index: 100;
         font-size: 1.1em;
         overflow-y: auto;
-        height: 100vh;
+        height: 100%;
         display: flex;
 
         .sidebarInner {
@@ -214,7 +214,7 @@ $sidebar_heading: $text;
             left: 0;
             top: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             background: #0005;
             z-index: 50;
         }

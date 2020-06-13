@@ -12,7 +12,7 @@ export default forwardRef(({ name, options, initial }, ref) => {
 
     const doOpen = () => {
         if (itemsStyle.display === "none") {
-            let rect = head.current.getBoundingClientRect();
+            const rect = head.current.getBoundingClientRect();
             setItemsStyle({
                 display: "block",
                 top: rect.bottom,
