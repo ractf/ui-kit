@@ -1,8 +1,8 @@
 $colours: (
-    "black": #fff,
+    "white": #fff,
     "grey": #adb5bd,
     "dgrey": #868e96,
-    "white": #292b2c,
+    "black": #292b2c,
 
     "red": #d9534f,
     "green": #02B875,
@@ -12,8 +12,8 @@ $colours: (
 
     "accent": #4582ec
 );
-/*
-    
+
+
 $types: (
     primary: (
         bg: map-get($colours, "accent"),
@@ -50,4 +50,3 @@ $back_lift: rgba(map-get($colours, "white"), 0.125);
 //$background-color: map-get($colours, "black");
 $background-color: #181626;
 $color: map-get($colours, "white");
-*/
