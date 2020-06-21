@@ -9,12 +9,12 @@ import withRactfForm from "./ractfFormHoc.js";
 import style from "./Input.module.scss";
 
 
-export const InputHint = ({ children }) => (
-    <div className={style.inputHint}>{children}</div>
+export const InputHint = ({ children, disabled }) => (
+    <div className={makeClass(style.inputHint, disabled && style.disabled)}>{children}</div>
 );
 
 export const InputGroup = withRactfForm(({ className, error, left, right, ...props }) => {
-    return <div className={makeClass(style.inputGroup, className)}>
+    return <div className={makeClass(style.inputGroup, props.disabled && style.disabled, className)}>
         {left}
         <Input {...props} error={!!error} className={style.igInput} />
         {right}

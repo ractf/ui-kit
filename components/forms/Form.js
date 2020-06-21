@@ -76,7 +76,8 @@ export const BareForm = ({
         submit();
     };
 
-    const onChange = (name, value) => {
+    const onChange = (oldChange, name, value) => {
+        if (oldChange) oldChange(value);
         setFormState(oldFormState => ({
             ...oldFormState, errors: {
                 ...oldFormState.errors, [name]: null
@@ -97,7 +98,7 @@ export const BareForm = ({
             props.disabled = locked || formState.disabled || props.disabled;
             props.children = myChildren;
             if (props.name) {
-                props.onChange = onChange.bind(this, props.name);
+                props.onChange = onChange.bind(this, props.onChange, props.name);
                 props.onSubmit = onSubmit.bind(this, props.onSubmit);
                 if (formState.values[props.name] === undefined)
                     props.val = props.value = "";

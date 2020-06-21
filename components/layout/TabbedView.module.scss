@@ -1,16 +1,6 @@
 @import "../../Colours.scss";
 
 
-$body_background: $back_lift;
-$tab_background: transparent;
-$tab_selected: rgba(map-get($colours, "black"), 0.2);
-$tab_hover: rgba(map-get($colours, "black"), 0.03);
-
-$tab_text: map-get($colours, "black");
-$tab_active_text: map-get($colours, "black");
-$tab_hover_text: map-get($colours, "black");
-
-
 $edge_colour: $back_lift;
 
 .tabRow {
@@ -26,7 +16,7 @@ $edge_colour: $back_lift;
         display: block;
         padding: 9px 24px;
         text-decoration: none;
-        color: map-get($colours, "black");
+        color: $color;
         outline: none;
         cursor: pointer;
 

@@ -1,64 +1,41 @@
 @import "../../Colours.scss";
 
-
 .btn {
-    border-radius: .25em;
+    font-size: px(14);
+    border-radius: px(4);
+    padding: px(11) px(21);
+    font-weight: 700;
+    line-height: px(14);
+
     border: none;
     display: block;
     cursor: pointer;
-    font-size: 18px;
-    padding: 9px 12px;
     text-decoration: none;
     transition: background-color 200ms, color 200ms;
-    min-width: 100px;
-    border: 1px solid transparent;
     user-select: none;
+    outline: none;
 
     &.large {
-        padding: 9px 24px;
-        min-width: 140px;
-        min-height: 46px;
-    }
-    &.small {
-        min-width: 46px;
-        padding: 6px 12px;
+        padding: px(14) px(27);
+        font-size: px(16);
     }
     &.tiny {
-        min-width: 0;
-        padding: 6px 12px;
+        padding: px(6) px(12);
     }
     &.pill {
         border-radius: 10rem;
     }
 
-    @each $type, $color in $types {
-        &.#{$type} {
-            background-color: map-get($color, "bg");
-            border-color: map-get($color, "bg");
-            color: map-get($color, "fg");
+    @include mapTypes(true);
+    &.lesser {
+        border: 1px solid;
+        padding: calc(#{px(11)} - 1px) px(21);
+
+        &.large {
+            padding: calc(#{px(14)} - 1px) px(27);
         }
-        &.#{$type}:not(.disabled):hover,
-        &.#{$type}:not(.disabled):focus {
-            background-color: hover(map-get($color, "bg"));
-            outline: none;
-        }
-        &.#{$type}:not(.disabled):active {
-            background-color: focus(map-get($color, "bg"));
-            outline: none;
-        }
-        &.#{$type}.lesser {
-            background-color: transparent;
-            border-color: map-get($color, "bg");
-            color: map-get($color, "bg");
-        }
-        &.#{$type}.lesser:not(.disabled):hover,
-        &.#{$type}.lesser:not(.disabled):focus {
-            background-color: map-get($color, "bg");
-            color: map-get($color, "fg");
-        }
-        &.#{$type}.lesser:not(.disabled):active {
-            background-color: focus(map-get($color, "bg"));
-            color: map-get($color, "fg");
+        &.tiny {
+            padding: calc(#{px(6)} - 1px) px(12);
         }
     }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
 
-import { useReactRouter, getHeight, makeClass } from "@ractf/util";
+import { propsToTypeClass, useReactRouter, getHeight, makeClass } from "@ractf/util";
 import { Link } from "@ractf/ui-kit";
 //import { fastClick } from "ractf";
 import Scrollbar from "./Scrollbar";
@@ -35,7 +35,7 @@ export const SubMenu = ({ name, children, isOpen, onClick }) => {
 };
 
 
-export const SideNav = ({ header, footer, items, children, exclusive }) => {
+export const SideNav = ({ header, footer, items, children, exclusive, ...props }) => {
     const { history } = useReactRouter();
     const [sbOpen, setSbOpen] = useState(false);
     const [openSubs, setOpenSubs] = useState(
@@ -67,7 +67,7 @@ export const SideNav = ({ header, footer, items, children, exclusive }) => {
     return <div className={makeClass(style.wrap, sbOpen && style.open)}>
         <div onClick={() => setSbOpen(false)} /*{...fastClick}*/ className={style.burgerUnderlay} />
         <div onClick={() => setSbOpen(!sbOpen)} /*{...fastClick}*/ className={style.burger}><MdMenu /></div>
-        <Scrollbar className={style.sidebar}>
+        <Scrollbar className={makeClass(style.sidebar, propsToTypeClass(props, style))}>
             <div className={style.sidebarInner}>
                 <div className={style.head}>
                     {header}

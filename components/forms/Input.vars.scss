@@ -1,7 +1,9 @@
+@import "../../Colours.scss";
+
 $input_color: rgba($color, .2);
 $input_focus: rgba($color, .4);
 
-$disabled_color: rgba($color, .15);
+$disabled_color: transparent;
 $disabled_text: rgba($color, .6);
 
 //$input_background: rgba(map-get($colours, "black"), .2);
@@ -11,8 +13,8 @@ $foreground: #495057;
 $error_color: map-get($colours, "red");
 $error_focus: focus(map-get($colours, "red"));
 
-$padding: 0.5rem 1.1rem;
-$font_size: 1.05rem;
-$line_height: 1.5;
-$radius: .25rem;
-$min_height: 2.56rem;
+$padding: px(9.5) px(14);
+$font_size: px(14);
+$line_height: px(17);
+$radius: px(4);
+$min_height: px(36);

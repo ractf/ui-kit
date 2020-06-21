@@ -17,13 +17,9 @@ const Button = (props, ref) => {
         if (props.to)
             dispatch(push(props.to));
     };
-    
+
     const buttonClass = makeClass(
-        style.btn, props.className, props.pill && style.pill,
-        props.tiny && style.tiny, props.small && style.small,
-        props.large && style.large, props.lesser && style.lesser,
-        props.disabled && style.disabled,
-        propsToTypeClass(props, style, "primary")
+        style.btn, props.className, propsToTypeClass(props, style, "primary")
     );
 
     return <button className={buttonClass} disabled={props.disabled} ref={ref}

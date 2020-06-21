@@ -1,89 +1,80 @@
-$fontStack: 'Lato', sans-serif;
+@import "./Utils.scss";
 
-$titleStack: 'Gilroy', sans-serif;
-$monoStack: 'Roboto Mono', monospace;
+$fontStack: "Lato", sans-serif;
 
-$bgreen: #7cb342;
-
-@function hover($col) {
-    @return darken($col, 5%);
-}
-@function focus($col) {
-    @return darken($col, 15%);
-}
+$titleStack: "Gilroy", sans-serif;
+$monoStack: "Roboto Mono", monospace;
 
 /* #region Colour definitions */
 // Background shades
-$back_50: #a8a5b7;
 $back_100: #9490a8;
 $back_200: #7f7b99;
 $back_300: #6c6888;
-$back_400: #595675;
 $back_600: #37344c;
 $back_700: #272538;
 $back_750: #201f31;
-$back_850: #110f1f;
-$back_900: #090815;
 
 // Light shades
 $white_100: #dfddeb;
 /* #endregion */
 
-$red: #e53935;
-$cta_grad_0: #e53935;
-$cta_grad_1: #f54f4c;
-
 $colours: (
     "white": #fff,
-    "lgrey": #e9ecef,
-    "grey": #adb5bd,
-    "dgrey": #868e96,
-    "black": #292b2c,
-
+    "grey": #e0e1e2,
+    "darkGrey": #5b5b5b,
+    "black": #363636,
     "red": #d9534f,
-    "green": #02B875,
+    "green": #02b875,
     "blue": #17a2b8,
     "yellow": #f0ad4e,
-    "pink": #f0f,
-
-    "accent": #4582ec
+    "accent": #4582ec,
 );
+$background: map-get($colours, "white");
+$color: map-get($colours, "black");
+
+@import "Theme.scss";
+
 $types: (
     primary: (
         bg: map-get($colours, "accent"),
-        fg: map-get($colours, "white")
+        fg: map-get($colours, "white"),
     ),
     secondary: (
         bg: map-get($colours, "grey"),
-        fg: map-get($colours, "white")
+        fg: map-get($colours, "darkGrey"),
+        fg2: map-get($colours, "darkGrey"),
     ),
     success: (
         bg: map-get($colours, "green"),
-        fg: map-get($colours, "white")
+        fg: map-get($colours, "white"),
     ),
     info: (
         bg: map-get($colours, "blue"),
-        fg: map-get($colours, "white")
+        fg: map-get($colours, "white"),
     ),
     warning: (
         bg: map-get($colours, "yellow"),
-        fg: map-get($colours, "black")
+        fg: map-get($colours, "black"),
     ),
     danger: (
         bg: map-get($colours, "red"),
-        fg: map-get($colours, "white")
+        fg: map-get($colours, "white"),
+    ),
+    dark: (
+        bg: map-get($colours, "black"),
+        fg: map-get($colours, "white"),
     ),
     light: (
         bg: map-get($colours, "white"),
-        fg: map-get($colours, "black")
-    )
+        fg: map-get($colours, "black"),
+        fg2: map-get($colours, "black"),
+    ),
 );
 
 $back_lift: rgba(map-get($colours, "black"), 0.125);
+$back_lift_x2: rgba(map-get($colours, "black"), 0.25);
 
-$background-color: map-get($colours, "white");
 $color: map-get($colours, "black");
-
 
 $bg: #000;
 $bg_l2: desaturate(lighten($bg, 14%), 9%);
@@ -93,11 +84,12 @@ $bg_l5: desaturate(lighten($bg, 56%), 12%);
 
 $bg_d0: saturate(darken($bg, 4%), 4%);
 
+@import "Theme.scss";
 
-:export {    
-    bgreen: $bgreen;
-    red: $red;
-    
+:export {
+    green: map-get($colours, "green");
+    red: map-get($colours, "red");
+
     bg_l2: $bg_l2;
     bg_l3: $bg_l3;
     bg_l4: $bg_l4;

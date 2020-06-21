@@ -14,7 +14,7 @@ const BASE = ["id", "class", "lang", "dir", "title"];
 const WHITELIST = {
     // Grouping
     div: [...BASE, "align"],
-    span: ["id", "class", "xml:lang", "dir", "title", "align"],
+    span: ["id", "class", "xmlLang", "dir", "title", "align"],
     // Images
     img: [...BASE, "src", "alt", "longdesc", "name", "align", "width", "height", "border", "hspace", "vspace"],
     // Headings
@@ -139,6 +139,9 @@ export default ({ source }) => {
         delete safeProps["class"];
         return React.createElement(type, safeProps, ...children);
     };
+
+    if (!source) source = "";
+    if (typeof source !== "string") return null;
 
     const children = compiler(source, { forceBlock: true, createElement });
     return children;

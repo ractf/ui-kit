@@ -61,6 +61,11 @@
     }
     &.invalid {
         border-color: $error_color;
+        color: $error_color;
+        
+        .placeholder {
+            color: $error_color;
+        }
 
         &:focus-within {
             border-color: $error_focus;
@@ -76,6 +81,7 @@
     }
     &.disabled {
         background-color: $disabled_color;
+        opacity: .5;
         cursor: not-allowed;
         input {
             cursor: not-allowed;
@@ -226,4 +232,15 @@
     background-color: $disabled_color;
     font-size: $font_size;
     padding: 0.7rem 18px;
+
+    &.disabled {
+        opacity: .5;
+        color: $disabled_text;
+    }
+}
+.disabled {
+    .inputHint {
+        opacity: .5;
+        color: $disabled_text;
+    }
 }

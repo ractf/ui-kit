@@ -6,21 +6,11 @@
     font-size: .9rem;
     width: 100%;
 
-    @each $type, $color in $types {
-        &.#{$type} {
-            background-color: map-get($color, "bg");
-            color: map-get($color, "fg");
-        }
-    }
+    @include mapTypes();
 }
 
 .footRow {
-    @each $type, $color in $types {
-        &.#{$type} {
-            background-color: map-get($color, "bg");
-            color: map-get($color, "fg");
-        }
-    }
+    @include mapTypes();
 
     .footRowInner {
         display: flex;

@@ -65,22 +65,14 @@
 
         tr {
             td {
-                background-color: $background-color;
+                background-color: $background;
                 color: $color;
             }
             &:hover > td {
-                background-color: hover($background-color);
+                background-color: hover($background);
             }
 
-            @each $type, $color in $types {
-                &.#{$type} > td {
-                    background-color: map-get($color, "bg");
-                    color: map-get($color, "fg");
-                }
-                &.#{$type}:hover > td {
-                    background-color: hover(map-get($color, "bg"));
-                }
-            }
+            @include mapTypes(true, "> td");
         }
     }
 }

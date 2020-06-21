@@ -1,52 +1,43 @@
 $colours: (
     "white": #fff,
-    "grey": #adb5bd,
-    "dgrey": #868e96,
-    "black": #292b2c,
-
+    "grey": #e0e1e2,
+    "darkGrey": #5b5b5b,
+    "black": #363636,
     "red": #d9534f,
-    "green": #02B875,
+    "green": #02b875,
     "blue": #17a2b8,
     "yellow": #f0ad4e,
-    "pink": #f0f,
-
-    "accent": #4582ec
+    "accent": #e53935,
 );
 
-
-$types: (
-    primary: (
-        bg: map-get($colours, "accent"),
-        fg: map-get($colours, "white")
-    ),
-    secondary: (
-        bg: map-get($colours, "grey"),
-        fg: map-get($colours, "white")
-    ),
-    success: (
-        bg: map-get($colours, "green"),
-        fg: map-get($colours, "white")
-    ),
-    info: (
-        bg: map-get($colours, "blue"),
-        fg: map-get($colours, "white")
-    ),
-    warning: (
-        bg: map-get($colours, "yellow"),
-        fg: map-get($colours, "black")
-    ),
-    danger: (
-        bg: map-get($colours, "red"),
-        fg: map-get($colours, "white")
-    ),
-    light: (
-        bg: map-get($colours, "white"),
-        fg: map-get($colours, "black")
-    )
-);
-
+$background: #181626;
+$color: #eee;
 $back_lift: rgba(map-get($colours, "white"), 0.125);
+$back_lift_x2: rgba(map-get($colours, "white"), 0.25);
 
-//$background-color: map-get($colours, "black");
-$background-color: #181626;
-$color: map-get($colours, "white");
+@if variable-exists(types) {
+    $types: map-merge(
+        $types,
+        (
+            primary: (
+                bg: #37344C,
+                fg: #fff,
+                fg2: lighten(#37344C, 20%),
+            ),
+            dark: (
+                bg: map-get($colours, "black"),
+                fg: map-get($colours, "white"),
+                fg2: map-get($colours, "darkGrey"),
+            ),
+            light: (
+                bg: map-get($colours, "white"),
+                fg: map-get($colours, "black"),
+                fg2: map-get($colours, "grey"),
+            ),
+            ractfSidebar: (
+                bg: #1E1C34,
+                fg: #fff,
+            ),
+        )
+    );
+}

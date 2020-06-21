@@ -59,7 +59,7 @@
         font-size: 1rem;
         border-radius: 2px;
 
-        background-color: $background-color;
+        background-color: $background;
         color: $color;
         border: 1px solid $back_lift;
 
@@ -119,12 +119,7 @@
     background-color: $back_lift;
     color: $color;
 
-    @each $type, $color in $types {
-        &.#{$type} {
-            background-color: map-get($color, "bg");
-            color: map-get($color, "fg");
-        }
-    }
+    @include mapTypes();
 }
 
 .navBurgerIcon {

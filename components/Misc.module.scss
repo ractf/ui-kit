@@ -61,12 +61,7 @@ $spinner_color: map-get($colours, "accent");
         margin-top: -2.5em !important;
     }
 
-    @each $type, $color in $types {
-        &.#{$type} {
-            background-color: map-get($color, "bg");
-            color: map-get($color, "fg");
-        }
-    }
+    @include mapTypes();
 }
 
 .pageHead {

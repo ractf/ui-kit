@@ -1,0 +1,80 @@
+// Copyright (C) 2020 Really Awesome Technology Ltd
+//
+// This file is part of RACTF.
+//
+// RACTF is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// RACTF is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
+
+@function hover($col) {
+    @return darken($col, 5%);
+}
+@function focus($col) {
+    @return darken($col, 15%);
+}
+@function px($size) {
+    @return ($size / 16) * 1rem;
+}
+
+@mixin mapPrimary($bg, $fg) {
+    background-color: $bg;
+    border-color: transparent;
+    color: $fg;
+}
+@mixin mapPrimaryHover($bg, $fg) {
+    @include mapPrimary(hover($bg), $fg);
+}
+@mixin mapPrimaryFocus($bg, $fg) {
+    @include mapPrimary(focus($bg), $fg);
+}
+@mixin mapLesser($bg, $fg) {
+    background-color: transparent;
+    border-color: rgba($bg, 0.5);
+    color: $fg;
+}
+@mixin mapLesserHover($bg, $fg) {
+    @include mapPrimaryHover($bg, $fg);
+}
+@mixin mapLesserFocus($bg, $fg) {
+    @include mapPrimaryFocus($bg, $fg);
+}
+
+@mixin mapTypes($interactive: false, $selector: "") {
+    @each $type, $color in $types {
+        &.#{$type} #{$selector} {
+            @include mapPrimary(map-get($color, "bg"), map-get($color, "fg"));
+        }
+        &.#{$type}.lesser #{$selector} {
+            @if (map-get($color, "fg2")) {
+                @include mapLesser(map-get($color, "bg"), map-get($color, "fg2"));
+            } @else {
+                @include mapLesser(map-get($color, "bg"), map-get($color, "bg"));
+            }
+        }
+        @if ($interactive) {
+            &.#{$type}:not(.disabled):hover #{$selector},
+            &.#{$type}:not(.disabled):focus #{$selector} {
+                @include mapPrimaryHover(map-get($color, "bg"), map-get($color, "fg"));
+            }
+            &.#{$type}:not(.disabled):active #{$selector} {
+                @include mapPrimaryFocus(map-get($color, "bg"), map-get($color, "fg"));
+            }
+            &.#{$type}.lesser:not(.disabled):hover #{$selector},
+            &.#{$type}.lesser:not(.disabled):focus #{$selector} {
+                @include mapLesserHover(map-get($color, "bg"), map-get($color, "fg"));
+            }
+            &.#{$type}.lesser:not(.disabled):active #{$selector} {
+                @include mapLesserFocus(map-get($color, "bg"), map-get($color, "fg"));
+            }
+        }
+    }
+}

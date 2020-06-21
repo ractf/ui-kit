@@ -6,6 +6,7 @@
     position: relative;
     user-select: none;
     text-align: left;
+    font-size: $font_size;
     z-index: 10;
     line-height: $line_height;
 
@@ -24,8 +25,10 @@
 
     .head {
         border-radius: $radius;
+        position: relative;
         &.sOpen {
             border-radius: $radius $radius 0 0;
+            background-color: $back_lift;
         }
 
         &:after {
@@ -46,11 +49,11 @@
         
         cursor: pointer;
         
-        background-color: map-get($colours, "white");
         border: 1px solid $input_color;
 
+        background: $input_background;
         &:hover {
-            background-color: hover(map-get($colours, "white"));
+            background-color: $back_lift;
         }
     }
     .items div {
@@ -62,9 +65,13 @@
     }
 
     .items {
-        position: fixed;
-        z-index: 99;
+        position: absolute;
+        left: -1px;
+        right: -1px;
+        top: 100%;
+        margin-top: 1px;
+        background-color: $background;
         overflow-y: auto;
-        bottom: 0;
+        box-shadow: 0 2px 7px -3px #000;
     }
 }

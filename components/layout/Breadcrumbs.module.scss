@@ -6,13 +6,13 @@
     flex-wrap: wrap;
     padding: 0.75rem 1rem;
     width: 100%;
+    border: 1px solid $back_lift;
     border-radius: .25rem;
     font-size: 0.93rem;
-    background-color: map-get($colours, "lgrey");
 
     .crumb {
         &.active {
-            color: map-get($colours, "dgrey");
+            color: map-get($colours, "darkGrey");
         }
 
         &:not(:first-child) {
