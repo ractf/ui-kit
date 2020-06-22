@@ -37,7 +37,7 @@ const WHITELIST = {
     dir: ["id", "class", "dir", "title", "compact"],
     menu: [...BASE, "compact"],
     // Links
-    a: [...BASE, "name", "rev", "tabIndex", "name"],
+    a: [...BASE, "href", "name", "rev", "tabIndex", "name"],
     // Phrase elements
     em: BASE, strong: BASE, cite: BASE, dfn: BASE, code: BASE, samp: BASE,
     kbd: BASE, var: BASE, abbr: BASE, acronym: BASE,
