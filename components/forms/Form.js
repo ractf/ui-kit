@@ -1,5 +1,5 @@
 import React, { cloneElement, useState, useEffect } from "react";
-import { http } from "ractf";
+import http from "@ractf/http";
 
 import "./Form.scss";
 
