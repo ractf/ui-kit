@@ -4,7 +4,7 @@ import { makeClass } from "@ractf/util";
 import style from "./Page.module.scss";
 
 
-export default ({ centre, title, children }) => {
+const Page = ({ centre, title, children }) => {
     useEffect(() => {
         if (title) document.title = title;
     }, [title]);
@@ -13,3 +13,4 @@ export default ({ centre, title, children }) => {
         {children}
     </div>;
 };
+export default Page;

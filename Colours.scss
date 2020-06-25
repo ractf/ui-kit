@@ -23,10 +23,18 @@ $colours: (
     "grey": #e0e1e2,
     "darkGrey": #5b5b5b,
     "black": #363636,
+    
+    "blue": #4582ec,
+    "indigo": #6610f2,
+    "purple": #6f42c1,
+    "pink": #e83e8c,
     "red": #d9534f,
-    "green": #02b875,
-    "blue": #17a2b8,
+    "orange": #fd7e14,
     "yellow": #f0ad4e,
+    "green": #02b875,
+    "teal": #20c997,
+    "cyan": #17a2b8,
+
     "accent": #4582ec,
 );
 $background: map-get($colours, "white");
@@ -49,7 +57,7 @@ $types: (
         fg: map-get($colours, "white"),
     ),
     info: (
-        bg: map-get($colours, "blue"),
+        bg: map-get($colours, "cyan"),
         fg: map-get($colours, "white"),
     ),
     warning: (
@@ -98,6 +106,13 @@ $bg_d0: saturate(darken($bg, 4%), 4%);
 
     fontStack: $fontStack;
     monoStack: $monoStack;
+
+    color: $color;
+    background: $background;
+    backLift: $back_lift;
+    @each $name, $colour in $colours {
+        #{$name}: $colour;
+    }
 }
 
 @import "Theme.scss";

@@ -4,7 +4,7 @@ import { H4 } from "@ractf/ui-kit";
 
 import style from "./Card.module.scss";
 
-export default ({ title, header, children, ...props }) => {
+const Card = ({ title, header, children, ...props }) => {
     return <div className={makeClass(style.card, propsToTypeClass(props, style, "primary"))}>
         <div className={style.cardHeader}>
             { header }
@@ -19,3 +19,4 @@ export default ({ title, header, children, ...props }) => {
         </div>
     </div>;
 };
+export default Card;

@@ -5,7 +5,7 @@ import { Link } from "@ractf/ui-kit";
 import style from "./Table.module.scss";
 
 
-export default ({ sorter, headings, data, noSort }) => {
+const Table = ({ sorter, headings, data, noSort }) => {
     const [sortMode, setSortMode] = useState(null);
     let sorterFunc;
     if (!noSort)
@@ -53,3 +53,4 @@ export default ({ sorter, headings, data, noSort }) => {
         </tbody>
     </table></div>;
 };
+export default Table;

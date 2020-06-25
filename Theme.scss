@@ -1,14 +1,4 @@
-$colours: (
-    "white": #fff,
-    "grey": #e0e1e2,
-    "darkGrey": #5b5b5b,
-    "black": #363636,
-    "red": #d9534f,
-    "green": #02b875,
-    "blue": #17a2b8,
-    "yellow": #f0ad4e,
-    "accent": #e53935,
-);
+$colours: map-merge($colours, ("accent": #e53935));
 
 $background: #181626;
 $color: #eee;

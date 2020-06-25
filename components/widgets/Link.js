@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
 
-export const Link = React.memo(({ to, children, onClick, ...props }) => {
+export const Link = ({ to, children, onClick, ...props }) => {
     const dispatch = useDispatch();
 
     const click = useCallback((e) => {
@@ -17,4 +17,4 @@ export const Link = React.memo(({ to, children, onClick, ...props }) => {
     return <a href={to} onClick={click} {...props}>
         {children}
     </a>;
-});
+};

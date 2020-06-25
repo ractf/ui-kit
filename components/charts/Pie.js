@@ -1,60 +1,29 @@
 import React from "react";
-import { SizeMe } from "react-sizeme";
+import { Doughnut } from "react-chartjs-2";
 
-import { Spinner } from "@ractf/ui-kit";
 import colours from "@ractf/ui-kit/Colours.scss";
 
-import usePlotlyReady from "./usePlotlyReady";
-import "./Charts.scss";
+import { plotHoc, palette } from "./common.js";
 
 
-const Pie = ({ data, width, height }) => {
-    const plReady = usePlotlyReady();
-
-    if (!plReady) return <div className={"graph-loading"}>
-        <Spinner />
-    </div>;
-
-    const defaultConfig = {
-        hole: .4,
-        hovertemplate: "%{label}<br>%{value}<extra></extra>", 
-        sort: false,
+const Pie = plotHoc(({ data, labels, colors, noAnimate }) => {
+    const options = {
+        legend: {
+            position: "bottom",
+            labels: {
+                fontColor: colours.color,
+            },
+        },
+        maintainAspectRatio: false,
     };
-    data = (data || []).map(i => ({...defaultConfig, ...i, type: "pie"}));
 
-    const Plot = window.Plot;
-    return <Plot
-        style={{margin: "auto"}}
-        data={data}
-        layout={{
-            width: (width || 300), height: (height || 300),
-            margin: { l: 0, r: 0, t: 0, b: 0, pad: 0 },
-            hovermode: "closest",
-            legend: { orientation: "h", font: { color: colours.bg_l4 } },
-            plot_bgcolor: "transparent",
-            plot_fgcolor: colours.fg,
-            paper_bgcolor: "transparent",
-            xaxis: {
-                gridcolor: colours.bg_l2,
-                linecolor: colours.bg_l3,
-                tickfont: { color: colours.bg_l4 },
-                showspikes: true
-            },
-            yaxis: {
-                gridcolor: colours.bg_l2,
-                linecolor: colours.bg_l3,
-                tickfont: { color: colours.bg_l4 },
-                showspikes: true
-            },
-        }}
-    />;
-};
+    if (noAnimate)
+        options.animation = { duration: 0 };
 
+    if (!("borderColor" in data)) data.borderColor = colours.background;
+    if (!("backgroundColor" in data)) data.backgroundColor = colors || palette;
+    if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = colors || palette;
 
-export default props => {
-    if (props.width) return <Pie {...props} />;
-    return <SizeMe className={"selfResizingSpacer"} noPlaceholder>{({ size }) => <>
-        <div style={{ width: "100%" }} />
-        <Pie {...props} width={size.width} />
-    </>}</SizeMe>;
-};
+    return <Doughnut data={{ datasets: [{ data }], labels: labels }} options={options} />;
+});
+export default Pie;

@@ -1,55 +1,65 @@
 import React from "react";
-import { SizeMe } from "react-sizeme";
+import { Scatter } from "react-chartjs-2";
 
-import { Spinner } from "@ractf/ui-kit";
 import colours from "@ractf/ui-kit/Colours.scss";
 
-import usePlotlyReady from "./usePlotlyReady";
-import "./Charts.scss";
+import { plotHoc, palette } from "./common.js";
+import { transparentize } from "polished";
 
 
-const Graph = ({ data, width, height, size }) => {
-    const plReady = usePlotlyReady();
-
-    if (!width) return null;
-
-    if (!plReady) return <div className={"graph-loading"}>
-        <Spinner />
-    </div>;
-
-    data = (data || []).map(i => ({ mode: "lines+markers", ...i, type: "scatter" }));
-
-    const Plot = window.Plot;
-    return <Plot
-        data={data}
-        layout={{
-            width: (width || 300), height: (height || 400),
-            margin: { l: 50, r: 50, t: 50, pad: 0 },
-            hovermode: "closest",
-            legend: { orientation: "h", font: { color: colours.bg_l4 } },
-            plot_bgcolor: colours.bg_d0,
-            plot_fgcolor: colours.fg,
-            paper_bgcolor: colours.bg_d0,
-            xaxis: {
-                gridcolor: colours.bg_l2,
-                linecolor: colours.bg_l3,
-                tickfont: { color: colours.bg_l4 },
-                showspikes: true
+const Graph = plotHoc(({ data, filled, timeGraph, noAnimate }) => {
+    const options = {
+        legend: {
+            position: "bottom",
+            labels: {
+                fontColor: colours.color,
             },
-            yaxis: {
-                gridcolor: colours.bg_l2,
-                linecolor: colours.bg_l3,
-                tickfont: { color: colours.bg_l4 },
-                showspikes: true
-            },
-        }}
-    />;
-};
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    borderColor: colours.color,
+                    tickMarkLength: 15,
+                    color: colours.backLift,
+                },
+                ticks: {
+                    color: "#f0f",
+                    padding: 100,
+                    fontColor: colours.color,
+                },
+            }],
+            yAxes: [{
+                gridLines: {
+                    borderColor: colours.color,
+                    drawTicks: false,
+                    color: colours.backLift,
+                },
+                ticks: {
+                    fontColor: colours.color,
+                    padding: 8,
+                },
+            }],
+        },
+        maintainAspectRatio: false,
+    };
 
-export default props => {
-    if (props.width) return <Graph {...props} />;
-    return <SizeMe>{({ size }) => <>
-        <div className={"selfResizingSpacer"} style={{ width: "100%" }} />
-        <Graph {...props} width={size.width} size={size} />
-    </>}</SizeMe>;
-};
+    if (timeGraph)
+        options.scales.xAxes[0].type = "time";
+    if (noAnimate)
+        options.animation = { duration: 0 };
+
+    data.forEach((i, n) => {
+        if (!("lineTension" in i)) i.lineTension = 0;
+        if (!("pointHitRadius" in i)) i.pointHitRadius = 20;
+
+        const colour = palette[n % palette.length];
+        if (!("borderColor" in i)) i.borderColor = colour;
+        if (!("pointBackgroundColor" in i)) i.pointBackgroundColor = colour;
+        if (!("pointBorderColor" in i)) i.pointBorderColor = colour;
+        if (!("backgroundColor" in i)) i.backgroundColor = filled ? transparentize(.8, colour) : colour;
+        if (!("fill" in i)) i.fill = filled ? "zero" : false;
+    });
+
+    return <Scatter data={{ datasets: data }} options={options} />;
+});
+export default Graph;
