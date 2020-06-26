@@ -20,8 +20,8 @@ $back_lift_x2: rgba(map-get($colours, "white"), 0.25);
                 fg2: map-get($colours, "darkGrey"),
             ),
             light: (
-                bg: map-get($colours, "white"),
-                fg: map-get($colours, "black"),
+                bg: $background,
+                fg: map-get($colours, "white"),
                 fg2: map-get($colours, "grey"),
             ),
             ractfSidebar: (

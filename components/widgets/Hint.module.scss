@@ -1,0 +1,50 @@
+@import "../../Colours.scss";
+
+.hint {
+    position: relative;
+    margin-left: .25rem;
+    svg {
+        vertical-align: bottom;
+        opacity: 0.6;
+        cursor: pointer;
+        margin-right: 11px;
+    }
+
+    &:hover {
+        svg {
+            opacity: 1;
+        }
+        .hintInner {
+            display: block;
+        }
+    }
+
+    .hintInner {
+        display: none;
+        position: absolute;
+        padding: px(4) px(8);
+        border-radius: px(8);
+        background-color: rgba(map-get($colours, "black"), .9);
+        color: map-get($colours, "white");
+        font-size: 0.9rem;
+        left: 100%;
+        top: -4px;
+        width: 200px;
+        z-index: 1000;
+
+        &::before {
+            display: block;
+            content: "";
+            border: 5px solid rgba(map-get($colours, "black"), .9);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            transform: translate(50%, 50%) rotate(45deg);
+
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 4px;
+            right: 100%;
+        }
+    }
+}

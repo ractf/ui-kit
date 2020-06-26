@@ -5,9 +5,9 @@ import style from "./Layout.module.scss";
 
 
 
-const Row_ = ({ left, right, tight, className, ...props }) => (
+const Row_ = ({ left, centre, right, tight, className, ...props }) => (
     <div className={makeClass(style.flexRow, right && style.frRight,
-        left && style.frLeft, tight && style.frTight, className)} {...props} />
+        left && style.frLeft, centre && style.centre, tight && style.frTight, className)} {...props} />
 );
 export const Row = React.memo(Row_);
 

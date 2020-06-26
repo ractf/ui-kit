@@ -27,6 +27,7 @@ export { default as ProgressBar } from "./components/widgets/ProgressBar";
 export { default as Markdown } from "./components/widgets/Markdown";
 export { default as Badge } from "./components/widgets/Badge";
 export { default as Table } from "./components/widgets/Table";
+export { default as Hint } from "./components/widgets/Hint";
 export { default as Link } from "./components/widgets/Link";
 export * from "./components/widgets/Tree";
 

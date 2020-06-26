@@ -1,6 +1,6 @@
 .flexRow {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-right: -0.5rem;
@@ -15,6 +15,9 @@
     }
     &.frLeft {
         justify-content: flex-start;
+    }
+    &.centre {
+        justify-content: center;
     }
 
     & > * {

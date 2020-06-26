@@ -48,10 +48,13 @@
     @include mapPrimaryFocus($bg, $fg);
 }
 
-@mixin mapTypes($interactive: false, $selector: "") {
+@mixin mapTypes($interactive: false, $selector: "", $forceBorder: false) {
     @each $type, $color in $types {
         &.#{$type} #{$selector} {
             @include mapPrimary(map-get($color, "bg"), map-get($color, "fg"));
+            @if ($forceBorder) {
+                border-color: map-get($color, "bg");
+            }
         }
         &.#{$type}.lesser #{$selector} {
             @if (map-get($color, "fg2")) {

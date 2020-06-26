@@ -20,10 +20,11 @@ const Pie = plotHoc(({ data, labels, colors, noAnimate }) => {
     if (noAnimate)
         options.animation = { duration: 0 };
 
+    data = { data };
     if (!("borderColor" in data)) data.borderColor = colours.background;
     if (!("backgroundColor" in data)) data.backgroundColor = colors || palette;
     if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = colors || palette;
 
-    return <Doughnut data={{ datasets: [{ data }], labels: labels }} options={options} />;
+    return <Doughnut data={{ datasets: [data], labels: labels }} options={options} />;
 });
 export default Pie;

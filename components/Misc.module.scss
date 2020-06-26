@@ -83,9 +83,8 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .subtleText {
-    opacity: 0.9;
+    opacity: 0.8;
     font-size: 0.9em;
-    margin-top: 1em;
 }
 
 .formGroup {
@@ -96,6 +95,8 @@ $spinner_color: map-get($colours, "accent");
     > label {
         display: block;
         opacity: .9;
+        position: relative;
+        z-index: 10;
     }
 
     > *:not(:last-child) {
@@ -128,6 +129,7 @@ $spinner_color: map-get($colours, "accent");
 }
 .h6 {
     font-size: 1.063rem;
+    margin-bottom: 0;
 }
 
 .container {

@@ -57,7 +57,7 @@ export const ModalPrompt = ({ body, promise, onHide, inputs }) => {
                 return parts;
             })}
 
-            <Row>
+            <Row centre>
                 <Button submit>{body.okay || t("okay")}</Button>
                 {!body.noCancel &&
                     <Button onClick={() => { promise.reject(); onHide && onHide(); }} lesser>

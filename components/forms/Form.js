@@ -50,25 +50,26 @@ export const BareForm = React.memo(({
         setFormState(oldFormState => {
             const performRequest = () => {
                 http.makeRequest(method, action, { ...oldFormState.values }, headers).then(resp => {
-                    setFormState(ofs => ({ ...ofs, errors: {}, error: null }));
+                    setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: { ...oldFormState.values }, resp: resp });
                 }).catch(e => {
                     const errorStr = http.getError(e);
-                    setFormState(ofs => ({ ...ofs, errors: getErrorDetails(e), error: errorStr }));
+                    setFormState(ofs => ({ ...ofs, errors: getErrorDetails(e), disabled: false, error: errorStr }));
                     if (onError) onError(errorStr, e);
                 });
             };
 
             if (handle) {
                 handle({ ...oldFormState.values });
+                return oldFormState;
             } else {
                 if (validator)
                     validator({ ...oldFormState.values }).then(performRequest).catch((errors, errorStr) => {
-                        setFormState(ofs => ({ ...ofs, errors, error: errorStr }));
+                        setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
                     });
                 else performRequest();
+                return { ...oldFormState, disabled: true };
             }
-            return oldFormState;
         });
     };
     const onSubmit = (oldSubmit, value) => {
