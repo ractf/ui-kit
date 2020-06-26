@@ -19,4 +19,4 @@ const Card = ({ title, header, children, ...props }) => {
         </div>
     </div>;
 };
-export default Card;
+export default React.memo(Card);

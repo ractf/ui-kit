@@ -5,13 +5,14 @@ import style from "./Layout.module.scss";
 
 
 
-export const Row = ({ left, right, tight, className, ...props }) => (
+const Row_ = ({ left, right, tight, className, ...props }) => (
     <div className={makeClass(style.flexRow, right && style.frRight,
         left && style.frLeft, tight && style.frTight, className)} {...props} />
 );
+export const Row = React.memo(Row_);
 
 
-export const Column = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...props }) => (
+const Column_ = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...props }) => (
     <div className={makeClass(
         style.flexColumn,
         width && style["col" + width],
@@ -22,3 +23,4 @@ export const Column = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, .
         className
     )} {...props} />
 );
+export const Column = React.memo(Column_);

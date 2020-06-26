@@ -1,4 +1,4 @@
-import React, { Component, createRef, useRef } from "react";
+import React, { PureComponent, createRef, useRef } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { makeClass } from "@ractf/util";
@@ -32,7 +32,7 @@ export const InputButton = ({ onSubmit, ...props }) => {
 };
 
 
-class Input_ extends Component {
+class Input_ extends PureComponent {
     isInput = true;
 
     constructor(props) {

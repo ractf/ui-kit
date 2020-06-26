@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
 
-export const Link = ({ to, children, onClick, ...props }) => {
+const Link = ({ to, children, onClick, ...props }) => {
     const dispatch = useDispatch();
 
     const click = useCallback((e) => {
@@ -18,3 +18,4 @@ export const Link = ({ to, children, onClick, ...props }) => {
         {children}
     </a>;
 };
+export default React.memo(Link);

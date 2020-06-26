@@ -6,11 +6,12 @@ import { Row } from "@ractf/ui-kit";
 import style from "./Misc.module.scss";
 
 
-export const TextBlock = ({ children, className, ...props }) => (
+export const TextBlock = React.memo(({ children, className, ...props }) => (
     <div {...props} className={makeClass(style.textBlock, className)}>{children}</div>
-);
+));
+TextBlock.displayName = "TextBlock";
 
-export const FlashText = ({ children, title, button, ...props }) => {
+export const FlashText = React.memo(({ children, title, button, ...props }) => {
     const className = propsToTypeClass(props, style);
     const inner = <div className={makeClass(style.flashText, className)}>
         {title && <H4>{title}</H4>}
@@ -22,18 +23,21 @@ export const FlashText = ({ children, title, button, ...props }) => {
             {button}
         </Row>;
     return inner;
-};
-export const FormGroup = ({ children, label, htmlFor }) => (
+});
+FlashText.displayName = "FlashText";
+export const FormGroup = React.memo(({ children, label, htmlFor }) => (
     <div className={style.formGroup}>
         <label htmlFor={htmlFor}>{label}</label>
         {children}
     </div>
-);
+));
+FormGroup.displayName = "FormGroup";
 
-export const SubtleText = ({ children }) => (
+export const SubtleText = React.memo(({ children }) => (
     <div className={style.subtleText}>{children}</div>
-);
-export const PageHead = ({ title, subTitle, back, children, tags }) => (
+));
+SubtleText.displayName = "SubtleText";
+export const PageHead = React.memo(({ title, subTitle, back, children, tags }) => (
     <div className={style.pageHead}>
         <Row tight left>
             <div className={style.pageTitle}>{title || children}</div>
@@ -42,7 +46,8 @@ export const PageHead = ({ title, subTitle, back, children, tags }) => (
         {back}
         {subTitle && <p>{subTitle}</p>}
     </div>
-);
+));
+PageHead.displayName = "PageHead";
 
 export const HR = basicComponent(style.hr, "HR");
 export const H1 = basicComponent(style.h1, "H1", "h1");

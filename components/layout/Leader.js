@@ -12,4 +12,4 @@ const Leader = ({ link, children, sub, green, x, none, onClick }) => {
         <div className={style.leaderSub}>{sub}</div>
     </Link>;
 };
-export default Leader;
+export default React.memo(Leader);

@@ -4,7 +4,7 @@ import { useReactRouter, makeClass } from "@ractf/util";
 
 import style from "./Scrollbar.module.scss";
 
-export default ({ children, className, primary }) => {
+const Scrollbar = ({ children, className, primary }) => {
     const inner = useRef();
     const track = useRef();
 
@@ -129,3 +129,4 @@ export default ({ children, className, primary }) => {
         </div>
     </div>;
 };
+export default React.memo(Scrollbar);

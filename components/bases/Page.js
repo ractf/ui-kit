@@ -13,4 +13,4 @@ const Page = ({ centre, title, children }) => {
         {children}
     </div>;
 };
-export default Page;
+export default React.memo(Page);

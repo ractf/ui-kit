@@ -4,7 +4,7 @@ import http from "@ractf/http";
 import "./Form.scss";
 
 
-export const BareForm = ({
+export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
 }) => {
     const [formState, setFormState] = useState({ values: {}, error: null, errors: {}, disabled: false });
@@ -126,15 +126,17 @@ export const BareForm = ({
             {formState.error}
         </FormError>}
     </>;
-};
+});
+BareForm.displayName = "BareForm";
 
 const Form = ({ ...props }) => {
     return <div className={"formWrapper"}>
         <BareForm {...props} />
     </div>;
 };
-export default Form;
+export default React.memo(Form);
 
-export const FormError = ({ children }) => (
+export const FormError = React.memo(({ children }) => (
     <div className={"formError"}>{children}</div>
-);
+));
+FormError.displayName = "FormError";

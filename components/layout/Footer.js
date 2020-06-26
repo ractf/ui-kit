@@ -6,13 +6,14 @@ import { H5, Link } from "@ractf/ui-kit";
 import style from "./Footer.module.scss";
 
 
-export const FootLink = ({ children, className, ...props }) => (
+const FootLink_ = ({ children, className, ...props }) => (
     <Link className={makeClass(style.footLink, className)} {...props}>
         {children}
     </Link>
 );
+export const FootLink = React.memo(FootLink_);
 
-export const FootRow = ({ children, darken, center, main, slim, right, className, ...props }) => (
+const FootRow_ = ({ children, darken, center, main, slim, right, className, ...props }) => (
     <div className={makeClass(
         style.footRow, center && style.center, main && style.main, slim && style.slim, right && style.right,
         darken && style.darken, propsToTypeClass(props, style), className
@@ -22,8 +23,9 @@ export const FootRow = ({ children, darken, center, main, slim, right, className
         </div>
     </div>
 );
+export const FootRow = React.memo(FootRow_);
 
-export const FootCol = ({ title, className, children }) => (
+const FootCol_ = ({ title, className, children }) => (
     <div className={makeClass(style.footCol, className)}>
         <H5 className={style.footColTitle}>
             {title}
@@ -31,9 +33,11 @@ export const FootCol = ({ title, className, children }) => (
         {children}
     </div>
 );
+export const FootCol = React.memo(FootCol_);
 
-export const Footer = ({ children, className, ...props }) => (
+const Footer_ = ({ children, className, ...props }) => (
     <footer className={makeClass(style.footer, propsToTypeClass(props, style), className)} {...props}>
         {children}
     </footer>
 );
+export const Footer = React.memo(Footer_);

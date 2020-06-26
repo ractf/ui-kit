@@ -53,4 +53,4 @@ const Table = ({ sorter, headings, data, noSort }) => {
         </tbody>
     </table></div>;
 };
-export default Table;
+export default React.memo(Table);

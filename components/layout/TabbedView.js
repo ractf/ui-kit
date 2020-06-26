@@ -1,47 +1,76 @@
 import React, { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeClass } from "@ractf/util";
+import { push } from "connected-react-router";
 
 import style from "./TabbedView.module.scss";
 
 
 export const Tab = ({ label, children }) => children;
 
-export default ({ center, children, callback, initial }) => {
-    const [active, setActive] = useState(initial || 0);
+let InnerTabs = ({ active, setActive, callback, children }) => {
     const nav = useRef();
-    if (!children || children.constructor !== Array) children = [children];
+    children = React.Children.toArray(children);
+    const tabs = {};
+    const keys = [];
+    children.forEach((i, n) => {
+        const key = ("index" in i.props) ? i.props.index : n;
+        if (key in tabs)
+            console.warn(`Multiple tabs with key ${key}!`);
+        tabs[key] = [i, n];
+        keys[n] = key;
+    });
 
-    const switchTo = i => {
-        setActive(i);
-        if (callback) callback(i);
+    const switchTo = async (key) => {
+        setActive(key);
+        if (callback) callback(key);
     };
     const onKeyDown = (e) => {
         if (e.keyCode === 37) {  // Left
-            setActive(oldActive => {
-                let newActive = oldActive - 1;
-                if (newActive === -1) newActive = React.Children.count(children) - 1;
-                nav.current.children[newActive].focus();
-                return newActive;
-            });
+            const oldIndex = tabs[active][1];
+            let newIndex = oldIndex - 1;
+            if (newIndex === -1) newIndex = React.Children.count(children) - 1;
+            nav.current.children[newIndex].focus();
+            switchTo(keys[newIndex]);
         } else if (e.keyCode === 39) { // Right
-            setActive(oldActive => {
-                const newActive = (oldActive + 1) % React.Children.count(children);
-                nav.current.children[newActive].focus();
-                return newActive;
-            });
+            const oldIndex = tabs[active][1];
+            const newIndex = (oldIndex + 1) % children.length;
+            nav.current.children[newIndex].focus();
+            switchTo(keys[newIndex]);
         }
     };
+    if (!(active in tabs) && children.length) setActive(keys[0]);
 
     return <>
         <nav className={style.tabRow} onKeyDown={onKeyDown} ref={nav} tabIndex={"0"}>
-            {React.Children.map(children, (c, i) => {
-                return <span key={i} onClick={() => switchTo(i)}
-                    className={makeClass(style.tabButton, i === active && style.active)}>
-                    {c.props.label}
+            {Object.entries(tabs).map(([key, [component, index]]) => {
+                return <span key={key} onClick={() => switchTo(key)}
+                    className={makeClass(style.tabButton, key === active && style.active)}>
+                    {component.props.label}
                 </span>;
             })}
             <div className={style.tabTrailer} />
         </nav>
-        {children[active]}
+        {tabs[active] && React.cloneElement(tabs[active][0], { key: active })}
     </>;
 };
+InnerTabs = React.memo(InnerTabs);
+
+export let URLTabbedView = (props) => {
+    const locationHash = useSelector(state => state.router?.location?.hash).split("#")[1];
+
+    const dispatch = useDispatch();
+    const setActive = (tab) => {
+        dispatch(push(`#${tab}`));
+    };
+
+    return <InnerTabs active={locationHash} setActive={setActive} {...props} />;
+};
+URLTabbedView = React.memo(URLTabbedView);
+
+export let TabbedView = ({ initial, ...props }) => {
+    const [active, setActive] = useState(initial || 0);
+
+    return <InnerTabs active={active} setActive={setActive} {...props} />;
+};
+TabbedView = React.memo(TabbedView);
