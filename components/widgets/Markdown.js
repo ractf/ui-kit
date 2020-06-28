@@ -101,7 +101,7 @@ const uriTransformer = uri => {
 };
 
 
-export default ({ source }) => {
+const Markdown = ({ source }) => {
     const SPECIALS = {
         row: Row,
         card: Card,
@@ -146,3 +146,4 @@ export default ({ source }) => {
     const children = compiler(source, { forceBlock: true, createElement });
     return children;
 };
+export default Markdown;

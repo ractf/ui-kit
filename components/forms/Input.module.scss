@@ -44,7 +44,7 @@
     outline: none;
 
     border: 1px solid $input_color;
-    &:focus-within {
+    &:not(.readOnly):focus-within {
         border-color: $input_focus;
 
         .placeholder {
@@ -149,7 +149,7 @@
 
     .inputStrength {
         position: absolute;
-        height: 2px;
+        height: 1px;
         background-color: #000;
         bottom: 0;
         left: 0;
@@ -158,27 +158,23 @@
 
         &[data-val="0"] {
             width: 0%;
-            background-color: darkred;
+            background-color: map-get($colours, "red");
         }
         &[data-val="1"] {
-            width: 20%;
-            background-color: darkred;
+            width: 25%;
+            background-color: map-get($colours, "red");
         }
         &[data-val="2"] {
-            width: 40%;
-            background-color: orangered;
+            width: 50%;
+            background-color: map-get($colours, "orange");
         }
         &[data-val="3"] {
-            width: 60%;
-            background-color: orange;
+            width: 75%;
+            background-color: map-get($colours, "yellow");
         }
-        &[data-val="4"] {
-            width: 80%;
-            background-color: yellowgreen;
-        }
-        &[data-val="5"] {
+        &[data-val="4"], &[data-val="5"] {
             width: 100%;
-            background-color: green;
+            background-color: map-get($colours, "green");
         }
     }
 

@@ -12,8 +12,8 @@ const withRactfForm = BaseComponent => ({ error, ...props }) => {
 
     const WrappedForm = <div className={style.inputErrorWrap}>
         {inner}
-        {hasError && Array.isArray(error) ? error.map(i => (
-            <div className={style.inputError}>{i}</div>
+        {hasError && Array.isArray(error) ? error.map((i, n) => (
+            <div key={n} className={style.inputError}>{i}</div>
         )) : <div className={style.inputError}>{error}</div>}
     </div>;
     return WrappedForm;

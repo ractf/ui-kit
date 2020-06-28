@@ -23,17 +23,18 @@ $spinner_color: map-get($colours, "accent");
 .textBlock {
     font-size: 1rem;
     background-color: $back_lift;
-    padding: 1em 2em;
+    padding: 1rem 2rem;
     border-radius: 2px;
     white-space: pre-wrap;
-    font-family: $monoStack;
     word-wrap: break-word;
+    line-height: 1.5;
     flex-grow: 1;
     width: 100%;
 
     & img {
         max-width: 100%;
         padding: 1em;
+        display: block;
     }
 
     @media only screen and (max-width: 600px) {
