@@ -9,6 +9,7 @@ export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
 }) => {
     const [formState, setFormState] = useState({ values: {}, error: null, errors: {}, disabled: false });
+    const hasCustomFormError = useRef(false);
     const required = useRef({});
     const { t } = useTranslation();
 
@@ -141,7 +142,11 @@ export const BareForm = React.memo(({
             } else {
                 props.val = props.value = "";
             }
+            props.__ractf_global_error = formState.error;
             props.__ractf_managed = 1;
+
+            if (i.type === FormError)
+                hasCustomFormError.current = true;
 
             if (props.submit) {
                 props.onClick = onClick.bind(this, props.onClick);
@@ -152,10 +157,11 @@ export const BareForm = React.memo(({
         return newChildren;
     };
 
+    hasCustomFormError.current = false;
     const components = recurseChildren(children);
     return <>
         {components}
-        {formState.error && <FormError>
+        {!hasCustomFormError.current && formState.error && <FormError>
             {formState.error}
         </FormError>}
     </>;
@@ -169,7 +175,7 @@ const Form = ({ ...props }) => {
 };
 export default React.memo(Form);
 
-export const FormError = React.memo(({ children }) => (
-    <div className={"formError"}>{children}</div>
+export const FormError = React.memo(({ children, __ractf_global_error }) => (
+    <div className={"formError"}>{__ractf_global_error || children}</div>
 ));
 FormError.displayName = "FormError";
