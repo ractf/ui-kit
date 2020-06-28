@@ -1,4 +1,5 @@
-import React, { cloneElement, useState, useEffect } from "react";
+import React, { cloneElement, useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import http from "@ractf/http";
 
 import "./Form.scss";
@@ -8,6 +9,8 @@ export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
 }) => {
     const [formState, setFormState] = useState({ values: {}, error: null, errors: {}, disabled: false });
+    const required = useRef({});
+    const { t } = useTranslation();
 
     useEffect(() => {
         setFormState(oldFormState => {
@@ -40,34 +43,61 @@ export const BareForm = React.memo(({
     };
 
     const getErrorDetails = (e) => {
-        if (!e.response && e.response.data) return {};
+        if (!(e.response && e.response.data)) return {};
         if (typeof e.response.data.d !== "object") return {};
 
         return e.response.data.d;
     };
 
-    const submit = () => {
+    const genericValidator = (values) => {
+        return new Promise((resolve, reject) => {
+            const errors = {};
+            Object.keys(values).forEach(i => {
+                if (required.current[i] && !values[i])
+                    errors[i] = t("required");
+            });
+            if (Object.keys(errors).length)
+                return reject(errors);
+            resolve();
+        });
+    };
+    const submit = (extraValues) => {
         setFormState(oldFormState => {
+            const formData = { ...oldFormState.values, ...extraValues };
             const performRequest = () => {
-                http.makeRequest(method, action, { ...oldFormState.values }, headers).then(resp => {
+                http.makeRequest(method, action, formData, headers).then(resp => {
                     setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
-                    if (postSubmit) postSubmit({ form: { ...oldFormState.values }, resp: resp });
+                    if (postSubmit) postSubmit({ form: formData, resp: resp });
                 }).catch(e => {
                     const errorStr = http.getError(e);
-                    setFormState(ofs => ({ ...ofs, errors: getErrorDetails(e), disabled: false, error: errorStr }));
-                    if (onError) onError(errorStr, e);
+                    let shouldError = true;
+                    if (onError)
+                        if (onError({
+                            error: e,
+                            str: errorStr,
+                            form: formData,
+                            resp: e.response?.data?.d,
+                            retry: submit,
+                            showError: error => setFormState(ofs => ({ ...ofs, error: error })),
+                        }) === false)
+                            shouldError = false;
+                    setFormState(ofs => ({
+                        ...ofs,
+                        errors: getErrorDetails(e),
+                        disabled: false,
+                        error: shouldError ? errorStr : null
+                    }));
                 });
             };
 
             if (handle) {
-                handle({ ...oldFormState.values });
+                handle(formData);
                 return oldFormState;
             } else {
-                if (validator)
-                    validator({ ...oldFormState.values }).then(performRequest).catch((errors, errorStr) => {
-                        setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
-                    });
-                else performRequest();
+                const localValidator = validator || genericValidator;
+                localValidator(formData).then(performRequest).catch((errors, errorStr) => {
+                    setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
+                });
                 return { ...oldFormState, disabled: true };
             }
         });
@@ -106,6 +136,8 @@ export const BareForm = React.memo(({
                 else
                     props.val = props.value = formState.values[props.name];
                 props.error = formState.errors[props.name] || props.error;
+                required.current[props.name] = props.required;
+                props.key = props.name;
             } else {
                 props.val = props.value = "";
             }

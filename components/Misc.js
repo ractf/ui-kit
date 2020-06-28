@@ -49,6 +49,8 @@ export const PageHead = React.memo(({ title, subTitle, back, children, tags }) =
 ));
 PageHead.displayName = "PageHead";
 
+export const HiddenInput = () => null;
+
 export const HR = basicComponent(style.hr, "HR");
 export const H1 = basicComponent(style.h1, "H1", "h1");
 export const H2 = basicComponent(style.h2, "H2", "h2");
