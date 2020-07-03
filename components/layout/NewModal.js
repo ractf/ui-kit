@@ -23,7 +23,7 @@ import { Button, Scrollbar } from "@ractf/ui-kit";
 import style from "./NewModal.module.scss";
 
 
-const NewModal = ({ header, children, show, onClose, onConfirm, buttons, ...props }) => {
+const NewModal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, ...props }) => {
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
     useEffect(() => {
         if ((typeof show) !== "undefined")
@@ -58,8 +58,8 @@ const NewModal = ({ header, children, show, onClose, onConfirm, buttons, ...prop
             </div>
             <div className={style.actions}>
                 {buttons ? buttons : <>
-                    <Button click={cancelClick}>Cancel</Button>
-                    <Button click={okayClick}>Okay</Button>
+                    {!noCancel && <Button onClick={cancelClick}>Cancel</Button>}
+                    <Button onClick={okayClick}>Okay</Button>
                 </>}
             </div>
         </div>
