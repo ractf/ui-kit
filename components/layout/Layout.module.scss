@@ -8,7 +8,6 @@
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     flex-grow: 1;
-    flex-basis: 100%;
 
     &.frRight {
         justify-content: flex-end;
@@ -18,6 +17,9 @@
     }
     &.centre {
         justify-content: center;
+    }
+    &.vCentre {
+        align-items: center;
     }
 
     & > * {
