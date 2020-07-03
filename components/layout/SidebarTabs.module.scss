@@ -1,6 +1,5 @@
 @import "../../Colours.scss";
 
-
 $text: map-get($colours, "white");
 $sidebar_accent: map-get($colours, "accent");
 
@@ -17,7 +16,7 @@ $sidebar_accent: map-get($colours, "accent");
         background-color: $back_lift;
         color: $color;
         @include mapTypes();
-        font-size: 0.9em;
+        font-size: 0.95rem;
 
         position: fixed;
         top: 0;
@@ -25,8 +24,15 @@ $sidebar_accent: map-get($colours, "accent");
         height: 100%;
         z-index: 5;
 
+        :global(.simplebar-content) {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
         .sidebarInner {
             min-height: 100%;
+            flex-grow: 1;
             width: 220px;
             display: flex;
             flex-direction: column;
@@ -44,9 +50,10 @@ $sidebar_accent: map-get($colours, "accent");
                 align-items: center;
                 margin-bottom: 8px;
             }
-            
-            span, a {
-                opacity: .9;
+
+            span,
+            a {
+                opacity: 0.9;
             }
             a {
                 color: inherit;
@@ -82,7 +89,7 @@ $sidebar_accent: map-get($colours, "accent");
 
             &:hover,
             &:focus {
-                background-color: rgba(0, 0, 0, .4) !important;
+                background-color: rgba(0, 0, 0, 0.4) !important;
                 text-decoration: none;
             }
         }
@@ -90,7 +97,7 @@ $sidebar_accent: map-get($colours, "accent");
         .subitem {
             padding: 8px 10px 8px 11px;
             padding-left: 32px;
-            opacity: .6;
+            opacity: 0.6;
         }
 
         .item {
@@ -105,7 +112,7 @@ $sidebar_accent: map-get($colours, "accent");
                 transform: translateY(-50%);
                 transition: transform 200ms ease-in;
             }
-            opacity: .6;
+            opacity: 0.6;
             &.active {
                 opacity: 1;
 

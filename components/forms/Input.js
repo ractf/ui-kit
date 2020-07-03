@@ -16,7 +16,7 @@ export const InputHint = ({ children, disabled }) => (
 export const InputGroup = withRactfForm(({ className, error, left, right, ...props }) => {
     return <div className={makeClass(style.inputGroup, props.disabled && style.disabled, className)}>
         {left}
-        <Input {...props} error={!!error} className={style.igInput} />
+        <RawInput {...props} error={!!error} className={style.igInput} />
         {right}
     </div>;
 });
@@ -32,7 +32,7 @@ export const InputButton = ({ onSubmit, ...props }) => {
 };
 
 
-class Input_ extends PureComponent {
+class RawInput extends PureComponent {
     isInput = true;
 
     constructor(props) {
@@ -95,7 +95,8 @@ class Input_ extends PureComponent {
             this.props.password && style.password,
             this.props.disabled && style.disabled,
             this.props.hidden && style.hidden,
-            (!(this.props.val.length === 0 || this.state.valid) || this.props.error) && style.invalid,
+            ((!(!this.props.val || this.props.val.length === 0 || this.state.valid) || this.props.error)
+                && style.invalid),
         );
 
         return <div className={inputClass}>
@@ -120,18 +121,19 @@ class Input_ extends PureComponent {
                     className={makeClass(style.input, this.props.monospace && style.monospaced)}
                     disabled={this.props.disabled} />}
             {this.props.limit && (
-                <div className={style.lengthCounter}>{this.props.val.length}/{this.props.limit}</div>
+                <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
             )}
             {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
                 {this.state.showPass ? <FaEyeSlash /> : <FaEye />}
             </div> : null}
             {this.props.zxcvbn &&
                 <div className={style.inputStrength}
-                    data-val={this.props.val.length ? this.props.zxcvbn(this.props.val).score + 1 : 0} />}
-            {this.props.placeholder && this.props.val.length === 0 &&
+                    data-val={(this.props.val && this.props.val.length)
+                        ? this.props.zxcvbn(this.props.val).score + 1 : 0} />}
+            {this.props.placeholder && (!this.props.val || this.props.val.length === 0) &&
                 <div className={makeClass(style.placeholder, this.props.monospace && style.monospaced)}>
                     <span>{this.props.placeholder}</span></div>}
         </div>;
     }
 }
-export const Input = withRactfForm(Input_);
+export const Input = withRactfForm(RawInput);

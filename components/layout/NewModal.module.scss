@@ -1,0 +1,88 @@
+// Copyright (C) 2020 Really Awesome Technology Ltd
+//
+// This file is part of RACTF.
+//
+// RACTF is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// RACTF is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
+
+@import "../../Colours.scss";
+
+.modalWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 1rem;
+
+    @media (max-width: 768px) {
+        padding: .25rem;
+    }
+}
+
+.modal {
+    box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
+    background-color: $background;
+    border-radius: .25rem;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 768px) {
+        width: 80%;
+    }
+    @media (min-width: 1200px) {
+        width: 900px;
+    }
+
+    &.large {
+        width: 100%;
+    }
+    &.fullHeight {
+        height: 100%;
+        overflow: visible;
+        > .content {
+            flex-basis: 0;
+            flex-grow: 1;
+            min-height: 0;
+        }
+    }
+
+    > .header {
+        padding: px(17.5) px(21);
+        border-bottom: 1px solid $back_lift;
+        font-weight: 700;
+        font-size: px(20);
+    }
+    > .content {
+        padding: px(21);
+    }
+    > .actions {
+        border-top: 1px solid $back_lift;
+        padding: px(14);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        > * {
+            margin-left: px(10);
+        }
+    }
+}

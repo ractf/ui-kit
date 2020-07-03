@@ -66,6 +66,14 @@ export const BareForm = React.memo(({
         setFormState(oldFormState => {
             const formData = { ...oldFormState.values, ...extraValues };
             const performRequest = () => {
+                if (!method || !action) {
+                    setFormState(ofs => ({
+                        ...ofs,
+                        disabled: false,
+                    }));
+                    return;
+                }
+
                 http.makeRequest(method, action, formData, headers).then(resp => {
                     setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: formData, resp: resp });
@@ -91,16 +99,13 @@ export const BareForm = React.memo(({
                 });
             };
 
-            if (handle) {
-                handle(formData);
-                return oldFormState;
-            } else {
-                const localValidator = validator || genericValidator;
-                localValidator(formData).then(performRequest).catch((errors, errorStr) => {
-                    setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
-                });
-                return { ...oldFormState, disabled: true };
-            }
+            const localValidator = validator || genericValidator;
+            const handler = handle || performRequest;
+
+            localValidator(formData).then(() => handler(formData, setFormState)).catch((errors, errorStr) => {
+                setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
+            });
+            return { ...oldFormState, disabled: true };
         });
     };
     const onSubmit = (oldSubmit, value) => {

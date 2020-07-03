@@ -7,7 +7,7 @@ import { plotHoc, palette } from "./common.js";
 import { transparentize } from "polished";
 
 
-const Graph = plotHoc(({ data, filled, timeGraph, noAnimate }) => {
+const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate }) => {
     const options = {
         legend: {
             position: "bottom",
@@ -27,6 +27,10 @@ const Graph = plotHoc(({ data, filled, timeGraph, noAnimate }) => {
                     padding: 100,
                     fontColor: colours.color,
                 },
+                scaleLabel: {
+                    display: !!xLabel,
+                    labelString: xLabel,
+                },
             }],
             yAxes: [{
                 gridLines: {
@@ -37,6 +41,10 @@ const Graph = plotHoc(({ data, filled, timeGraph, noAnimate }) => {
                 ticks: {
                     fontColor: colours.color,
                     padding: 8,
+                },
+                scaleLabel: {
+                    display: !!yLabel,
+                    labelString: yLabel,
                 },
             }],
         },

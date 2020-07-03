@@ -1,0 +1,35 @@
+@import "../../Colours.scss";
+
+.grid {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    td {
+        padding: 0.75rem;
+        word-wrap: break-word;
+        width: 100%;
+    }
+    td:not(:last-child) {
+        border-right: 2px solid $back_lift;
+    }
+    tr:not(:last-child) {
+        border-bottom: 2px solid $back_lift;
+    }
+    thead {
+        border-bottom: 4px solid $back_lift;
+        font-weight: 700;
+    }
+
+    &.colPair {
+        table-layout: auto;
+
+        td:first-child {
+            text-align: right;
+        }
+        td:last-child {
+            text-align: left;
+        }
+    }
+}

@@ -1,97 +1,55 @@
 @import "../../Colours.scss";
 
-
 $bar: (
     width: 4px,
     track: $back_lift,
-    handle: map-get($colours, "accent")
+    handle: $back_lift_x2,
 );
 $primary: (
     width: 8px,
     track: $back_lift,
-    handle: map-get($colours, "accent")
+    handle: map-get($colours, "accent"),
 );
 
+:global(.simplebar-track) {
+    width: map-get($bar, "width") !important;
+    margin: 4px;
 
-.scrollTrack {
-    display: none;
-}
-
-.scrolled {
-    height: 100%;
-}
-.scrollInner {
-    height: 100%;
-}
-
-@media (min-width: 800px) {
-    .scrolled {
-        overflow-x: hidden;
-        overflow-y: hidden !important;
-        position: relative;
+    &::after {
+        content: "";
+        display: block;
+        left: 0;
+        top: 0;
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        height: 100%;
+        border-radius: map-get($bar, "width") !important;
+        background-color: map-get($bar, "track");
+    }
+}
+:global(.simplebar-scrollbar)::before {
+    background: map-get($bar, "handle") !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    border-radius: map-get($bar, "width") !important;
+}
+:global(.simplebar-visible)::before {
+    opacity: 1 !important;
+}
+:global(.simplebar-visible) ~ * {
+    background-color: #f0f;
+    border: 2px solid #f00;
+}
+.primary {
+    > :global(.simplebar-track) {
+        background-color: map-get($primary, "track");
+        width: map-get($primary, "width") !important;
+        border-radius: map-get($primary, "width") !important;
 
-        > .scrollInner {
-            margin-right: -64px;
-            padding-right: 64px;
-            overflow-y: scroll;
-        }
-        > .scrollTrack {
-            position: absolute;
-            top: 6px;
-            right: 2px;
-            bottom: 6px;
-            width: map-get($bar, "width");
-            display: block;
-            background-color: map-get($bar, "track");
-            border-radius: map-get($bar, "width") / 2;
-            transition: 500ms opacity ease;
-            opacity: 0;
-
-            > .scrollbar {
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 50%;
-                background-color: map-get($bar, "handle");
-                border-radius: map-get($bar, "width") / 2;
-
-                &:hover {
-                    background-color: hover(map-get($bar, "handle"));
-                }
-            }
-            &.trackActive {
-                > .scrollbar {
-                    background-color: focus(map-get($bar, "handle"));
-                }
-            }
-        }
-
-        &.primary {
-            > .scrollTrack {
-                right: 4px;
-                top: 8px;
-                bottom: 8px;
-                width: map-get($primary, "width");
-                background-color: map-get($primary, "track");
-                border-radius: map-get($primary, "width") / 2;
-
-                > .scrollbar {
-                    background-color: map-get($primary, "handle");
-                    border-radius: map-get($primary, "width") / 2;
-
-                    &:hover {
-                        background-color: hover(map-get($primary, "handle"));
-                    }
-                }
-                &.trackActive {
-                    > .scrollbar {
-                        background-color: focus(map-get($primary, "handle"));
-                    }
-                }
-            }
+        > :global(.simplebar-scrollbar)::before {
+            background: map-get($primary, "handle") !important;
+            border-radius: map-get($primary, "width") !important;
         }
     }
 }

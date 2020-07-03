@@ -132,6 +132,14 @@ $spinner_color: map-get($colours, "accent");
     font-size: 1.063rem;
     margin-bottom: 0;
 }
+.large {
+    font-size: 1.15em;
+    line-height: 1.2;
+    
+    b {
+        font-weight: 800;
+    }
+}
 
 .container {
     flex-grow: 1;
