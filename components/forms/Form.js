@@ -8,33 +8,38 @@ import "./Form.scss";
 export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
 }) => {
-    const [formState, setFormState] = useState({ values: {}, error: null, errors: {}, disabled: false });
+    const generateValues = (children, previous = {}) => {
+        const values = {};
+        const getValues = (children) => {
+            React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
+                if (!i.props) return;
+
+                getValues(i.props.children);
+                if (i.props.name && !previous.hasOwnProperty(i.props.name)) {
+                    if (i.props.value) {
+                        values[i.props.name] = i.props.value;
+                    } else if (i.props.val) {
+                        values[i.props.name] = i.props.val;
+                    } else {
+                        values[i.props.name] = "";
+                    }
+                }
+            });
+        };
+        getValues(children);
+        return values;
+    };
+
+    const [formState, setFormState] = useState({
+        values: generateValues(children), error: null, errors: {}, disabled: false
+    });
     const hasCustomFormError = useRef(false);
     const required = useRef({});
     const { t } = useTranslation();
 
     useEffect(() => {
         setFormState(oldFormState => {
-            const values = {};
-            const getValues = (children) => {
-                React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
-                    if (!i.props) return;
-
-                    getValues(i.props.children);
-                    if (i.props.name && !oldFormState.values.hasOwnProperty(i.props.name)) {
-                        if (i.props.value) {
-                            values[i.props.name] = i.props.value;
-                        } else if (i.props.val) {
-                            values[i.props.name] = i.props.val;
-                        } else {
-                            values[i.props.name] = "";
-                        }
-                    }
-                });
-            };
-            getValues(children);
-
-            return { ...oldFormState, values: { ...oldFormState.values, ...values } };
+            return { ...oldFormState, values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) } };
         });
     }, [children]);
 

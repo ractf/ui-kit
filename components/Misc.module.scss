@@ -97,7 +97,6 @@ $spinner_color: map-get($colours, "accent");
         display: block;
         opacity: .9;
         position: relative;
-        z-index: 10;
     }
 
     > *:not(:last-child) {
