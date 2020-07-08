@@ -39,7 +39,10 @@ export const BareForm = React.memo(({
 
     useEffect(() => {
         setFormState(oldFormState => {
-            return { ...oldFormState, values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) } };
+            return {
+                ...oldFormState,
+                values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) }
+            };
         });
     }, [children]);
 
