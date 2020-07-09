@@ -6,7 +6,7 @@ import "./Form.scss";
 
 
 export const BareForm = React.memo(({
-    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked
+    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef
 }) => {
     const generateValues = (children, previous = {}) => {
         const values = {};
@@ -72,6 +72,8 @@ export const BareForm = React.memo(({
     };
     const submit = (extraValues) => {
         setFormState(oldFormState => {
+            if (oldFormState.disabled) return oldFormState;
+
             const formData = { ...oldFormState.values, ...extraValues };
             const performRequest = () => {
                 if (!method || !action) {
@@ -120,6 +122,7 @@ export const BareForm = React.memo(({
         if (oldSubmit) oldSubmit(value);
         submit();
     };
+    if (submitRef) submitRef.current = submit;
 
     const onChange = (oldChange, name, value) => {
         if (oldChange) oldChange(value);
