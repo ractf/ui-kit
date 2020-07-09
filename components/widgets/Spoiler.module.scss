@@ -9,7 +9,8 @@
         user-select: none;
         cursor: pointer;
         width: 100%;
-        padding: px(8) 0 px(8) 1rem;
+        margin: px(8) 0;
+        padding-left: 1rem;
 
         > svg {
             position: absolute;
@@ -27,6 +28,10 @@
         margin-left: -px(16);
         overflow-y: hidden;
         transition: height 200ms, margin 200ms, opacity 200ms ease-in;
+
+        > div {
+            overflow: auto;
+        }
     }
     &:not(.open) > .body {
         height: 0 !important;
@@ -37,7 +42,6 @@
         }
         > .body {
             opacity: 1;
-            margin-bottom: px(8);
             margin-left: px(8);
         }
     }

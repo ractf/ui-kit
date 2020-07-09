@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { makeClass, getHeight } from "@ractf/util";
+import { makeClass } from "@ractf/util";
 
 import style from "./Spoiler.module.scss";
 
@@ -11,7 +11,7 @@ const Spoiler = ({ title, children, open }) => {
     useEffect(() => setIsOpen(open), [open]);
     const toggle = useCallback(() => setIsOpen(x => !x), []);
     useEffect(() => {
-        setHeight(getHeight(body.current));
+        setHeight(body.current.offsetHeight);
     }, [body, children]);
 
     return <div className={makeClass(style.spoiler, isOpen && style.open)}>
