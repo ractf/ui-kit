@@ -138,6 +138,8 @@ export const BareForm = React.memo(({
             if (!i.props) return;
 
             const myChildren = recurseChildren(i.props.children);
+            if ((typeof i.type) === "string") return;
+
             const props = { ...i.props };
 
             props.disabled = locked || formState.disabled || props.disabled;

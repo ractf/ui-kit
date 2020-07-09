@@ -1,0 +1,44 @@
+@import "../../Colours.scss";
+
+.spoiler {
+    width: 100%;
+
+    > .title {
+        padding-left: 1rem;
+        position: relative;
+        user-select: none;
+        cursor: pointer;
+        width: 100%;
+        padding: px(8) 0 px(8) 1rem;
+
+        > svg {
+            position: absolute;
+            top: 50%;
+            width: 1rem;
+            height: 1rem;
+            left: 0;
+            transform: translateY(-50%);
+            transition: transform 200ms ease-in;
+        }
+    }
+    > .body {
+        opacity: 0;
+        padding: 0;
+        margin-left: -px(16);
+        overflow-y: hidden;
+        transition: height 200ms, margin 200ms, opacity 200ms ease-in;
+    }
+    &:not(.open) > .body {
+        height: 0 !important;
+    }
+    &.open {
+        > .title > svg {
+            transform: translateY(-50%) rotate(90deg);
+        }
+        > .body {
+            opacity: 1;
+            margin-bottom: px(8);
+            margin-left: px(8);
+        }
+    }
+}
