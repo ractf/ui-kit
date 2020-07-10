@@ -8,13 +8,13 @@ import style from "./TabbedView.module.scss";
 
 export const Tab = ({ label, children }) => children;
 
-let InnerTabs = ({ active, setActive, callback, children }) => {
+let InnerTabs = ({ active, setActive, callback, neverUnmount, children }) => {
     const nav = useRef();
     children = React.Children.toArray(children);
     const tabs = {};
     const keys = [];
     children.forEach((i, n) => {
-        const key = ("index" in i.props) ? i.props.index : n;
+        const key = ("index" in i.props) ? i.props.index : `${n}`;
         if (key in tabs)
             console.warn(`Multiple tabs with key ${key}!`);
         tabs[key] = [i, n];
@@ -51,7 +51,11 @@ let InnerTabs = ({ active, setActive, callback, children }) => {
             })}
             <div className={style.tabTrailer} />
         </nav>
-        {tabs[active] && React.cloneElement(tabs[active][0], { key: active })}
+        {neverUnmount
+            ? keys.map(i => <div key={i} style={{ display: i === active ? "block" : "none" }}>
+                {React.cloneElement(tabs[i][0])}
+            </div>)
+            : tabs[active] && React.cloneElement(tabs[active][0], { key: active })}
     </>;
 };
 InnerTabs = React.memo(InnerTabs);
