@@ -74,8 +74,10 @@ export const NewModalPrompt = React.memo(({ body, promise, onHide, inputs }) => 
     const { t } = useTranslation();
     const submit = useRef();
     const doSubmit = useCallback(() => {
-        submit.current();
-    }, []);
+        if (submit.current)
+            submit.current();
+        else promise.resolve();
+    }, [promise]);
 
     const buttons = (<>
         {body.remove && <>
@@ -94,26 +96,26 @@ export const NewModalPrompt = React.memo(({ body, promise, onHide, inputs }) => 
     </>);
 
     return <NewModal onClose={() => { promise.reject(); onHide && onHide(); }} buttons={buttons}
-        small={body.small} centre>
-        <p>
+        small={body.small} centre header={inputs.length ? body.message : null}>
+        {inputs.length === 0 && <p>
             {body.message}
-            {inputs.length ? <br /> : null}
-        </p>
-
-        <Form handle={promise.resolve} submitRef={submit}>
-            {inputs.map((i, n) => {
-                const parts = [];
-                if (i.label) parts.push(
-                    <label htmlFor={i.name}>{i.label}</label>
-                );
-                if (i.options) parts.push(
-                    <Select key={n} {...i} />
-                ); else parts.push(
-                    <Input key={n} {...i} />
-                );
-                return parts;
-            })}
-        </Form>
+        </p>}
+        {!!inputs.length && (
+            <Form handle={promise.resolve} submitRef={submit}>
+                {inputs.map((i, n) => {
+                    const parts = [];
+                    if (i.label) parts.push(
+                        <label htmlFor={i.name}>{i.label}</label>
+                    );
+                    if (i.options) parts.push(
+                        <Select key={n} {...i} />
+                    ); else parts.push(
+                        <Input key={n} {...i} />
+                    );
+                    return parts;
+                })}
+            </Form>
+        )}
     </NewModal>;
 });
 NewModalPrompt.displayName = "NewModalPrompt";
