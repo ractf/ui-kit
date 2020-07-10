@@ -35,4 +35,5 @@ export { default as Hint } from "./components/widgets/Hint";
 export { default as Link } from "./components/widgets/Link";
 export * from "./components/widgets/Tree";
 
+export { default as fromJson } from "./components/fromJson";
 export * from "./components/Misc";

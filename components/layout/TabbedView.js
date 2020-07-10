@@ -69,7 +69,8 @@ export let URLTabbedView = (props) => {
 URLTabbedView = React.memo(URLTabbedView);
 
 export let TabbedView = ({ initial, ...props }) => {
-    const [active, setActive] = useState(initial || 0);
+    const tab0 = ((props.children[0] || {}).props || {}).index || "0";
+    const [active, setActive] = useState(initial || tab0);
 
     return <InnerTabs active={active} setActive={setActive} {...props} />;
 };
