@@ -6,7 +6,7 @@ import "./Form.scss";
 
 
 export const BareForm = React.memo(({
-    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef
+    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef, valuesRef
 }) => {
     const generateValues = (children, previous = {}) => {
         const values = {};
@@ -45,6 +45,10 @@ export const BareForm = React.memo(({
             };
         });
     }, [children]);
+    useEffect(() => {
+        if (valuesRef)
+            valuesRef.current = formState.values;
+    }, [valuesRef, formState.values]);
 
     const onClick = (oldClick, e) => {
         if (oldClick) oldClick(e);
