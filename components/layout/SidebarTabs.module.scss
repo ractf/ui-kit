@@ -28,6 +28,7 @@ $sidebar_accent: map-get($colours, "accent");
             display: flex;
             flex-direction: column;
             min-height: 100%;
+            height: auto;
         }
 
         .sidebarInner {
