@@ -8,15 +8,52 @@
     background-color: $back_lift;
     color: $color;
 
-    padding: .6em 1.2em;
+    padding: px(7) px(14);
     line-height: 1;
     white-space: nowrap;
-    font-size: .75em;
-    border-radius: .25rem;
-    
+    font-size: px(12);
+    border-radius: px(4);
+
+    &.x {
+        padding-right: px(28);
+        position: relative;
+
+        & > div:first-child {
+            position: absolute;
+            height: px(14);
+            width: px(14);
+            right: px(7);
+            border-radius: px(7);
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $back_lift;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $back_lift_x2;
+            }
+
+            &::after,
+            &::before {
+                content: "";
+                position: absolute;
+                width: px(8);
+                display: block;
+                height: px(2);
+                left: px(7);
+                top: px(7);
+                transform: translate(-50%, -50%) rotate(45deg);
+                background-color: $color;
+            }
+            &::before {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+        }
+    }
+
     &.pill {
-        padding-right: .8em;
-        padding-left: .8em;
+        padding-right: 0.8em;
+        padding-left: 0.8em;
         border-radius: 10rem;
     }
 
