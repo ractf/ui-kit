@@ -26,11 +26,13 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
             },
         }));
     }, []);
-    const select = useCallback((value) => {
+    const select = useCallback((e, value) => {
         setState(oldState => ({ ...oldState, open: false }));
         if (onChange)
             onChange(value.key);
         setSelected(value);
+        e.preventDefault();
+        e.stopPropagation();
     }, [onChange]);
     useEffect(() => {
         const close = (e) => {
@@ -68,7 +70,7 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
                     {options.map(i => (
                         !state.filter || i.value.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1
                     ) && (
-                        <div onClick={() => select(i)} key={i.key}>{i.value}</div>
+                        <div onClick={(e) => select(e, i)} key={i.key}>{i.value}</div>
                     ))}
                 </div>
             </div>
