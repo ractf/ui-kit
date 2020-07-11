@@ -1,50 +1,77 @@
-import React, { useState, useRef, forwardRef, useEffect } from "react";
+import React, { useCallback, useState, useRef, forwardRef, useEffect } from "react";
 
 import { makeClass } from "@ractf/util";
 
 import style from "./Select.module.scss";
+import { RawInput } from "./Input";
 
 
-export default forwardRef(({ name, options, initial, mini, pill, onChange }, ref) => {
+export default forwardRef(({ name, options, initial, mini, pill, hasFilter, onChange }, ref) => {
     if (options.length > 0 && (typeof options[0] !== "object"))
         options = options.map(i => ({ key: i, value: i }));
     const [selected, setSelected] = useState(options[(initial && initial > -1) ? initial : 0]);
-    const [open, setOpen] = useState(false);
+    const [state, setState] = useState({ open: false, filter: "", itemsStyle: {} });
+    const items = useRef();
     const head = useRef();
 
-    const doOpen = () => {
-        setOpen(oldOpen => !oldOpen);
-    };
-    const select = (value) => {
-        setOpen(false);
+    const doOpen = useCallback(() => {
+        const rect = head.current.getBoundingClientRect();
+        setState(oldState => ({
+            ...oldState,
+            open: !oldState.open,
+            itemsStyle: {
+                top: rect.bottom,
+                left: rect.left,
+                minWidth: rect.width,
+            },
+        }));
+    }, []);
+    const select = useCallback((value) => {
+        setState(oldState => ({ ...oldState, open: false }));
         if (onChange)
             onChange(value.key);
         setSelected(value);
-    };
+    }, [onChange]);
     useEffect(() => {
-        const close = () => {
-            setOpen(false);
-            document.removeEventListener("click", close);
+        const close = (e) => {
+            if (items.current?.contains(e.target)) return;
+            e.stopPropagation();
+            e.preventDefault();
+
+            setState(oldState => ({ ...oldState, open: false }));
+            document.removeEventListener("click", close, true);
         };
-        if (open) {
-            document.addEventListener("click", close);
-            return () => document.removeEventListener("click", close);
+        if (state.open) {
+            document.addEventListener("click", close, true);
+            return () => document.removeEventListener("click", close, true);
         }
-    }, [open]);
+    }, [state.open]);
+    const setFilter = useCallback((filter) => {
+        setState(oldState => ({ ...oldState, filter: filter }));
+    }, []);
 
     if (ref)
         ref.current = { props: { name }, state: { val: selected.key } };
 
     return <div className={makeClass(style.select, mini && style.mini, pill && style.pill)}>
         <div ref={head} onClick={doOpen}
-            className={makeClass(style.head, open && style.sOpen)}
+            className={makeClass(style.head, state.open && style.sOpen)}
         >
             {selected.value}
-            {open && (
-                <div className={style.items} onClick={doOpen}>
-                    {options.map(i => <div onClick={() => select(i)} key={i.key}>{i.value}</div>)}
-                </div>
-            )}
         </div>
+        {state.open && (
+            <div ref={items} className={style.itemsWrap} style={state.itemsStyle}>
+                {hasFilter && (
+                    <RawInput val={state.filter} placeholder={"Filter"} onChange={setFilter} className={style.search} />
+                )}
+                <div className={style.items}>
+                    {options.map(i => (
+                        !state.filter || i.value.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1
+                    ) && (
+                        <div onClick={() => select(i)} key={i.key}>{i.value}</div>
+                    ))}
+                </div>
+            </div>
+        )}
     </div>;
 });

@@ -100,12 +100,20 @@
         }
     }
 
+    .search {
+        border-radius: 0;
+        border: 1px solid $input_color;
+        background-color: $background;
+    }
+
+    .itemsWrap {
+        position: fixed;
+        bottom: 0;
+    }
+    
     .items {
-        position: absolute;
-        left: -1px;
-        min-width: calc(100% + 2px);
-        top: 100%;
-        margin-top: 1px;
+        overflow-y: auto;
+        max-height: 100%;
         background-color: $background;
         overflow-y: auto;
         box-shadow: 0 2px 7px -3px #000;

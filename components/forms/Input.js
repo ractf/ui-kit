@@ -32,7 +32,7 @@ export const InputButton = ({ onSubmit, ...props }) => {
 };
 
 
-class RawInput extends PureComponent {
+export class RawInput extends PureComponent {
     isInput = true;
 
     constructor(props) {
