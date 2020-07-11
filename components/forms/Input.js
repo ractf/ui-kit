@@ -84,8 +84,9 @@ export class RawInput extends PureComponent {
         }
     }
 
-    click = () => {
-        this.inputRef.current.focus();
+    click = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
     }
 
     render() {
@@ -99,7 +100,7 @@ export class RawInput extends PureComponent {
                 && style.invalid),
         );
 
-        return <div className={inputClass}>
+        return <div className={inputClass} onClick={this.click}>
             {this.props.rows ?
                 <textarea
                     ref={this.inputRef}
