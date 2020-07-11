@@ -6,7 +6,7 @@ import style from "./Select.module.scss";
 import { RawInput } from "./Input";
 
 
-export default forwardRef(({ name, options, initial, mini, pill, hasFilter, onChange }, ref) => {
+export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter, onChange }, ref) => {
     if (options.length > 0 && (typeof options[0] !== "object"))
         options = options.map(i => ({ key: i, value: i }));
     const [selected, setSelected] = useState(options[(initial && initial > -1) ? initial : 0]);
@@ -51,16 +51,16 @@ export default forwardRef(({ name, options, initial, mini, pill, hasFilter, onCh
     }, []);
 
     if (ref)
-        ref.current = { props: { name }, state: { val: selected.key } };
+        ref.current = { props: { name }, state: { val: selected?.key } };
 
     return <div className={makeClass(style.select, mini && style.mini, pill && style.pill)}>
         <div ref={head} onClick={doOpen}
             className={makeClass(style.head, state.open && style.sOpen)}
         >
-            {selected.value}
+            {selected?.value}
         </div>
         {state.open && (
-            <div ref={items} className={style.itemsWrap} style={state.itemsStyle}>
+            <div ref={items} className={style.itemsWrap} style={state.itemsStyle} onClick={doOpen}>
                 {hasFilter && (
                     <RawInput val={state.filter} placeholder={"Filter"} onChange={setFilter} className={style.search} />
                 )}
