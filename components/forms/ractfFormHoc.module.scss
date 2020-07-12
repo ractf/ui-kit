@@ -1,12 +1,12 @@
-@import "../../Colours.scss";
-@import "./Input.vars.scss";
+@import "@ractf/ui-kit/Colours.scss";
+
 
 .inputErrorWrap {
     flex-grow: 1;
 }
 
 .inputError {
-    color: $error_color;
+    color: map-get($input, "color_error");
     font-size: .8rem;
     margin-left: 8px;
     margin-top: .125rem;

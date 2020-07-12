@@ -1,5 +1,4 @@
-@import "../../Colours.scss";
-@import "./Input.vars.scss";
+@import "@ractf/ui-kit/Colours.scss";
 
 
 .input,
@@ -8,9 +7,9 @@
     border: 0;
     width: 100%;
     color: inherit;
-    padding: $padding;
-    line-height: $line_height;
-    font-size: $font_size;
+    padding: map-get($input, "padding");
+    line-height: map-get($input, "line_height");
+    font-size: map-get($input, "font_size");
     min-height: inherit;
 
     &:focus {
@@ -34,18 +33,18 @@
     }
 
     position: relative;
-    min-height: $min_height;
+    min-height: map-get($input, "min_height");
 
     font-size: 0;
-    border-radius: $radius;
+    border-radius: map-get($input, "radius");
 
-    background: $input_background;
-    color: $color;
+    background: map-get($input, "radius");
+    color: map-get($input, "color");
     outline: none;
 
-    border: 1px solid $input_color;
+    border: map-get($input, "border");
     &:focus-within {
-        border-color: $input_focus;
+        border: map-get($input, "border_focus");
 
         .placeholder {
             opacity: 0.4;
@@ -60,15 +59,11 @@
         text-align: center;
     }
     &.invalid {
-        border-color: $error_color;
-        color: $error_color;
-        
-        .placeholder {
-            color: $error_color;
-        }
+        border: map-get($input, "border_error");
+        color: map-get($input, "color_error");
 
         &:focus-within {
-            border-color: $error_focus;
+            border: map-get($input, "border_error_focus");
         }
     }
     &.password {
@@ -80,14 +75,12 @@
         }
     }
     &.disabled {
-        background-color: $disabled_color;
+        background-color: map-get($input, "background_disabled");
+        color: map-get($input, "color_disabled");
         opacity: .5;
         cursor: not-allowed;
         input {
             cursor: not-allowed;
-        }
-        .placeholder {
-            color: $disabled_text;
         }
     }
     &.hidden {
@@ -128,11 +121,11 @@
         width: 100%;
         padding: inherit;
         text-align: left;
-        color: $color;
+        color: inherit;
         opacity: 0.7;
-        padding: $padding;
-        line-height: $line_height;
-        font-size: $font_size;
+        padding: map-get($input, "padding");
+        line-height: map-get($input, "line_height");
+        font-size: map-get($input, "font_size");
         display: flex;
         align-items: center;
 
@@ -184,11 +177,11 @@
     display: flex;
 
     & > *:not(.inputWrapper) {
-        padding: $padding;
+        padding: map-get($input, "padding");
         min-height: auto;
         min-width: auto;
-        line-height: $line_height;
-        font-size: $font_size;
+        line-height: map-get($input, "line_height");
+        font-size: map-get($input, "font_size");
         height: auto;
     }
 
@@ -199,16 +192,16 @@
             border-radius: 0;
         }
         &:first-child {
-            border-radius: $radius 0 0 $radius;
+            border-radius: map-get($input, "radius") 0 0 map-get($input, "radius");
         }
         &:last-child {
-            border-radius: 0 $radius $radius 0;
+            border-radius: 0 map-get($input, "radius") map-get($input, "radius") 0;
         }
     }
 
     &:focus-within {
         .inputHint {
-            border-color: $input_focus;
+            border: map-get($input, "border_focus");
         }
     }
 
@@ -224,19 +217,19 @@
 }
 
 .inputHint {
-    border: 1px solid $input_color;
-    background-color: $disabled_color;
-    font-size: $font_size;
+    border: map-get($input, "border");
+    background-color: map-get($input, "background_disabled");
+    font-size: map-get($input, "font_size");
     padding: 0.7rem 18px;
 
     &.disabled {
         opacity: .5;
-        color: $disabled_text;
+        color: map-get($input, "color_disabled");
     }
 }
 .disabled {
     .inputHint {
         opacity: .5;
-        color: $disabled_text;
+        color: map-get($input, "color_disabled");
     }
 }

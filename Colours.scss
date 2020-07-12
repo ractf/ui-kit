@@ -1,4 +1,4 @@
-@import "./Utils.scss";
+@import "@ractf/ui-kit/Utils.scss";
 
 $fontStack: "Lato", sans-serif;
 
@@ -40,7 +40,29 @@ $colours: (
 $background: map-get($colours, "white");
 $color: map-get($colours, "black");
 
-@import "Theme.scss";
+@import "@ractf/ui-kit/Theme.scss";
+
+$input: (
+    border: 1px solid rgba($color, .2),
+    border_focus: 1px solid rgba($color, .4),
+    border_error: 1px solid map-get($colours, "red"),
+    border_error_focus: 1px solid focus(map-get($colours, "red")),
+    
+    
+    //background: rgba(map-get($colours, "black"), .2),
+    background: transparent,
+    background_disabled: transparent,
+    
+    color: $color,
+    color_error: map-get($colours, "red"),
+    color_disabled: rgba($color, .6),
+
+    padding: px(9.5) px(14),
+    font_size: px(14),
+    line_height: px(16),
+    radius: px(4),
+    min_height: px(36),
+);
 
 $types: (
     primary: (
@@ -92,7 +114,7 @@ $bg_l5: desaturate(lighten($bg, 56%), 12%);
 
 $bg_d0: saturate(darken($bg, 4%), 4%);
 
-@import "Theme.scss";
+@import "@ractf/ui-kit/Theme.scss";
 
 :export {
     green: map-get($colours, "green");
@@ -115,4 +137,4 @@ $bg_d0: saturate(darken($bg, 4%), 4%);
     }
 }
 
-@import "Theme.scss";
+@import "@ractf/ui-kit/Theme.scss";

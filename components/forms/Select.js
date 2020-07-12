@@ -20,7 +20,7 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
             ...oldState,
             open: !oldState.open,
             itemsStyle: {
-                top: rect.bottom - 1,
+                top: rect.bottom,
                 left: rect.left,
                 minWidth: rect.width,
             },

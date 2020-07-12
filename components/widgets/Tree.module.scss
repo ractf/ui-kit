@@ -1,4 +1,4 @@
-@import "../../Colours.scss";
+@import "@ractf/ui-kit/Colours.scss";
 
 $baseColor: map-get($colours, "accent");
 $valueColor: map-get($colours, "accent");

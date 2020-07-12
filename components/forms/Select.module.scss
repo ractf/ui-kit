@@ -1,13 +1,13 @@
-@import "../../Colours.scss";
-@import "./Input.vars.scss";
+@import "@ractf/ui-kit/Colours.scss";
+
 
 .select {
     position: relative;
     user-select: none;
     text-align: left;
-    font-size: $font_size;
+    font-size: map-get($input, "font_size");
     z-index: 10;
-    line-height: $line_height;
+    line-height: map-get($input, "line_height");
     flex-grow: 1;
 
     &.mini {
@@ -31,7 +31,7 @@
 
             font-size: px(14);
             line-height: px(16);
-            padding: calc(#{px(6)} - 1px) px(12);
+            padding: calc(#{px(6)} - $border_width) px(12);
             min-width: unset;
         }
     }
@@ -61,10 +61,10 @@
     }
 
     .head {
-        border-radius: $radius;
+        border-radius: map-get($input, "radius");
         position: relative;
         &.sOpen {
-            border-radius: $radius $radius 0 0;
+            border-radius: map-get($input, "radius") map-get($input, "radius") 0 0;
             background-color: $back_lift;
         }
 
@@ -82,13 +82,15 @@
     .items div,
     .head {
         min-width: 100px;
-        padding: $padding;
+        padding: map-get($input, "padding");
 
         cursor: pointer;
 
-        border: 1px solid $input_color;
+        border: map-get($input, "border");
 
-        background: $input_background;
+        background: map-get($input, "background");
+        color: map-get($input, "color");
+        
         &:hover {
             background-color: $back_lift;
         }
@@ -97,13 +99,13 @@
         border-top: none;
 
         &:last-child {
-            border-radius: 0 0 $radius $radius;
+            border-radius: 0 0 map-get($input, "radius") map-get($input, "radius");
         }
     }
 
     .search {
         border-radius: 0;
-        border: 1px solid $input_color;
+        border: map-get($input, "border");
         background-color: $background;
     }
 
