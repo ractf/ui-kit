@@ -29,6 +29,9 @@ $primary: (
         border-radius: map-get($bar, "width") !important;
         background-color: map-get($bar, "track");
     }
+    @media (max-width: 800px) {
+        display: none;
+    }
 }
 :global(.simplebar-scrollbar)::before {
     background: map-get($bar, "handle") !important;
