@@ -13,7 +13,6 @@ export { default as Select } from "./components/forms/Select";
 export { default as Radio } from "./components/forms/Radio";
 export * from "./components/forms/Input";
 
-export { default as NewModal, NewModalPrompt } from "./components/layout/NewModal";
 export { TabbedView, URLTabbedView, Tab } from "./components/layout/TabbedView";
 export { default as Modal, ModalPrompt } from "./components/layout/Modal";
 export { default as Scrollbar } from "./components/layout/Scrollbar";
