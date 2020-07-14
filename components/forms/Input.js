@@ -93,6 +93,7 @@ export class RawInput extends PureComponent {
         const inputClass = makeClass(
             style.inputWrapper, this.props.className,
             this.props.center && style.center,
+            this.props.readonly && style.readonly,
             this.props.password && style.password,
             this.props.disabled && style.disabled,
             this.props.hidden && style.hidden,
@@ -109,7 +110,7 @@ export class RawInput extends PureComponent {
                     rows={this.state.rows}
                     autofill={this.props.autofill}
                     className={makeClass(style.textarea, this.props.monospace && style.monospaced)}
-                    disabled={this.props.disabled} />
+                    disabled={this.props.disabled || this.props.readonly} />
                 : <input
                     onKeyDown={this.keyDown}
                     ref={this.inputRef}
@@ -120,7 +121,7 @@ export class RawInput extends PureComponent {
                     onChange={this.handleChange}
                     autofill={this.props.autofill}
                     className={makeClass(style.input, this.props.monospace && style.monospaced)}
-                    disabled={this.props.disabled} />}
+                    disabled={this.props.disabled || this.props.readonly} />}
             {this.props.limit && (
                 <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
             )}
