@@ -1,0 +1,49 @@
+@import "@ractf/ui-kit/Colours.scss";
+
+.itemStack {
+    display: flex;
+    flex-direction: column;
+
+    > .item {
+        padding: px(12) px(16);
+        user-select: none;
+        cursor: pointer;
+
+        position: relative;
+        line-height: 1;
+        text-decoration: none;
+
+        &:not(:first-child)::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: px(1);
+            background: $back_lift;
+        }
+
+        &:hover,
+        &.active {
+            background-color: rgba($back_lift, 0.05);
+        }
+
+        > .label {
+            float: right;
+            margin-top: px(-4);
+            margin-bottom: px(-4);
+        }
+
+        @include mapTypes($selector: "> .label");
+        @each $type, $color in $types {
+            &.#{$type} {
+                color: map-get($color, "bg");
+
+                &:hover,
+                &.active {
+                    background-color: rgba(map-get($color, "bg"), 0.1);
+                }
+            }
+        }
+    }
+}

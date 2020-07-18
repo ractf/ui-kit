@@ -8,11 +8,12 @@
     background-color: $back_lift;
     color: $color;
 
-    padding: px(7) px(14);
+    padding: px(6) px(12);
     line-height: 1;
     white-space: nowrap;
     font-size: px(12);
     border-radius: px(4);
+    font-weight: 700;
 
     &.x {
         padding-right: px(28);

@@ -119,7 +119,7 @@ export const BareForm = React.memo(({
             localValidator(formData).then(() => handler(formData, setFormState)).catch((errors, errorStr) => {
                 setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
             });
-            return { ...oldFormState, disabled: true };
+            return { ...oldFormState, disabled: !handle };
         });
     };
     const onSubmit = (oldSubmit, value) => {
@@ -165,7 +165,7 @@ export const BareForm = React.memo(({
                 props.val = props.value = "";
             }
             props.__ractf_global_error = formState.error;
-            props.__ractf_managed = 1;
+            props.managed = 1;
 
             if (i.type === FormError)
                 hasCustomFormError.current = true;

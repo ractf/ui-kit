@@ -21,14 +21,14 @@ export const InputGroup = withRactfForm(({ className, error, left, right, ...pro
     </div>;
 });
 
-export const InputButton = ({ onSubmit, ...props }) => {
+export const InputButton = ({ btnDisabled, ...props }) => {
     const button = useRef();
 
     return <InputGroup {...props} right={
-        <Button large ref={button} onClick={onSubmit} disabled={props.disabled}>
+        <Button large ref={button} onClick={props.onSubmit} disabled={btnDisabled || props.disabled}>
             {props.button || "Submit"}
         </Button>
-    } __ractf_managed />;
+    } managed />;
 };
 
 

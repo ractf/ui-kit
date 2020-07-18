@@ -25,6 +25,7 @@ export * from "./components/layout/Layout";
 export * from "./components/layout/NavBar";
 
 export { default as ProgressBar } from "./components/widgets/ProgressBar";
+export { default as ItemStack } from "./components/widgets/ItemStack";
 export { default as Markdown } from "./components/widgets/Markdown";
 export { default as Spoiler } from "./components/widgets/Spoiler";
 export { default as Badge } from "./components/widgets/Badge";

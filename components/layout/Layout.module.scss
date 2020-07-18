@@ -46,7 +46,7 @@
 @mixin colBlock($name, $size) {
     @for $i from 1 through 12 {
         @if $size {
-            @media (min-width: 576px) {
+            @media (min-width: #{$size}) {
                 &.#{$name}#{$i} {
                     max-width: (100% / 12) * $i;
                 }
