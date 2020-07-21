@@ -172,6 +172,15 @@ $spinner_color: map-get($colours, "accent");
     }
 }
 
+.wordmark {
+    background: url("~../../../static/wordmark.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 33px;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);

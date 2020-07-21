@@ -60,6 +60,7 @@ export const H5 = basicComponent(style.h5, "H5", "h5");
 export const H6 = basicComponent(style.h6, "H6", "h6");
 export const Large = basicComponent(style.large, "Large", "p");
 export const SiteWrap = basicComponent(style.siteWrap, "SiteWrap");
+export const Wordmark = basicComponent(style.wordmark, "Wordmark");
 export const Container = basicComponent(style.container, "Container");
 
 export const Spinner = () => <div className={style.loadingSpinner}/>;

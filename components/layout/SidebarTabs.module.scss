@@ -73,8 +73,7 @@ $sidebar_accent: map-get($colours, "accent");
         .head {
             display: block;
             padding: 32px 25px;
-            & > svg,
-            & > img {
+            & > *:first-child {
                 max-width: 120px;
                 display: block;
                 margin: auto;
