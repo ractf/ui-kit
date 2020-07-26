@@ -1,3 +1,6 @@
+$fontStack: "Dosis", helvetica, arial, sans-serif;
+$titleStack: "Dosis", helvetica, arial, sans-serif;
+
 $colours: map-merge($colours, (
     "blue": #4698d1,
     "cyan": #3eaed3,
@@ -56,4 +59,8 @@ $back_lift_x2: rgba(map-get($colours, "white"), 0.25);
             ),
         )
     );
+}
+
+body {
+    line-height: 1.5;
 }
