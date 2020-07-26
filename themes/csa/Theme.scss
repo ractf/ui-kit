@@ -1,0 +1,59 @@
+$colours: map-merge($colours, (
+    "blue": #4698d1,
+    "cyan": #3eaed3,
+    "green": #7ec280,
+    "yellow": #ffb723,
+    "pink": #dca995,
+    "red": #d48587,
+    "purple": #9885b2,
+
+    "accent": #9885b2,
+));
+
+$background: #0d2332;
+$color: #eee;
+$back_lift: rgba(map-get($colours, "white"), 0.125);
+$back_lift_x2: rgba(map-get($colours, "white"), 0.25);
+
+@if variable-exists(types) {
+    $types: map-merge(
+        $types,
+        (
+            primary: (
+                bg: rgba(9, 24, 35, 0.9),
+                fg: #fff,
+                fg2: #ddd,
+            ),
+            success: (
+                bg: map-get($colours, "green"),
+                fg: map-get($colours, "black"),
+            ),
+            danger: (
+                bg: map-get($colours, "red"),
+                fg: map-get($colours, "black"),
+            ),
+            info: (
+                bg: map-get($colours, "cyan"),
+                fg: map-get($colours, "black"),
+            ),
+            warning: (
+                bg: map-get($colours, "yellow"),
+                fg: map-get($colours, "black"),
+            ),
+            dark: (
+                bg: map-get($colours, "black"),
+                fg: map-get($colours, "white"),
+                fg2: map-get($colours, "darkGrey"),
+            ),
+            light: (
+                bg: $background,
+                fg: map-get($colours, "white"),
+                fg2: map-get($colours, "grey"),
+            ),
+            ractfSidebar: (
+                bg: #1E1C34,
+                fg: #fff,
+            ),
+        )
+    );
+}

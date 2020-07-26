@@ -1,0 +1,41 @@
+.footer {
+    background-color: $background !important;
+    padding: 60px 0 100px 0;
+    @media (max-width: 750px) {
+        padding: 50px 0;
+    }
+}
+
+.footRow {
+    background-color: $background !important;
+
+    .footRowInner {
+        flex-direction: column;
+        padding: 0 !important;
+    }
+}
+.footCol {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+
+    .footColTitle {
+        display: none;
+    }
+}
+
+.footLink {
+    border-bottom: solid 2px #286fa0;
+    padding-bottom: 2px;
+
+    &:hover {
+        text-decoration: none;
+        border-bottom-color: #4698d1;
+    }
+
+    &:not(:last-child) {
+        margin-right: 15px;
+    }
+}
