@@ -12,6 +12,11 @@
     .footRowInner {
         flex-direction: column;
         padding: 0 !important;
+
+        .footCol {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
     }
 }
 .footCol {
