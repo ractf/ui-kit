@@ -181,7 +181,7 @@
         min-height: auto;
         min-width: auto;
         line-height: map-get($input, "line_height");
-        font-size: map-get($input, "font_size");
+        font-size: map-get($input, "font_size") !important;
         height: auto;
     }
 

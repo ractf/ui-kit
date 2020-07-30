@@ -189,6 +189,11 @@
     font-size: 1.25rem;
     padding: 0.3125rem 0;
     color: inherit;
+
+    .navLink {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 @media (min-width: 1001px) {
