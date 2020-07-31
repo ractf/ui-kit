@@ -19,11 +19,13 @@ const Button = (props, ref) => {
     };
 
     const buttonClass = makeClass(
-        style.btn, props.className, propsToTypeClass(props, style, "primary")
+        style.btn, props.className, props.Icon && style.hasIcon, props.Icon && !props.children && style.onlyIcon,
+        propsToTypeClass(props, style, "primary")
     );
 
     return <button className={buttonClass} disabled={props.disabled} ref={ref}
         onClick={onClick}>
+        {props.Icon && <props.Icon className={style.icon} />}
         {props.children}
     </button>;
 };

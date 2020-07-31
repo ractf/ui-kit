@@ -14,6 +14,7 @@
     transition: background-color 200ms, color 200ms;
     user-select: none;
     outline: none;
+    position: relative;
 
     &.large {
         padding: px(14) px(27);
@@ -46,5 +47,40 @@
 
     &:hover {
         text-decoration: none !important;
+    }
+
+    &.hasIcon {
+        padding-left: px(57);
+    }
+    &.onlyIcon {
+        height: px(36);
+        padding: 0;
+        > .icon {
+            position: initial;
+            border-radius: px(4);
+        }
+        &.pill > .icon {
+            border-radius: 10rem;
+        }
+    }
+
+    > .icon {
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: px(36);
+        height: 100%;
+        border-radius: px(4) 0 0 px(4);
+        padding: px(11);
+        position: absolute;
+        
+    }
+    @each $type, $color in $types {
+        &.#{$type} > .icon {
+            background-color: rgba(map-get($color, "fg"), 0.1);
+        }
+    }
+    &.pill > .icon {
+        border-radius: 10rem 0 0 10rem;
     }
 }
