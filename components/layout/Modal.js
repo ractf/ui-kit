@@ -48,10 +48,10 @@ const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, 
     }, []);
     const okayClick = useCallback((e) => {
         if (onConfirm) onConfirm();
-        setDisplay(false);
+        else setDisplay(false);
     }, [onConfirm]);
 
-    if (!display) return;
+    if (!display) return null;
     return <div className={style.modalWrap} onClick={backClick}>
         <div className={makeClass(style.modal, propsToTypeClass(props, style))} onClick={mainClick}>
             {header && <div className={style.header}>{header}</div>}
@@ -119,3 +119,17 @@ export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
     </Modal>;
 });
 ModalPrompt.displayName = "ModalPrompt";
+
+export const ModalForm = React.memo(({ children, handle, ...props }) => {
+    const submitRef = useRef();
+    const submit = useCallback(() => {
+        submitRef.current();
+    }, []);
+
+    return <Modal {...props} onConfirm={submit}>
+        <Form handle={handle} submitRef={submitRef}>
+            {children}
+        </Form>
+    </Modal>;
+});
+ModalForm.displayName = "ModalForm";
