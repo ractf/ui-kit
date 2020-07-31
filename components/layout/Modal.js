@@ -24,7 +24,7 @@ import { makeClass, propsToTypeClass } from "@ractf/util";
 import style from "./Modal.module.scss";
 
 
-const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, ...props }) => {
+const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, cancelLabel, okayLabel, ...props }) => {
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
     const { t } = useTranslation();
     useEffect(() => {
@@ -60,8 +60,8 @@ const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, 
             </div>
             <div className={style.actions}>
                 {buttons ? buttons : <>
-                    {!noCancel && <Button onClick={cancelClick}>{t("cancel")}</Button>}
-                    <Button onClick={okayClick}>{t("okay")}</Button>
+                    {!noCancel && <Button onClick={cancelClick}>{cancelLabel || t("cancel")}</Button>}
+                    <Button onClick={okayClick}>{okayLabel || t("okay")}</Button>
                 </>}
             </div>
         </div>
