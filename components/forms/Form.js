@@ -16,9 +16,9 @@ export const BareForm = React.memo(({
 
                 getValues(i.props.children);
                 if (i.props.name && !previous.hasOwnProperty(i.props.name)) {
-                    if (i.props.value) {
+                    if (typeof i.props.value !== "undefined") {
                         values[i.props.name] = i.props.value;
-                    } else if (i.props.val) {
+                    } else if (typeof i.props.val !== "undefined") {
                         values[i.props.name] = i.props.val;
                     } else {
                         values[i.props.name] = "";
