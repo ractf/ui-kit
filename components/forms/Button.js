@@ -23,10 +23,23 @@ const Button = (props, ref) => {
         propsToTypeClass(props, style, "primary")
     );
 
-    return <button className={buttonClass} disabled={props.disabled} ref={ref}
-        onClick={onClick}>
+    const inner = <>
         {props.Icon && <props.Icon className={style.icon} />}
         {props.children}
+        {props.tooltip && (
+            <div className={style.tooltip}>
+                {props.tooltip}
+            </div>
+        )}
+    </>;
+    if (props.externalLink) {
+        return <a href={props.to} target={"_blank"} rel={"noopener noreferrer"} className={buttonClass} ref={ref}>
+            {inner}
+        </a>;
+    }
+    return <button className={buttonClass} disabled={props.disabled} ref={ref}
+        onClick={onClick}>
+        {inner}
     </button>;
 };
 

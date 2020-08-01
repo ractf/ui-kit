@@ -10,7 +10,7 @@
     border: none;
     display: block;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: background-color 200ms, color 200ms;
     user-select: none;
     outline: none;
@@ -73,14 +73,58 @@
         border-radius: px(4) 0 0 px(4);
         padding: px(11);
         position: absolute;
-        
     }
     @each $type, $color in $types {
-        &.#{$type} > .icon {
-            background-color: rgba(map-get($color, "fg"), 0.1);
+        &.#{$type} {
+            & > .icon {
+                background-color: rgba(map-get($color, "fg"), 0.05);
+            }
+            & > .tooltip {
+                border-color: rgba(map-get($color, "fg"), 0.05);
+            }
         }
     }
     &.pill > .icon {
         border-radius: 10rem 0 0 10rem;
+    }
+
+    &:hover {
+        > .tooltip {
+            display: block;
+        }
+    }
+    > .tooltip {
+        font-weight: 400;
+        display: none;
+        position: absolute;
+        background-color: inherit;
+        left: 50%;
+        margin-top: px(8);
+        top: 100%;
+        padding: px(11);
+        z-index: 1;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 3px #0005;
+        border-radius: px(4);
+        transform: translateX(-50%);
+        min-width: px(100);
+        text-align: center;
+
+        &::before {
+            display: block;
+            content: "";
+            left: 50%;
+            position: absolute;
+            top: px(-6.5);
+            transform: translateX(-50%) rotate(45deg);
+            border-radius: inherit;
+            width: px(8);
+            height: px(8);
+            z-index: -10;
+            background-color: inherit;
+            border: inherit;
+            border-right-width: 0;
+            border-bottom-width: 0;
+        }
     }
 }
