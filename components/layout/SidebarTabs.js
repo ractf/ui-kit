@@ -93,7 +93,7 @@ const SideNav_ = ({ header, footer, items, children, exclusive, ...props }) => {
                 </div>
                 {items.map(({ name, submenu, startOpen }) => (
                     <SubMenu key={name} name={name} isOpen={openSubs[name]} toggle={toggle}>
-                        {submenu.map(([text, url]) => (
+                        {submenu.filter(Boolean).map(([text, url]) => (
                             <Link to={url} key={text} className={style.subitem}>{text}</Link>
                         ))}
                     </SubMenu>
