@@ -6,7 +6,7 @@ import colours from "@ractf/ui-kit/Colours.scss";
 import { plotHoc, palette } from "./common.js";
 
 
-const Pie = plotHoc(({ data, labels, colors, noAnimate }) => {
+const Pie = plotHoc(({ data, labels, colors, noAnimate, percent }) => {
     const options = {
         legend: {
             position: "bottom",
@@ -15,6 +15,15 @@ const Pie = plotHoc(({ data, labels, colors, noAnimate }) => {
             },
         },
         maintainAspectRatio: false,
+        tooltips: {
+            callbacks: {
+                label: ({ index }) => {
+                    if (percent)
+                        return (Math.round(data.data[index] * 100) / 100) + "%";
+                    return data.data[index];
+                }
+            }
+        }
     };
 
     if (noAnimate)

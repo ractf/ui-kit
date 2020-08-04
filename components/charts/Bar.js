@@ -6,7 +6,7 @@ import colours from "@ractf/ui-kit/Colours.scss";
 import { plotHoc, palette } from "./common.js";
 
 
-const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel }) => {
+const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel, percent }) => {
     const options = {
         legend: {
             display: false,
@@ -31,6 +31,15 @@ const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel }) =>
             }],
         },
         maintainAspectRatio: false,
+        tooltips: {
+            callbacks: {
+                label: ({ yLabel }) => {
+                    if (percent)
+                        return (Math.round(yLabel * 100) / 100) + "%";
+                    return yLabel;
+                }
+            }
+        },
     };
 
     if (noAnimate)
@@ -39,10 +48,13 @@ const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel }) =>
     const labels = Object.keys(data);
     data = labels.map(i => data[i]);
 
+    const paddedColours = data.map((_, n) => (colors || palette)[n % (colors || palette).length]);
+
     data = { data };
     if (!("borderColor" in data)) data.borderColor = colours.background;
-    if (!("backgroundColor" in data)) data.backgroundColor = colors || palette;
-    if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = colors || palette;
+    if (!("backgroundColor" in data)) data.backgroundColor = paddedColours;
+    if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = paddedColours;
+    if (!("fillColor" in data)) data.fillColor = paddedColours;
 
     return <CJSBar data={{ datasets: [data], labels }} options={options} />;
 });

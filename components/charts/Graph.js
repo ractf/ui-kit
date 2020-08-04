@@ -7,7 +7,7 @@ import { plotHoc, palette } from "./common.js";
 import { transparentize } from "polished";
 
 
-const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate }) => {
+const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, percent }) => {
     const options = {
         legend: {
             position: "bottom",
@@ -49,6 +49,15 @@ const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate }) =
             }],
         },
         maintainAspectRatio: false,
+        tooltips: {
+            callbacks: {
+                label: tooltipItem => {
+                    if (percent)
+                        return (Math.round(tooltipItem.yLabel * 100) / 100) + "%";
+                    return tooltipItem.yLabel;
+                }
+            }
+        },
     };
 
     if (timeGraph)
