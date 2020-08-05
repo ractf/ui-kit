@@ -4,7 +4,9 @@ import { compiler } from "markdown-to-jsx";
 import {
     Row, Card, FlashText, HR, Leader
 } from "@ractf/ui-kit";
-import { TYPES } from "@ractf/util";
+import { TYPES, makeClass } from "@ractf/util";
+
+import style from "./Markdown.module.scss";
 
 
 // https://help.blackboard.com/Learn/Administrator/Hosting/Security/
@@ -101,7 +103,7 @@ const uriTransformer = uri => {
 };
 
 
-const Markdown = ({ source }) => {
+const Markdown = ({ className, source }) => {
     const SPECIALS = {
         row: Row,
         card: Card,
@@ -121,6 +123,9 @@ const Markdown = ({ source }) => {
         switch (type) {
             case "img":
                 safeProps.src = uriTransformer(safeProps.src);
+                break;
+            case "div":
+                safeProps["class"] = makeClass(safeProps["class"], className, style.div);
                 break;
             case "a":
                 safeProps.href = uriTransformer(safeProps.href);
