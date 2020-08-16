@@ -14,10 +14,9 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
 
     const toggle = useCallback(() => {
         setIsClosed(x => {
-            if (onOpenToggle) onOpenToggle(x);
             return !x;
         });
-    }, [onOpenToggle]);
+    }, []);
     const onResize = useCallback(() => {
         if (props.collapsible)
             setHeight(body.current.offsetHeight);
@@ -27,6 +26,8 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         if (typeof open !== "undefined") setIsClosed(!open);
     }, [open]);
     useEffect(() => {
+        if (onOpenToggle) onOpenToggle(!isClosed);
+
         const to = setTimeout(() => {
             if (isClosed) setHeight("auto");
             // Ensure scrollbars update!
@@ -34,7 +35,7 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         }, 200);
         setClosedClass(isClosed ? style.isClosed : null);
         return () => clearTimeout(to);
-    }, [isClosed]);
+    }, [isClosed, onOpenToggle]);
 
     return <div className={makeClass(style.card, closedClass, propsToTypeClass(props, style))}>
         {header && <div className={style.cardHeader} onClick={props.collapsible && toggle}>

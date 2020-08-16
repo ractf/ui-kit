@@ -119,6 +119,7 @@ const Markdown = ({ className, source }) => {
         const safeProps = {};
         for (const i of WHITELIST[type])
             safeProps[i] = props[i];
+        safeProps.key = props.key;
 
         switch (type) {
             case "img":
