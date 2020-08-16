@@ -1,6 +1,6 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-
+.inputTags,
 .input,
 .textarea {
     background: none;
@@ -26,6 +26,7 @@
     resize: vertical;
 }
 
+.inputTags,
 .inputWrapper {
     ::-ms-reveal,
     ::-ms-clear {
@@ -54,7 +55,7 @@
             opacity: 0.7;
         }
     }
-    
+
     &.center {
         text-align: center;
     }
@@ -77,7 +78,7 @@
     &.disabled {
         background-color: map-get($input, "background_disabled");
         color: map-get($input, "color_disabled");
-        opacity: .5;
+        opacity: 0.5;
         cursor: not-allowed;
         input {
             cursor: not-allowed;
@@ -165,12 +166,12 @@
             width: 75%;
             background-color: map-get($colours, "yellow");
         }
-        &[data-val="4"], &[data-val="5"] {
+        &[data-val="4"],
+        &[data-val="5"] {
             width: 100%;
             background-color: map-get($colours, "green");
         }
     }
-
 }
 
 .inputGroup {
@@ -223,13 +224,34 @@
     padding: 0.7rem 18px;
 
     &.disabled {
-        opacity: .5;
+        opacity: 0.5;
         color: map-get($input, "color_disabled");
     }
 }
 .disabled {
     .inputHint {
-        opacity: .5;
+        opacity: 0.5;
         color: map-get($input, "color_disabled");
+    }
+}
+
+.inputTags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: map-get($input, "tabsPadding");
+    > * {
+        margin: px(2.5) px(8) px(2.5) 0 ;
+        flex-shrink: 0;
+    }
+
+    > input {
+        margin-right: 0;
+        flex-grow: 1;
+        outline: none;
+        background-color: transparent;
+        border: none;
+        color: inherit;
+        font-size: map-get($input, "font_size");
     }
 }

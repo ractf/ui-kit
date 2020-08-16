@@ -15,6 +15,12 @@
     border-radius: px(4);
     font-weight: 700;
 
+    &.pill {
+        padding-right: 0.8em;
+        padding-left: 0.8em;
+        border-radius: 10rem;
+    }
+
     &.x {
         padding-right: px(28);
         position: relative;
@@ -50,12 +56,6 @@
                 transform: translate(-50%, -50%) rotate(-45deg);
             }
         }
-    }
-
-    &.pill {
-        padding-right: 0.8em;
-        padding-left: 0.8em;
-        border-radius: 10rem;
     }
 
     @include mapTypes();

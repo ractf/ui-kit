@@ -1,4 +1,4 @@
-import React, { PureComponent, createRef, useRef } from "react";
+import React, { PureComponent, createRef, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { makeClass } from "@ractf/util";
@@ -7,6 +7,7 @@ import { Button } from "@ractf/ui-kit";
 import withRactfForm from "./ractfFormHoc.js";
 
 import style from "./Input.module.scss";
+import Badge from "../widgets/Badge.js";
 
 
 export const InputHint = ({ children, disabled }) => (
@@ -29,6 +30,46 @@ export const InputButton = ({ btnDisabled, ...props }) => {
             {props.button || "Submit"}
         </Button>
     } managed />;
+};
+
+export const InputTags = ({ disabled, val, onChange }) => {
+    const [newTag, setNewTag] = useState("");
+
+    const onKeyDown = (e) => {
+        if (disabled)
+            return e.preventDefault();
+
+        if (e.keyCode === 13 || e.keyCode === 188) {
+            e.preventDefault();
+            onChange([...val, newTag]);
+            setNewTag("");
+        } else if (e.keyCode === 32) {
+            if (newTag.length === 0)
+            e.preventDefault();
+        } else if (e.keyCode === 8) {
+            if (newTag.length === 0) {
+                e.preventDefault();
+                if (val.length) {
+                    setNewTag(val[val.length - 1]);
+                    const newTags = [...val];
+                    newTags.pop();
+                    onChange(newTags);
+                }
+            }
+        }
+    };
+    const remove = (index) => {
+        return () => {
+            const newTags = [...val];
+            newTags.splice(index, 1);
+            onChange(newTags);
+        };
+    };
+
+    return <div className={makeClass(style.inputTags, disabled && style.disabled)}>
+        {val.map((i, n) => <Badge key={n + i} onClose={remove(n)} x>{i}</Badge>)}
+        <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyDown={onKeyDown} />
+    </div>;
 };
 
 
