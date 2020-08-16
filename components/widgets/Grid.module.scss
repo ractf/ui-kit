@@ -2,12 +2,11 @@
 
 .grid {
     width: 100%;
-    text-align: center;
     border-collapse: collapse;
     table-layout: fixed;
 
     td {
-        padding: 0.75rem;
+        padding: px(4) px(8);
         word-wrap: break-word;
         width: 100%;
     }

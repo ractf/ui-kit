@@ -36,8 +36,10 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         return () => clearTimeout(to);
     }, [isClosed, onOpenToggle]);
     useEffect(() => {
-        if (height !== "auto")
-            setClosedClass(isClosed ? style.isClosed : null);
+        if (height !== "auto" && body.current.parentElement.style.height !== "auto")
+            setTimeout(() => {
+                setClosedClass(isClosed ? style.isClosed : null);
+            }, 50);
     }, [height, setClosedClass, isClosed]);
 
     return <div className={makeClass(style.card, closedClass, propsToTypeClass(props, style))}>
