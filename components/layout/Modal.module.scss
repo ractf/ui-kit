@@ -31,19 +31,19 @@
     padding: 1rem;
 
     @media (max-width: 768px) {
-        padding: .25rem;
+        padding: 0.25rem;
     }
 }
 
 .modal {
     box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
     background-color: $background;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     overflow-y: auto;
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    
+
     &:not(.small) {
         width: 100%;
         @media (min-width: 768px) {
@@ -89,6 +89,19 @@
 
         > * {
             margin-left: px(10);
+        }
+    }
+
+    &.transparent {
+        background-color: transparent;
+        box-shadow: none;
+        > .actions,
+        > .header {
+            border: none;
+        }
+        > .header,
+        > .content {
+            text-align: center;
         }
     }
 }
