@@ -24,7 +24,9 @@ import { makeClass, propsToTypeClass } from "@ractf/util";
 import style from "./Modal.module.scss";
 
 
-const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, cancelLabel, okayLabel, ...props }) => {
+const Modal = ({
+    header, children, show, onClose, onConfirm, noCancel, buttons, extraButtons, cancelLabel, okayLabel, ...props
+}) => {
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
     const { t } = useTranslation();
     useEffect(() => {
@@ -59,6 +61,7 @@ const Modal = ({ header, children, show, onClose, onConfirm, noCancel, buttons, 
                 {props.fullHeight ? <Scrollbar>{children}</Scrollbar> : children}
             </div>
             <div className={style.actions}>
+                {extraButtons}
                 {buttons ? buttons : <>
                     {!noCancel && <Button onClick={cancelClick}>{cancelLabel || t("cancel")}</Button>}
                     <Button onClick={okayClick}>{okayLabel || t("okay")}</Button>
