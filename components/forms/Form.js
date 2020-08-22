@@ -4,62 +4,113 @@ import http from "@ractf/http";
 
 import "./Form.scss";
 
+const setValue = (object, key, value) => {
+    const split = key.split(".");
+    for (let i = 0; i < split.length - 1; i++) {
+        if (typeof object[split[i]] === "undefined") {
+            if (/^[0-9]+$/.test(split[i + 1]))
+                object[split[i]] = [];
+            else
+                object[split[i]] = {};
+        }
+        object = object[split[i]];
+    }
+    object[split[split.length - 1]] = value;
+};
+const getValue = (object, key) => {
+    const index = (obj, i) => typeof obj === "undefined" ? undefined : obj[i];
+    return key.split(".").reduce(index, object);
+};
+
+const different = (obj1, obj2) => {
+    const object1keys = Object.keys(obj1).sort();
+    const object2keys = Object.keys(obj2).sort();
+    if (object1keys.length !== object2keys.length)
+        return true;
+    if (!object1keys.every((i, n) => i === object2keys[n]))
+        return true;
+    if (!object1keys.every(i => {
+        if (typeof obj1[i] !== typeof obj2[i])
+            return false;
+        if (typeof obj1[i] === "object")
+            return !different(obj1[i], obj2[i]);
+        return obj1[i] === obj2[i];
+    }))
+        return true;
+    return false;
+};
+
+
+const generateValues = (children, previous = {}, displayValues) => {
+    const values = {};
+    const getValues = (children) => {
+        React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
+            if (!i.props) return;
+
+            getValues(i.props.children);
+            if (i.props.name && !previous.hasOwnProperty(i.props.name)) {
+                const cast = (!displayValues && i.props.cast) || (i => i);
+
+                if (typeof i.props.value !== "undefined") {
+                    setValue(values, i.props.name, i.props.value && cast(i.props.value));
+                } else if (typeof i.props.val !== "undefined") {
+                    setValue(values, i.props.name, i.props.val && cast(i.props.val));
+                } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== undefined) {
+                    setValue(values, i.props.name, i.props.options[i.props.initial].key);
+                } else {
+                    setValue(values, i.props.name, "");
+                }
+            }
+        });
+    };
+    getValues(children);
+    return values;
+};
+
+
+const getErrorDetails = (e) => {
+    if (!(e.response && e.response.data)) return {};
+    if (typeof e.response.data.d !== "object") return {};
+
+    return e.response.data.d;
+};
+
 
 export const BareForm = React.memo(({
-    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef, valuesRef
+    children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
+    valuesRef, onChange
 }) => {
-    const generateValues = (children, previous = {}) => {
-        const values = {};
-        const getValues = (children) => {
-            React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
-                if (!i.props) return;
-
-                getValues(i.props.children);
-                if (i.props.name && !previous.hasOwnProperty(i.props.name)) {
-                    if (typeof i.props.value !== "undefined") {
-                        values[i.props.name] = i.props.value;
-                    } else if (typeof i.props.val !== "undefined") {
-                        values[i.props.name] = i.props.val;
-                    } else {
-                        values[i.props.name] = "";
-                    }
-                }
-            });
-        };
-        getValues(children);
-        return values;
-    };
-
     const [formState, setFormState] = useState({
-        values: generateValues(children), error: null, errors: {}, disabled: false
+        displayValues: generateValues(children, true),
+        values: generateValues(children),
+        error: null, errors: {}, disabled: false
     });
     const hasCustomFormError = useRef(false);
     const required = useRef({});
     const { t } = useTranslation();
+    const lastState = useRef(formState.values);
 
     useEffect(() => {
         setFormState(oldFormState => {
             return {
                 ...oldFormState,
-                values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) }
+                displayValues: { ...oldFormState.displayValues, ...generateValues(children, oldFormState.values) },
+                values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) },
             };
         });
     }, [children]);
     useEffect(() => {
         if (valuesRef)
             valuesRef.current = formState.values;
-    }, [valuesRef, formState.values]);
+        if (onChange && different(lastState.current, formState.values)) {
+            lastState.current = formState.values;
+            onChange(formState.values);
+        }
+    }, [valuesRef, formState.values, onChange]);
 
     const onClick = (oldClick, e) => {
         if (oldClick) oldClick(e);
         submit();
-    };
-
-    const getErrorDetails = (e) => {
-        if (!(e.response && e.response.data)) return {};
-        if (typeof e.response.data.d !== "object") return {};
-
-        return e.response.data.d;
     };
 
     const genericValidator = (values) => {
@@ -67,7 +118,7 @@ export const BareForm = React.memo(({
             const errors = {};
             Object.keys(values).forEach(i => {
                 if (required.current[i] && !values[i])
-                    errors[i] = t("required");
+                    setValue(errors, i, t("required"));
             });
             if (Object.keys(errors).length)
                 return reject(errors);
@@ -128,15 +179,22 @@ export const BareForm = React.memo(({
     };
     if (submitRef) submitRef.current = submit;
 
-    const onChange = (oldChange, name, value) => {
+    const onChangeLocal = (oldChange, cast, name, value) => {
+        let casted = value;
+        if (value && cast) casted = cast(value);
         if (oldChange) oldChange(value);
-        setFormState(oldFormState => ({
-            ...oldFormState, errors: {
-                ...oldFormState.errors, [name]: null
-            }, values: {
-                ...oldFormState.values, [name]: value
-            }
-        }));
+
+        setFormState(oldFormState => {
+            const newErrors = {...oldFormState.errors};
+            const newValues = {...oldFormState.values};
+            const newDisplayValues = {...oldFormState.displayValues};
+            setValue(newErrors, name, null);
+            setValue(newValues, name, casted);
+            setValue(newDisplayValues, name, value);
+            return {
+                ...oldFormState, errors: newErrors, values: newValues, displayValues: newDisplayValues
+            };
+        });
     };
 
     const recurseChildren = (children) => {
@@ -152,17 +210,22 @@ export const BareForm = React.memo(({
             props.disabled = locked || formState.disabled || props.disabled;
             props.children = myChildren;
             if (props.name) {
-                props.onChange = onChange.bind(this, props.onChange, props.name);
+                props.onChange = onChangeLocal.bind(this, props.onChange, props.cast, props.name);
                 props.onSubmit = onSubmit.bind(this, props.onSubmit);
-                if (formState.values[props.name] === undefined)
+                if (getValue(formState.values, props.name) === undefined)
                     props.val = props.value = "";
                 else
-                    props.val = props.value = formState.values[props.name];
-                props.error = formState.errors[props.name] || props.error;
+                    props.val = props.value = getValue(formState.displayValues, props.name);
+                props.error = getValue(formState.errors, props.name) || props.error;
                 required.current[props.name] = props.required;
                 props.key = props.name;
             } else {
                 props.val = props.value = "";
+            }
+            if (props.formRequires) {
+                props.formRequires.forEach(i => {
+                    props[i] = getValue(formState.values, i);
+                });
             }
             props.__ractf_global_error = formState.error;
             props.managed = 1;

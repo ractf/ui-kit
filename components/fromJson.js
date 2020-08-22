@@ -3,29 +3,33 @@ import React from "react";
 import {
     FormGroup, Input, Select, HR, Spoiler
 } from "@ractf/ui-kit";
+import { NUMBER_RE } from "@ractf/util";
+
 
 const fromJson = (fields = [], data = {}) => {
     const generateFields = (fields) => {
         const retFields = [];
         let n = 0;
+        const index = (obj, i) => typeof obj === "undefined" ? undefined : obj[i];
 
         fields.forEach(field => {
+            const val = field.name && field.name.split(".").reduce(index, data);
+
             switch (field.type) {
                 case "multiline":
                 case "code":
                 case "text":
                 case "number":
-                    const val = data[field.name];
-                    const format = field.type === "number" ? /\d+/ : /.+/;
+                    const format = field.type === "number" ? NUMBER_RE : field.regex || /.+/;
                     retFields.push(<FormGroup htmlFor={field.name} label={field.label} key={(n++)}>
                         <Input val={val !== undefined ? val.toString() : undefined} name={field.name}
-                            placeholder={field.label} format={format}
+                            placeholder={field.label} format={format} cast={field.type === "number" ? parseFloat : null}
                             rows={field.type === "multiline" || field.type === "code" ? 5 : ""}
                             monospace={field.type === "code"} />
                     </FormGroup>);
                     break;
                 case "select":
-                    const idx = field.options.map(i => i.key).indexOf(data[field.name]);
+                    const idx = field.options.map(i => i.key).indexOf(val);
                     retFields.push(<FormGroup key={(n++)} htmlFor={field.name} label={field.label}>
                         <Select name={field.name} options={field.options}
                             initial={idx !== -1 ? idx : 0} />
