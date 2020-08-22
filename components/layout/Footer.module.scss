@@ -12,71 +12,83 @@
 .footRow {
     @include mapTypes();
 
+    padding: px(16);
+    line-height: 1.5;
+
     .footRowInner {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.5rem 0;
-        max-width: 1100px;
+        max-width: 1000px;
         margin: auto;
+        @media (max-width: 800px) {
+            justify-content: center;
+            text-align: center;
+        }
+    }
 
-        > * {
-            margin: 0 1rem;
+    img {
+        margin-bottom: auto;
+        margin-right: px(32);
+        margin-left: px(16);
+        @media (max-width: 800px) {
+            width: 100%;
+            flex-basis: 100%;
+            text-align: center;
+            margin-bottom: px(24);
         }
     }
 
     &.center .footRowInner {
         justify-content: center;
+        text-align: center;
     }
     &.right .footRowInner {
         justify-content: flex-end;
+        text-align: right;
     }
-    &.slim .footRowInner {
-        padding: 1rem 0;
+    &.column .footRowInner {
+        flex-direction: column;
     }
-    &.main .footRowInner {
-        padding-top: 3rem;
-        align-items: flex-start;
+    &.main {
+        padding: px(60) px(80) px(36);
+        @media (max-width: 800px) {
+            padding: px(24) px(16) px(37);
+        }
+    }
+    &.slim {
+        font-size: px(12);
     }
     &.darken {
         background-color: rgba(0, 0, 0, 0.2);
         color: rgba(255, 255, 255, 0.6);
     }
+
+    p {
+        margin-bottom: 0;
+    }
 }
 
 .footCol {
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
-    flex-grow: 1;
-    width: calc(100% - 4rem);
-
-    @media (min-width: 576px) {
-        width: 200px;
+    line-height: 1.25;
+    margin: 0 px(48);
+    @media (max-width: 800px) {
+        margin: 0 px(16);
     }
-    flex-shrink: 0;
-
     .footColTitle {
-        padding-bottom: .5rem;
-        margin-bottom: 1.5rem;
-        position: relative;
-
-        &::after {
-            width: 100%;
-            max-width: 60px;
-            background-color: map-get($colours, "accent");
-            height: 1px;
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-        }
+        font-weight: 600;
+        margin-bottom: px(6);
+        font-size: inherit;
     }
-
-    > * {
+    a {
+        color: inherit;
+        opacity: 0.7;
+        text-decoration: none;
+        margin: px(2) 0 0;
         display: block;
-        margin-bottom: 1rem;
+        &:hover {
+            opacity: 1;
+        }
     }
 }
 
