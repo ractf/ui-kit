@@ -94,6 +94,7 @@
 
     &.transparent {
         background-color: transparent;
+        color: map-get($colours, "white");
         box-shadow: none;
         > .actions,
         > .header {
