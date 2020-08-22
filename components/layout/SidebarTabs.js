@@ -9,7 +9,7 @@ import Scrollbar from "./Scrollbar";
 import style from "./SidebarTabs.module.scss";
 
 
-const SubMenu_ = ({ name, children, isOpen, toggle }) => {
+const SubMenu_ = ({ name, children, isOpen, link, toggle }) => {
     const [height, setHeight] = useState(isOpen ? "auto" : 0);
     const childs = useRef();
 
@@ -24,17 +24,23 @@ const SubMenu_ = ({ name, children, isOpen, toggle }) => {
             setHeight(0);
     }, [isOpen]);
     const click = useCallback((e) => {
-        toggle(name);
-        e.preventDefault();
+        if (toggle) {
+            toggle(name);
+            e.preventDefault();
+        }
     }, [toggle, name]);
 
+    const Element = link ? Link : "div";
+
     return <>
-        <div onClick={click} className={makeClass(style.item, (height !== 0) && style.active)}>
+        <Element onClick={click} className={makeClass(style.item, (height !== 0) && style.active)} to={link}>
             {children && children.length && <MdKeyboardArrowLeft />}{name}
-        </div>
-        <div className={style.children} style={{ height: height }} ref={childs}>
-            {children}
-        </div>
+        </Element>
+        {children && children.length && (
+            <div className={style.children} style={{ height: height }} ref={childs}>
+                {children}
+            </div>
+        )}
     </>;
 };
 export const SubMenu = React.memo(SubMenu_);
@@ -91,12 +97,14 @@ const SideNav_ = ({ header, footer, items, children, exclusive, ...props }) => {
                 <div className={style.head}>
                     {header}
                 </div>
-                {items.map(({ name, submenu, startOpen }) => (
-                    <SubMenu key={name} name={name} isOpen={openSubs[name]} toggle={toggle}>
-                        {submenu.filter(Boolean).map(([text, url]) => (
-                            <Link to={url} key={text} className={style.subitem}>{text}</Link>
-                        ))}
-                    </SubMenu>
+                {items.map(({ name, link, submenu }) => (
+                    submenu ? (
+                        <SubMenu key={name} name={name} isOpen={openSubs[name]} toggle={toggle}>
+                            {submenu.filter(Boolean).map(([text, url]) => (
+                                <Link to={url} key={text} className={style.subitem}>{text}</Link>
+                            ))}
+                        </SubMenu>
+                    ) : <SubMenu key={name} name={name} link={link} />
                 ))}
                 <div className={style.skip} />
                 <div className={style.foot}>
