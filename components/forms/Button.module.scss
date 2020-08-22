@@ -51,6 +51,9 @@
 
     &.hasIcon {
         padding-left: px(57);
+        &.tiny {
+            padding-left: px(40);
+        }
     }
     &.onlyIcon {
         height: px(36);
