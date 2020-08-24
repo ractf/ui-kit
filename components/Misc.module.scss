@@ -145,6 +145,7 @@ $spinner_color: map-get($colours, "accent");
     max-width: 1140px;
     width: 100%;
     margin: auto;
+    position: relative;
 }
 
 .siteWrap {

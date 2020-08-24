@@ -55,7 +55,8 @@ const generateValues = (children, previous = {}, displayValues) => {
                     setValue(values, i.props.name, i.props.value && cast(i.props.value));
                 } else if (typeof i.props.val !== "undefined") {
                     setValue(values, i.props.name, i.props.val && cast(i.props.val));
-                } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== undefined) {
+                } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== undefined
+                    && Object.hasOwnProperty(i.props.options, i.props.initial)) {
                     setValue(values, i.props.name, i.props.options[i.props.initial].key);
                 } else {
                     setValue(values, i.props.name, "");
@@ -185,9 +186,9 @@ export const BareForm = React.memo(({
         if (oldChange) oldChange(value);
 
         setFormState(oldFormState => {
-            const newErrors = {...oldFormState.errors};
-            const newValues = {...oldFormState.values};
-            const newDisplayValues = {...oldFormState.displayValues};
+            const newErrors = { ...oldFormState.errors };
+            const newValues = { ...oldFormState.values };
+            const newDisplayValues = { ...oldFormState.displayValues };
             setValue(newErrors, name, null);
             setValue(newValues, name, casted);
             setValue(newDisplayValues, name, value);
