@@ -63,7 +63,7 @@
         background-color: transparent;
         color: inherit;
 
-        @include mapTypes(false, ".cardHeader", true);
+        @include mapTypes(false, "> .cardHeader", true);
 
         @each $type, $color in $types {
             &.#{$type} {

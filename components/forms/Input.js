@@ -34,6 +34,7 @@ export const InputButton = ({ btnDisabled, ...props }) => {
 
 export const InputTags = ({ disabled, val, onChange }) => {
     const [newTag, setNewTag] = useState("");
+    val = val || [];
 
     const onKeyDown = (e) => {
         if (disabled)

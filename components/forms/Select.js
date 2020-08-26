@@ -15,7 +15,9 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
     const head = useRef();
 
     useEffect(() => {
-        onChange(options[initial].key);
+        if (typeof options[initial] === "object") {
+            onChange(options[initial].key);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
