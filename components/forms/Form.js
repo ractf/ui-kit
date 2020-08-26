@@ -79,7 +79,7 @@ const getErrorDetails = (e) => {
 
 export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
-    valuesRef, onChange
+    valuesRef, onChange, transformer
 }) => {
     const [formState, setFormState] = useState({
         displayValues: generateValues(children, true),
@@ -130,7 +130,10 @@ export const BareForm = React.memo(({
         setFormState(oldFormState => {
             if (oldFormState.disabled) return oldFormState;
 
-            const formData = { ...oldFormState.values, ...extraValues };
+            let formData = { ...oldFormState.values, ...extraValues };
+            if (transformer)
+                formData = transformer(formData);
+
             const performRequest = () => {
                 if (!method || !action) {
                     setFormState(ofs => ({

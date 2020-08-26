@@ -14,6 +14,11 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
     const items = useRef();
     const head = useRef();
 
+    useEffect(() => {
+        onChange(options[initial].key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const doOpen = useCallback(() => {
         const rect = head.current.getBoundingClientRect();
         setState(oldState => ({
@@ -70,8 +75,8 @@ export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter,
                     {options.map(i => (
                         !state.filter || i.value.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1
                     ) && (
-                        <div onClick={(e) => select(e, i)} key={i.key}>{i.value}</div>
-                    ))}
+                            <div onClick={(e) => select(e, i)} key={i.key}>{i.value}</div>
+                        ))}
                 </div>
             </div>
         )}
