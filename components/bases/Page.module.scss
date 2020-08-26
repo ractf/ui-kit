@@ -5,12 +5,17 @@
     padding: 2rem;
     max-width: 1200px;
     margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
     flex-grow: 1;
     width: 100%;
     min-height: 100%;
 
     &.centre {
-        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;

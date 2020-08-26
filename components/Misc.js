@@ -4,6 +4,7 @@ import { makeClass, basicComponent, propsToTypeClass } from "@ractf/util";
 import { Row } from "@ractf/ui-kit";
 
 import style from "./Misc.module.scss";
+import { Column } from "./layout/Layout";
 
 
 export const TextBlock = React.memo(({ children, className, ...props }) => (
@@ -38,14 +39,14 @@ export const SubtleText = React.memo(({ children }) => (
 ));
 SubtleText.displayName = "SubtleText";
 export const PageHead = React.memo(({ title, subTitle, back, children, tags }) => (
-    <div className={style.pageHead}>
+    <Column className={style.pageHead}>
         <Row tight left>
             <div className={style.pageTitle}>{title || children}</div>
             { tags }
         </Row>
         {back}
         {subTitle && <p>{subTitle}</p>}
-    </div>
+    </Column>
 ));
 PageHead.displayName = "PageHead";
 

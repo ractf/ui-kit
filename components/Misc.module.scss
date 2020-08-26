@@ -71,8 +71,11 @@ $spinner_color: map-get($colours, "accent");
     margin-bottom: 1rem;
 
     p, a {
-        margin: 0 0 .5rem;
         font-size: .95rem;
+        margin: 0 !important;
+    }
+    > :last-child {
+        margin-bottom: px(8) !important;
     }
 
     .pageTitle {
@@ -142,9 +145,8 @@ $spinner_color: map-get($colours, "accent");
 
 .container {
     flex-grow: 1;
-    max-width: 1140px;
-    width: 100%;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 

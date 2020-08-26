@@ -4,7 +4,6 @@ import { makeClass } from "@ractf/util";
 import style from "./Layout.module.scss";
 
 
-
 const Row_ = ({ left, centre, vCentre, right, tight, className, ...props }) => (
     <div className={makeClass(style.flexRow, right && style.frRight, left && style.frLeft,
         centre && style.centre, tight && style.frTight, vCentre && style.vCentre, className)} {...props} />
@@ -15,6 +14,7 @@ export const Row = React.memo(Row_);
 const Column_ = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...props }) => (
     <div className={makeClass(
         style.flexColumn,
+        props.noGutter && style.noGutter,
         width && style["col" + width],
         smWidth && style["col-sm" + smWidth],
         mdWidth && style["col-md" + mdWidth],

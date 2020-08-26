@@ -1,12 +1,16 @@
+@import "@ractf/ui-kit/Colours.scss";
+
 .flexRow {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
     margin-right: -0.5rem;
     margin-bottom: -0.5rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    max-width: 100%;
     flex-grow: 1;
 
     &.frRight {
@@ -61,6 +65,7 @@
 
 .flexColumn {
     flex-grow: 1;
+    flex-shrink: 0;
     flex-basis: 100%;
     margin: 0;
     padding-left: 1rem;
@@ -69,9 +74,25 @@
     display: flex;
     flex-direction: column;
 
+    &.noGutter {
+        padding: 0;
+    }
+
     > .flexRow {
         flex-grow: 0;
         flex-basis: 0;
+    }
+
+    > *:not(.flexRow) {
+        margin-top: px(4);
+        margin-bottom: px(4);
+
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     @include colBlock("col", 0);
