@@ -8,6 +8,7 @@ import style from "./Card.module.scss";
 
 const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
     const [closedClass, setClosedClass] = useState(props.startClosed ? style.isClosed : null);
+    const [hideStyle, setHideStyle] = useState(props.startClosed ? { display: "none" } : null);
     const [isClosed, setIsClosed] = useState((props.collapsible && props.startClosed) ? true : false);
     const [height, setHeight] = useState("auto");
     const body = useRef();
@@ -27,12 +28,21 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
     }, [open]);
     useEffect(() => {
         if (onOpenToggle) onOpenToggle(!isClosed);
-        setHeight(body.current.offsetHeight);
+        const next = isClosed ? 200 : 220;
+        if (isClosed) {
+            setHeight(body.current.offsetHeight);
+        } else {
+            setHideStyle(null);
+            setTimeout(() => {
+                setHeight(body.current.offsetHeight);
+            }, 20);
+        }
         const to = setTimeout(() => {
             setHeight("auto");
+            setHideStyle(isClosed ? { display: "none" } : null);
             // Ensure scrollbars update!
             window.dispatchEvent(new Event("resize"));
-        }, 200);
+        }, next);
         return () => clearTimeout(to);
     }, [isClosed, onOpenToggle]);
     useEffect(() => {
@@ -54,7 +64,7 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
                         {title}
                     </H4>
                 )}
-                <div className={style.cardText}>
+                <div className={style.cardText} style={hideStyle}>
                     {children}
                 </div>
             </div>

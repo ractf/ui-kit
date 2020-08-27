@@ -1,8 +1,10 @@
 import React, { cloneElement, useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { makeClass } from "@ractf/util";
 import http from "@ractf/http";
 
-import "./Form.scss";
+import style from "./Form.module.scss";
+
 
 const setValue = (object, key, value) => {
     const split = key.split(".");
@@ -257,14 +259,14 @@ export const BareForm = React.memo(({
 });
 BareForm.displayName = "BareForm";
 
-const Form = ({ ...props }) => {
-    return <div className={"formWrapper"}>
+const Form = ({ className, ...props }) => {
+    return <div className={makeClass(style.formWrapper, className)}>
         <BareForm {...props} />
     </div>;
 };
 export default React.memo(Form);
 
 export const FormError = React.memo(({ children, __ractf_global_error }) => (
-    <div className={"formError"}>{__ractf_global_error || children}</div>
+    <div className={style.formError}>{__ractf_global_error || children}</div>
 ));
 FormError.displayName = "FormError";
