@@ -2,11 +2,12 @@ import React from "react";
 import { compiler } from "markdown-to-jsx";
 
 import {
-    Row, Card, FlashText, HR, Leader
+    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
 import style from "./Markdown.module.scss";
+import gridStyle from "./Grid.module.scss";
 
 
 // https://help.blackboard.com/Learn/Administrator/Hosting/Security/
@@ -17,6 +18,7 @@ const WHITELIST = {
     // Grouping
     div: [...BASE, "align"],
     span: ["id", "class", "xmlLang", "dir", "title", "align"],
+    center: [...BASE],
     // Images
     img: [...BASE, "src", "alt", "longdesc", "name", "align", "width", "height", "border", "hspace", "vspace"],
     // Headings
@@ -50,28 +52,29 @@ const WHITELIST = {
     // Lines and paragraphs
     p: [...BASE, "align"], br: ["id", "class", "title", "clear"], pre: BASE,
     // Tables:
-    table: ["id", "border", "cellpadding", "cellspacing", "align", "class",
-            "frame", "summary", "lang", "dir", "bgcolor", "width", "rules"],
+    table: ["id", "border", "cellPadding", "cellSpacing", "align", "class",
+            "frame", "summary", "lang", "dir", "bgColor", "width", "rules"],
     caption: ["id", "land", "dir", "title"],
-    thread: [...BASE, "cellhalign", "cellvalign", "align", "char", "charoff",
+    thread: [...BASE, "cellhalign", "cellvalign", "align", "char", "charOff",
             "valign"],
-    tfoot: [...BASE, "cellhalign", "cellvalign", "align", "char", "charoff",
+    tfoot: [...BASE, "cellhalign", "cellvalign", "align", "char", "charOff",
             "valign"],
-    tbody: [...BASE, "align", "char", "charoff", "valign"],
-    colgroup: [...BASE, "span", "width", "align", "char", "charoff", "valign"],
-    col: [...BASE, "span", "width", "align", "char", "charoff", "valign"],
-    tr: [...BASE, "bgcolor", "align", "char", "charoff", "valign"],
-    th: [...BASE, "abbr", "axis", "headers", "scope", "rowspan", "colspan",
-         "bgcolor", "align", "char", "charoff", "valign"],
-    td: [...BASE, "abbr", "axis", "headers", "scope", "rowspan", "colspan",
-         "bgcolor", "align", "char", "charoff", "valign"],
-    
+    thead: [...BASE, "align", "char", "charOff", "valign"],
+    tbody: [...BASE, "align", "char", "charOff", "valign"],
+    colgroup: [...BASE, "span", "width", "align", "char", "charOff", "valign"],
+    col: [...BASE, "span", "width", "align", "char", "charOff", "valign"],
+    tr: [...BASE, "bgColor", "align", "char", "charOff", "valign"],
+    th: [...BASE, "abbr", "axis", "headers", "scope", "rowSpan", "colSpan",
+         "bgColor", "align", "char", "charOff", "valign"],
+    td: [...BASE, "abbr", "axis", "headers", "scope", "rowSpan", "colSpan",
+         "bgColor", "align", "char", "charOff", "valign"],
+
     // ui-kit specials
     row: ["left", "right"],
     card: ["header", "title", ...TYPES],
     alert: [...TYPES],
     leader: ["sub"],
-    redact: []
+    redact: [],
 };
 
 const PROTOCOLS = ["http", "https", "mailto", "tel"];
@@ -102,14 +105,19 @@ const uriTransformer = uri => {
     return "javascript:void(0)";
 };
 
-
 const Markdown = ({ className, source }) => {
     const SPECIALS = {
         row: Row,
         card: Card,
         alert: FlashText,
         leader: Leader,
-        hr: HR
+        hr: HR,
+        h1: H1,
+        h2: H2,
+        h3: H3,
+        h4: H4,
+        h5: H5,
+        h6: H6,
     };
 
     const createElement = (type, props, ...children) => {
@@ -124,9 +132,13 @@ const Markdown = ({ className, source }) => {
         switch (type) {
             case "img":
                 safeProps.src = uriTransformer(safeProps.src);
+                safeProps.style = { maxWidth: "100%" };
                 break;
             case "div":
                 safeProps["class"] = makeClass(safeProps["class"], className, style.div);
+                break;
+            case "table":
+                safeProps["class"] = makeClass(gridStyle.grid, safeProps["class"]);
                 break;
             case "a":
                 safeProps.href = uriTransformer(safeProps.href);
