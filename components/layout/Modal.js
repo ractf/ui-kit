@@ -29,6 +29,7 @@ const Modal = ({
 }) => {
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
     const { t } = useTranslation();
+    const baseRef = useRef();
     useEffect(() => {
         if ((typeof show) !== "undefined")
             setDisplay(show);
@@ -36,7 +37,8 @@ const Modal = ({
             setDisplay(true);
     }, [show]);
 
-    const backClick = useCallback(() => {
+    const backClick = useCallback((e) => {
+        if (e.target !== baseRef.current) return;
         if (onClose) onClose(true);
         setDisplay(false);
     }, [onClose]);
@@ -54,7 +56,7 @@ const Modal = ({
     }, [onConfirm]);
 
     if (!display) return null;
-    return <div className={style.modalWrap} onClick={backClick}>
+    return <div className={style.modalWrap} onMouseDown={backClick} ref={baseRef}>
         <div className={makeClass(style.modal, propsToTypeClass(props, style))} onClick={mainClick}>
             {header && <div className={style.header}>{header}</div>}
             <div className={style.content}>

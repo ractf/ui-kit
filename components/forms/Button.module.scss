@@ -57,7 +57,7 @@
     }
     &.onlyIcon {
         height: px(36);
-        padding: 0;
+        padding: 0 !important;
         > .icon {
             position: initial;
             border-radius: px(4);
