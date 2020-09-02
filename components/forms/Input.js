@@ -259,7 +259,7 @@ export class RawInput extends PureComponent {
                     className={makeClass(style.input, this.props.monospace && style.monospaced)}
                     autoFocus={this.props.autoFocus}
                     disabled={this.props.disabled || this.props.readonly} />}
-            {(this.props.limit || 1) && (
+            {this.props.limit && (
                 <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
             )}
             {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
