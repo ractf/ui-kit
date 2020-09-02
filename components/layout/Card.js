@@ -18,11 +18,13 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
             return !x;
         });
     }, []);
-    const onResize = useCallback(() => {
+    useEffect(() => {
         if (props.collapsible)
-            setHeight(body.current?.offsetHeight || "auto");
-    }, [props.collapsible]);
-    useEffect(onResize, [body, children, isClosed]);
+            if (props.startClosed || isClosed)
+                setHeight(body.current?.offsetHeight || "auto");
+            else
+                setHeight("auto");
+    }, [body, children, isClosed, props.collapsible, props.startClosed]);
     useEffect(() => {
         if (typeof open !== "undefined") setIsClosed(!open);
     }, [open]);
