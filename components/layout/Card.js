@@ -20,7 +20,7 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
     }, []);
     const onResize = useCallback(() => {
         if (props.collapsible)
-            setHeight(body.current.offsetHeight);
+            setHeight(body.current?.offsetHeight || "auto");
     }, [props.collapsible]);
     useEffect(onResize, [body, children, isClosed]);
     useEffect(() => {
@@ -30,11 +30,11 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         if (onOpenToggle) onOpenToggle(!isClosed);
         const next = isClosed ? 200 : 220;
         if (isClosed) {
-            setHeight(body.current.offsetHeight);
+            setHeight(body.current?.offsetHeight || "auto");
         } else {
             setHideStyle(null);
             setTimeout(() => {
-                setHeight(body.current.offsetHeight);
+                setHeight(body.current?.offsetHeight || "auto");
             }, 20);
         }
         const to = setTimeout(() => {
@@ -46,7 +46,7 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         return () => clearTimeout(to);
     }, [isClosed, onOpenToggle]);
     useEffect(() => {
-        if (height !== "auto" && body.current.parentElement.style.height !== "auto")
+        if (height !== "auto" && body.current?.parentElement?.style.height !== "auto")
             setTimeout(() => {
                 setClosedClass(isClosed ? style.isClosed : null);
             }, 50);
