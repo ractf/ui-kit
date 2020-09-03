@@ -2,7 +2,7 @@ import React from "react";
 import { compiler } from "markdown-to-jsx";
 
 import {
-    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6
+    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Link
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
@@ -141,9 +141,18 @@ const Markdown = ({ className, source }) => {
                 safeProps["class"] = makeClass(gridStyle.grid, safeProps["class"]);
                 break;
             case "a":
-                safeProps.href = uriTransformer(safeProps.href);
-                safeProps.target = "_blank";
-                safeProps.rel = "noopener noreferrer";
+                const href = uriTransformer(safeProps.href);
+                const firstChar = href.charAt(0);
+                if ((firstChar === "#" || firstChar === "/" || href.length === 0)) {
+                    // Internal link
+                    delete safeProps.href;
+                    safeProps.to = href;
+                    type = Link;
+                } else {
+                    safeProps.href = href;
+                    safeProps.target = "_blank";
+                    safeProps.rel = "noopener noreferrer";
+                }
                 break;
             case "del":
             case "redact":
