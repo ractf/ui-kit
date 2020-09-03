@@ -2,7 +2,7 @@ import React from "react";
 import { compiler } from "markdown-to-jsx";
 
 import {
-    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Link
+    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Link, Button
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
@@ -75,6 +75,7 @@ const WHITELIST = {
     alert: [...TYPES],
     leader: ["sub"],
     redact: [],
+    button: ["to", "lesser", "tooltip", "disabled", "large", "tiny", "pill", ...TYPES],
 };
 
 const PROTOCOLS = ["http", "https", "mailto", "tel"];
@@ -111,6 +112,7 @@ const Markdown = ({ className, source }) => {
         card: Card,
         alert: FlashText,
         leader: Leader,
+        button: Button,
         hr: HR,
         h1: H1,
         h2: H2,

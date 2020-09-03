@@ -125,7 +125,7 @@ export const BareForm = React.memo(({
             });
             if (Object.keys(errors).length)
                 return reject(errors);
-            resolve();
+            resolve(values);
         });
     };
     const submit = (extraValues) => {
@@ -170,10 +170,12 @@ export const BareForm = React.memo(({
                 });
             };
 
-            const localValidator = validator || genericValidator;
+            const localValidator = validator || ((data) => data);
             const handler = handle || performRequest;
 
-            localValidator(formData).then(() => handler(formData, setFormState)).catch((errors, errorStr) => {
+            genericValidator(formData).then(localValidator).then(
+                () => handler(formData, setFormState)
+            ).catch((errors, errorStr) => {
                 setFormState(ofs => ({ ...ofs, disabled: false, errors, error: errorStr }));
             });
             return { ...oldFormState, disabled: !handle };

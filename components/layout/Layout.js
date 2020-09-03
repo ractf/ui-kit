@@ -15,6 +15,7 @@ const Column_ = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...prop
     <div className={makeClass(
         style.flexColumn,
         props.noGutter && style.noGutter,
+        props.centre && style.centre,
         width && style["col" + width],
         smWidth && style["col-sm" + smWidth],
         mdWidth && style["col-md" + mdWidth],
