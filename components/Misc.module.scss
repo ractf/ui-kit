@@ -22,7 +22,12 @@ $spinner_color: map-get($colours, "accent");
 
 .textBlock {
     font-size: 1rem;
-    background-color: $back_lift;
+    // Bake the transparency
+    background-color: rgb(
+        ceil(red($background) * (1 - alpha($back_lift))) + ceil(red($back_lift) * alpha($back_lift)),
+        ceil(green($background) * (1 - alpha($back_lift))) + ceil(green($back_lift) * alpha($back_lift)),
+        ceil(blue($background) * (1 - alpha($back_lift))) + ceil(blue($back_lift) * alpha($back_lift)),
+    );
     padding: 1rem 2rem;
     border-radius: 2px;
     white-space: pre-wrap;
