@@ -2,7 +2,7 @@ import React from "react";
 import { compiler } from "markdown-to-jsx";
 
 import {
-    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Link, Button
+    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Button
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
@@ -106,7 +106,7 @@ const uriTransformer = uri => {
     return "javascript:void(0)";
 };
 
-const Markdown = ({ className, source }) => {
+const Markdown = ({ className, source, LinkElem = "a" }) => {
     const SPECIALS = {
         row: Row,
         card: Card,
@@ -147,9 +147,11 @@ const Markdown = ({ className, source }) => {
                 const firstChar = href.charAt(0);
                 if ((firstChar === "#" || firstChar === "/" || href.length === 0)) {
                     // Internal link
-                    delete safeProps.href;
-                    safeProps.to = href;
-                    type = Link;
+                    if (LinkElem !== "a") {
+                        delete safeProps.href;
+                        safeProps.to = href;
+                    }
+                    type = LinkElem;
                 } else {
                     safeProps.href = href;
                     safeProps.target = "_blank";

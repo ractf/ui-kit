@@ -1,17 +1,10 @@
 import React from "react";
 import { makeClass, propsToTypeClass } from "@ractf/util";
 
-import { H5, Link } from "@ractf/ui-kit";
+import { H5 } from "@ractf/ui-kit";
 
 import style from "./Footer.module.scss";
 
-
-const FootLink_ = ({ children, className, ...props }) => (
-    <Link className={makeClass(style.footLink, className)} {...props}>
-        {children}
-    </Link>
-);
-export const FootLink = React.memo(FootLink_);
 
 const FootRow_ = ({ children, darken, center, main, slim, right, className, ...props }) => (
     <div className={makeClass(

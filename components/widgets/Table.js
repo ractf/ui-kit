@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { Link } from "@ractf/ui-kit";
-
 import style from "./Table.module.scss";
 
 
@@ -44,9 +42,7 @@ const Table = ({ sorter, headings, data, noSort }) => {
 
                 return <tr key={n} className={style[meta.type] || ""}>
                     {i.slice(0, headings.length).map((j, m) => (
-                        <td key={m}>
-                            {meta.link ? <Link to={meta.link}>{j}</Link> : <span>{j}</span>}
-                        </td>
+                        <td key={m}>{(typeof j === "string") ? <span>{j}</span> : j}</td>
                     ))}
                 </tr>;
             })}

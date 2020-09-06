@@ -14,7 +14,7 @@ export { default as Radio } from "./components/forms/Radio";
 export * from "./components/forms/Input";
 
 export { default as Modal, ModalForm, ModalPrompt } from "./components/layout/Modal";
-export { TabbedView, URLTabbedView, Tab } from "./components/layout/TabbedView";
+export { TabbedView, InnerTabs, Tab } from "./components/layout/TabbedView";
 export { default as Scrollbar } from "./components/layout/Scrollbar";
 export { Breadcrumbs, Crumb, } from "./components/layout/Breadcrumbs";
 export { default as Leader } from "./components/layout/Leader";
@@ -33,7 +33,6 @@ export { default as Badge } from "./components/widgets/Badge";
 export { default as Table } from "./components/widgets/Table";
 export { default as Grid } from "./components/widgets/Grid";
 export { default as Hint } from "./components/widgets/Hint";
-export { default as Link } from "./components/widgets/Link";
 export * from "./components/widgets/Tree";
 
 export { default as fromJson } from "./components/fromJson";

@@ -1,14 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { makeClass } from "@ractf/util";
-import { push } from "connected-react-router";
 
 import style from "./TabbedView.module.scss";
 
 
 export const Tab = ({ label, children }) => children;
 
-let InnerTabs = ({ active, setActive, callback, neverUnmount, children }) => {
+const InnerTabs_ = ({ active, setActive, callback, neverUnmount, children }) => {
     const nav = useRef();
     children = React.Children.toArray(children);
     const tabs = {};
@@ -58,24 +56,12 @@ let InnerTabs = ({ active, setActive, callback, neverUnmount, children }) => {
             : tabs[active] && React.cloneElement(tabs[active][0], { key: active })}
     </>;
 };
-InnerTabs = React.memo(InnerTabs);
+export const InnerTabs = React.memo(InnerTabs_);
 
-export let URLTabbedView = (props) => {
-    const locationHash = useSelector(state => state.router?.location?.hash).split("#")[1];
-
-    const dispatch = useDispatch();
-    const setActive = (tab) => {
-        dispatch(push(`#${tab}`));
-    };
-
-    return <InnerTabs active={locationHash} setActive={setActive} {...props} />;
-};
-URLTabbedView = React.memo(URLTabbedView);
-
-export let TabbedView = ({ initial, ...props }) => {
+const TabbedView_ = ({ initial, ...props }) => {
     const tab0 = ((props.children[0] || {}).props || {}).index || "0";
     const [active, setActive] = useState(initial || tab0);
 
     return <InnerTabs active={active} setActive={setActive} {...props} />;
 };
-TabbedView = React.memo(TabbedView);
+export const TabbedView = React.memo(TabbedView_);

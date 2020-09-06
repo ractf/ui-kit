@@ -2,14 +2,12 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
 
 import { propsToTypeClass, useReactRouter, getHeight, makeClass } from "@ractf/util";
-import { Link } from "@ractf/ui-kit";
-//import { fastClick } from "ractf";
 import Scrollbar from "./Scrollbar";
 
 import style from "./SidebarTabs.module.scss";
 
 
-const SubMenu_ = ({ name, children, isOpen, link, toggle }) => {
+const SubMenu_ = ({ name, children, isOpen, link, toggle, LinkElem }) => {
     const [height, setHeight] = useState(isOpen ? "auto" : 0);
     const childs = useRef();
 
@@ -30,12 +28,10 @@ const SubMenu_ = ({ name, children, isOpen, link, toggle }) => {
         }
     }, [toggle, name]);
 
-    const Element = link ? Link : "div";
-
     return <>
-        <Element onClick={click} className={makeClass(style.item, (height !== 0) && style.active)} to={link}>
+        <LinkElem onClick={click} className={makeClass(style.item, (height !== 0) && style.active)} to={link}>
             {children && children.length && <MdKeyboardArrowLeft />}{name}
-        </Element>
+        </LinkElem>
         {children && children.length && (
             <div className={style.children} style={{ height: height }} ref={childs}>
                 {children}
@@ -45,7 +41,7 @@ const SubMenu_ = ({ name, children, isOpen, link, toggle }) => {
 };
 export const SubMenu = React.memo(SubMenu_);
 
-const SideNav_ = ({ header, footer, items, children, exclusive, ...props }) => {
+const SideNav_ = ({ header, footer, items, children, exclusive, LinkElem = "div", ...props }) => {
     const { history } = useReactRouter();
     const [sbOpen, setSbOpen] = useState(false);
     const [openSubs, setOpenSubs] = useState(
@@ -99,9 +95,9 @@ const SideNav_ = ({ header, footer, items, children, exclusive, ...props }) => {
                 </div>
                 {items.map(({ name, link, submenu }) => (
                     submenu ? (
-                        <SubMenu key={name} name={name} isOpen={openSubs[name]} toggle={toggle}>
+                        <SubMenu key={name} name={name} isOpen={openSubs[name]} toggle={toggle} LinkElem={LinkElem}>
                             {submenu.filter(Boolean).map(([text, url]) => (
-                                <Link to={url} key={text} className={style.subitem}>{text}</Link>
+                                <LinkElem to={url} key={text} className={style.subitem}>{text}</LinkElem>
                             ))}
                         </SubMenu>
                     ) : <SubMenu key={name} name={name} link={link} />

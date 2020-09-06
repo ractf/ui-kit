@@ -3,17 +3,12 @@ import React, { useState, useRef, useEffect } from "react";
 import {
     useReactRouter, basicComponent, getHeight, makeClass, propsToTypeClass
 } from "@ractf/util";
-import { Link } from "@ractf/ui-kit";
 
 import style from "./NavBar.module.scss";
 
 
 export const NavBrand = basicComponent(style.navBrand, "NavBrand");
 export const NavItem = basicComponent(style.navItem, "NavItem");
-
-export const NavLink = ({ children, ...props }) => (
-    <Link tabIndex={"0"} {...props} className={`${style.navItem} ${style.navLink}`}>{children}</Link>
-);
 
 export const NavMenu = ({ name, children }) => {
     const [mouseOver, setMouseOver] = useState(false);
@@ -80,12 +75,6 @@ export const NavMenu = ({ name, children }) => {
         </div>
     </NavItem>;
 };
-
-export const NavMenuLink = ({ children, className, ...props }) => (
-    <Link tabIndex={"0"} className={makeClass(style.navMenuLink, className)} {...props}>
-        {children}
-    </Link>
-);
 
 export const NavGap = () => <div className={style.navGap} />;
 

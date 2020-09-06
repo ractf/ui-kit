@@ -9,7 +9,7 @@
     display: block;
 }
 
-.navLink {
+.navItem > a {
     color: $color;
     text-decoration: none;
     cursor: pointer;
@@ -22,7 +22,7 @@
 }
 
 @each $type, $color in $types {
-    &.#{$type} .navLink {
+    &.#{$type} .navItem > a {
         color: map-get($color, "fg");
         &:hover,
         &:focus {
@@ -34,7 +34,7 @@
 .navMenu {
     position: relative;
 
-    .navLink::after {
+    .navItem > a::after {
         content: "";
         margin-left: 0.3em;
         vertical-align: 0.15em;
@@ -63,7 +63,7 @@
         color: $color;
         border: 1px solid $back_lift;
 
-        .navLink {
+        .navItem > a {
             color: inherit;
 
             &::after {
@@ -191,7 +191,7 @@
     padding: 0.3125rem 0;
     color: inherit;
 
-    .navLink {
+    .navItem > a {
         margin: 0;
         padding: 0;
     }
@@ -236,7 +236,7 @@
         padding-bottom: 0;
         position: initial !important;
 
-        .navMenuDropdown .navLink, .navLink {
+        .navMenuDropdown .navItem > a, .navItem > a {
             position: relative;
             padding-bottom: .25em;
             font-weight: 800;
