@@ -19,7 +19,7 @@ export { default as Scrollbar } from "./components/layout/Scrollbar";
 export { Breadcrumbs, Crumb, } from "./components/layout/Breadcrumbs";
 export { default as Leader } from "./components/layout/Leader";
 export { default as Card } from "./components/layout/Card";
-export { SideNav } from "./components/layout/SidebarTabs";
+export * from "./components/layout/SidebarTabs";
 export * from "./components/layout/Footer";
 export * from "./components/layout/Layout";
 export * from "./components/layout/NavBar";

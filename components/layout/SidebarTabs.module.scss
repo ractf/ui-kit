@@ -6,7 +6,7 @@ $sidebar_accent: map-get($colours, "accent");
 .wrap {
     display: flex;
     flex-grow: 1;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
 
     .headerBar {
@@ -50,6 +50,8 @@ $sidebar_accent: map-get($colours, "accent");
         .headerPad {
             display: block;
         }
+
+        flex-direction: column;
     }
 
     & > .sidebar {
@@ -122,9 +124,9 @@ $sidebar_accent: map-get($colours, "accent");
                 margin: auto;
             }
         }
-        .item,
-        .subitem {
-            color: inherit;
+        .item {
+            color: $color;
+            text-decoration: none;
             cursor: pointer;
             display: block;
             border-left: 4px solid transparent;
@@ -137,7 +139,7 @@ $sidebar_accent: map-get($colours, "accent");
             }
         }
 
-        .subitem {
+        .subMenu {
             padding: 8px 10px 8px 11px;
             padding-left: 32px;
             opacity: 0.6;
@@ -165,7 +167,7 @@ $sidebar_accent: map-get($colours, "accent");
 
                 border-color: $sidebar_accent;
                 background-color: rgba(0, 0, 0, 0.1);
-                & ~ .children .subitem {
+                & ~ .children .item {
                     border-color: $sidebar_accent;
                     background-color: rgba(0, 0, 0, 0.1);
                 }

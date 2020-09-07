@@ -1,0 +1,32 @@
+.head.head.head > *:first-child {
+    max-width: unset;
+}
+
+.item.item.item:not(.subMenu) {
+    border: none;
+    border-radius: px(4);
+    margin: 0 px(8) px(4);
+    padding: px(8) px(16);
+
+    &.active, &.active:hover {
+        background-color: $sidebar_accent !important;
+    }
+}
+
+.subMenu.subMenu.subMenu {
+    background-color: transparent !important;
+    border: none !important;
+    cursor: unset;
+    text-transform: uppercase;
+    padding: 0 px(16);
+    margin: px(24) px(8) px(8);
+    font-family: $titleStack;
+    font-size: px(12);
+    svg {
+        display: none;
+    }
+    font-weight: 600;
+    &:hover {
+        background-color: transparent !important;
+    }
+}
