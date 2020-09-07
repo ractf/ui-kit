@@ -86,6 +86,9 @@ const SideNav_ = ({ header, footer, items, children, exclusive, LinkElem = "div"
     useEffect(() => history.listen(() => setSbOpen(false)), [history]);
 
     return <div className={makeClass(style.wrap, sbOpen && style.open)}>
+        <div className={style.headerPad} />
+        <div className={makeClass(style.headerBar, propsToTypeClass(props, style))} />
+
         <div onClick={closeSb} /*{...fastClick}*/ className={style.burgerUnderlay} />
         <div onClick={toggleSb} /*{...fastClick}*/ className={style.burger}><MdMenu /></div>
         <Scrollbar className={makeClass(style.sidebar, propsToTypeClass(props, style))}>
