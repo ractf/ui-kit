@@ -103,7 +103,7 @@ const SideNav_ = ({ header, footer, items, children, exclusive, LinkElem = "div"
                                 <LinkElem to={url} key={text} className={style.subitem}>{text}</LinkElem>
                             ))}
                         </SubMenu>
-                    ) : <SubMenu key={name} name={name} link={link} />
+                    ) : <SubMenu key={name} name={name} link={link} LinkElem={LinkElem} />
                 ))}
                 <div className={style.skip} />
                 <div className={style.foot}>
