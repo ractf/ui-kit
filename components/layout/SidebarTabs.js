@@ -50,6 +50,7 @@ const Item = ({ className, active, ...props }) => (
 const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => {
     children = React.Children.toArray(children);
     const [height, setHeight] = useState(isOpen ? "auto" : 0);
+    const openHeight = useRef();
     const childs = useRef();
 
     useEffect(() => {
@@ -59,10 +60,13 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
 
                 if (oldHeight === "auto")
                     return childs.current.getBoundingClientRect().height;
-                return getHeight(...childs.current.childNodes);
+                return getHeight(...childs.current.childNodes) || openHeight.current || "auto";
             });
-        else
+        else {
+            if (childs.current)
+                openHeight.current = getHeight(...childs.current.childNodes);
             setHeight(0);
+        }
     }, [isOpen]);
     const click = useCallback((e) => {
         if (toggle) {
@@ -85,10 +89,20 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
         )}
     </>;
 };
+const UncontrolledSubMenu = ({ startOpen, children, ...props }) => {
+    const [isOpen, setIsOpen] = useState(startOpen);
+    const toggle = useCallback(() => {
+        setIsOpen(wasOpen => !wasOpen);
+    }, []);
+    return <SideNav.SubMenu {...props} isOpen={isOpen} toggle={toggle}>
+        { children }
+    </SideNav.SubMenu>;
+};
 
 export const SideNav = React.memo(SideNav_);
 SideNav.Item = React.memo(Item);
 SideNav.SubMenu = React.memo(SubMenu);
+SideNav.UncontrolledSubMenu = React.memo(UncontrolledSubMenu);
 
 const ArraySideNav_ = ({ items, exclusive, LinkElem = "div", ...props }) => {
     const [openSubs, setOpenSubs] = useState(
