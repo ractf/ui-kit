@@ -27,7 +27,7 @@ const Button = (props, ref) => {
         )}
     </>;
     return <button className={buttonClass} disabled={props.disabled} ref={ref}
-        onClick={onClick}>
+        onClick={onClick} style={props.style}>
         {inner}
     </button>;
 };
