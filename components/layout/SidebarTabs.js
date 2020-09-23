@@ -49,42 +49,64 @@ const Item = ({ className, active, ...props }) => (
 
 const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => {
     children = React.Children.toArray(children);
-    const [height, setHeight] = useState(isOpen ? "auto" : 0);
-    const openHeight = useRef();
-    const childs = useRef();
+    const [closedClass, setClosedClass] = useState(!isOpen ? style.isClosed : null);
+    const [isClosed, setIsClosed] = useState(!isOpen ? true : false);
+    const [height, setHeight] = useState("auto");
+
+    const body = useRef();
 
     useEffect(() => {
-        if (isOpen)
-            setHeight(oldHeight => {
-                if (!childs.current) return "auto";
-
-                if (oldHeight === "auto")
-                    return childs.current.getBoundingClientRect().height;
-                return getHeight(...childs.current.childNodes) || openHeight.current || "auto";
-            });
-        else {
-            if (childs.current)
-                openHeight.current = getHeight(...childs.current.childNodes);
-            setHeight(0);
-        }
+        if (!isOpen || isClosed)
+            setHeight(body.current?.offsetHeight || "auto");
+        //else
+            //setHeight("auto");
+    }, [body, children, isClosed, isOpen]);
+    useEffect(() => {
+        if (typeof isOpen !== "undefined") setIsClosed(!isOpen);
     }, [isOpen]);
-    const click = useCallback((e) => {
-        if (toggle) {
-            toggle(name);
-            e.preventDefault();
+
+    useEffect(() => {
+        const next = isClosed ? 200 : 220;
+        if (isClosed) {
+            setHeight(body.current?.offsetHeight || "auto");
+        } else {
+            setTimeout(() => {
+                setHeight(body.current?.offsetHeight || "auto");
+            }, 20);
         }
-    }, [toggle, name]);
+        const to = setTimeout(() => {
+            setHeight("auto");
+            // Ensure scrollbars update!
+            window.dispatchEvent(new Event("resize"));
+        }, next);
+        return () => clearTimeout(to);
+    }, [isClosed]);
+
+    useEffect(() => {
+        if (height !== "auto" && body.current?.parentElement?.style.height !== "auto")
+            setTimeout(() => {
+                setClosedClass(isClosed ? style.isClosed : null);
+            }, 50);
+    }, [height, setClosedClass, isClosed]);
+    const click = useCallback((e) => {
+        if (toggle) toggle(!isClosed);
+        e.preventDefault();
+    }, [toggle, isClosed]);
 
     return <>
         <LinkElem
             onClick={click} to={link}
-            className={makeClass(style.item, style.subMenu, (height !== 0) && style.active)}
+            className={makeClass(style.item, style.subMenu, isOpen && style.active)}
         >
             {children && children.length && <MdKeyboardArrowLeft />}{name}
         </LinkElem>
         {children && children.length && (
-            <div className={style.children} style={{ height: height }} ref={childs}>
-                {children}
+            <div className={closedClass}>
+                <div className={style.children} style={{ height }}>
+                    <div ref={body}>
+                        {children}
+                    </div>
+                </div>
             </div>
         )}
     </>;
@@ -95,7 +117,7 @@ const UncontrolledSubMenu = ({ startOpen, children, ...props }) => {
         setIsOpen(wasOpen => !wasOpen);
     }, []);
     return <SideNav.SubMenu {...props} isOpen={isOpen} toggle={toggle}>
-        { children }
+        {children}
     </SideNav.SubMenu>;
 };
 

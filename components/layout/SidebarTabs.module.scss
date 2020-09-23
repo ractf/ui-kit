@@ -21,11 +21,11 @@ $sidebar_accent: map-get($colours, "accent");
         text-align: center;
         @include mapTypes();
         box-shadow: 0 -1px 5px #000;
-    
+
         position: fixed;
         left: 0;
         top: 0;
-    
+
         & > a {
             font-size: 1.4em;
             font-weight: 500;
@@ -41,12 +41,12 @@ $sidebar_accent: map-get($colours, "accent");
         display: none;
         height: 60px;
     }
-    
+
     @media (max-width: 800px) {
         .headerBar {
             display: flex;
         }
-    
+
         .headerPad {
             display: block;
         }
@@ -167,7 +167,7 @@ $sidebar_accent: map-get($colours, "accent");
 
                 border-color: $sidebar_accent;
                 background-color: rgba(0, 0, 0, 0.1);
-                & ~ .children .item {
+                & ~ div .item {
                     border-color: $sidebar_accent;
                     background-color: rgba(0, 0, 0, 0.1);
                 }
@@ -178,6 +178,12 @@ $sidebar_accent: map-get($colours, "accent");
             overflow-y: hidden;
             transition: height 200ms ease;
         }
+    }
+}
+.isClosed {
+    > div {
+        height: 0 !important;
+        min-height: 0;
     }
 }
 
