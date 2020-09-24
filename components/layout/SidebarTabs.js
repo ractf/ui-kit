@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
 
-import { propsToTypeClass, useReactRouter, getHeight, makeClass } from "@ractf/util";
+import { propsToTypeClass, useReactRouter, makeClass } from "@ractf/util";
 import Scrollbar from "./Scrollbar";
 
 import style from "./SidebarTabs.module.scss";
