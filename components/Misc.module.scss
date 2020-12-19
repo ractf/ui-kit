@@ -9,7 +9,7 @@ $spinner_color: map-get($colours, "accent");
     margin-bottom: 1rem;
     height: 1px;
     flex-basis: 100%;
-    
+
     &::after {
         display: block;
         content: "";
@@ -94,10 +94,6 @@ $spinner_color: map-get($colours, "accent");
 .subtleText {
     opacity: 0.8;
     font-size: 0.9em;
-    & > a,
-    & > a:hover {
-        color: inherit;
-    }
 }
 
 .formGroup {
@@ -146,7 +142,7 @@ $spinner_color: map-get($colours, "accent");
 .large {
     font-size: 1.15em;
     line-height: 1.2;
-    
+
     b {
         font-weight: 800;
     }
