@@ -6,7 +6,12 @@ import http from "@ractf/http";
 import style from "./Form.module.scss";
 
 
-const setValue = (object, key, value) => {
+const setValue = (object, key, value, disableDotExpansion=false) => {
+    if (disableDotExpansion) {
+        object[key] = value;
+        return;
+    }
+
     const split = key.split(".");
     for (let i = 0; i < split.length - 1; i++) {
         if (typeof object[split[i]] === "undefined") {
@@ -19,7 +24,10 @@ const setValue = (object, key, value) => {
     }
     object[split[split.length - 1]] = value;
 };
-const getValue = (object, key) => {
+const getValue = (object, key, disableDotExpansion=false) => {
+    if (disableDotExpansion)
+        return object[key];
+
     const index = (obj, i) => typeof obj === "undefined" ? undefined : obj[i];
     return key.split(".").reduce(index, object);
 };
@@ -43,7 +51,7 @@ const different = (obj1, obj2) => {
 };
 
 
-const generateValues = (children, previous = {}, displayValues) => {
+const generateValues = (children, previous = {}, displayValues, disableDotExpansion) => {
     const values = {};
     const getValues = (children) => {
         React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
@@ -54,14 +62,14 @@ const generateValues = (children, previous = {}, displayValues) => {
                 const cast = (!displayValues && i.props.cast) || (i => i);
 
                 if (typeof i.props.value !== "undefined") {
-                    setValue(values, i.props.name, i.props.value && cast(i.props.value));
+                    setValue(values, i.props.name, i.props.value && cast(i.props.value), disableDotExpansion);
                 } else if (typeof i.props.val !== "undefined") {
-                    setValue(values, i.props.name, i.props.val && cast(i.props.val));
+                    setValue(values, i.props.name, i.props.val && cast(i.props.val), disableDotExpansion);
                 } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== undefined
                     && Object.hasOwnProperty(i.props.options, i.props.initial)) {
-                    setValue(values, i.props.name, i.props.options[i.props.initial].key);
+                    setValue(values, i.props.name, i.props.options[i.props.initial].key, disableDotExpansion);
                 } else {
-                    setValue(values, i.props.name, "");
+                    setValue(values, i.props.name, "", disableDotExpansion);
                 }
             }
         });
@@ -81,11 +89,11 @@ const getErrorDetails = (e) => {
 
 export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
-    valuesRef, onChange, transformer
+    valuesRef, onChange, transformer, disableDotExpansion
 }) => {
     const [formState, setFormState] = useState({
-        displayValues: generateValues(children, true),
-        values: generateValues(children),
+        displayValues: generateValues(children, {}, true, disableDotExpansion),
+        values: generateValues(children, {}, false, disableDotExpansion),
         error: null, errors: {}, disabled: false
     });
     const hasCustomFormError = useRef(false);
@@ -97,11 +105,17 @@ export const BareForm = React.memo(({
         setFormState(oldFormState => {
             return {
                 ...oldFormState,
-                displayValues: { ...oldFormState.displayValues, ...generateValues(children, oldFormState.values) },
-                values: { ...oldFormState.values, ...generateValues(children, oldFormState.values) },
+                displayValues: {
+                    ...oldFormState.displayValues,
+                    ...generateValues(children, oldFormState.values, false, disableDotExpansion)
+                },
+                values: {
+                    ...oldFormState.values,
+                    ...generateValues(children, oldFormState.values, false, disableDotExpansion)
+                },
             };
         });
-    }, [children]);
+    }, [children, disableDotExpansion]);
     useEffect(() => {
         if (valuesRef)
             valuesRef.current = formState.values;
@@ -121,7 +135,7 @@ export const BareForm = React.memo(({
             const errors = {};
             Object.keys(values).forEach(i => {
                 if (required.current[i] && !values[i])
-                    setValue(errors, i, t("required"));
+                    setValue(errors, i, t("required"), disableDotExpansion);
             });
             if (Object.keys(errors).length)
                 return reject(errors);
@@ -196,9 +210,9 @@ export const BareForm = React.memo(({
             const newErrors = { ...oldFormState.errors };
             const newValues = { ...oldFormState.values };
             const newDisplayValues = { ...oldFormState.displayValues };
-            setValue(newErrors, name, null);
-            setValue(newValues, name, casted);
-            setValue(newDisplayValues, name, value);
+            setValue(newErrors, name, null, disableDotExpansion);
+            setValue(newValues, name, casted, disableDotExpansion);
+            setValue(newDisplayValues, name, value, disableDotExpansion);
             return {
                 ...oldFormState, errors: newErrors, values: newValues, displayValues: newDisplayValues
             };
@@ -220,11 +234,11 @@ export const BareForm = React.memo(({
             if (props.name) {
                 props.onChange = onChangeLocal.bind(this, props.onChange, props.cast, props.name);
                 props.onSubmit = onSubmit.bind(this, props.onSubmit);
-                if (getValue(formState.values, props.name) === undefined)
+                if (getValue(formState.values, props.name, disableDotExpansion) === undefined)
                     props.val = props.value = "";
                 else
-                    props.val = props.value = getValue(formState.displayValues, props.name);
-                props.error = getValue(formState.errors, props.name) || props.error;
+                    props.val = props.value = getValue(formState.displayValues, props.name, disableDotExpansion);
+                props.error = getValue(formState.errors, props.name, disableDotExpansion) || props.error;
                 required.current[props.name] = props.required;
                 props.key = props.name;
             } else {
@@ -232,7 +246,7 @@ export const BareForm = React.memo(({
             }
             if (props.formRequires) {
                 props.formRequires.forEach(i => {
-                    props[i] = getValue(formState.values, i);
+                    props[i] = getValue(formState.values, i, disableDotExpansion);
                 });
             }
             props.__ractf_global_error = formState.error;
