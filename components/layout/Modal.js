@@ -18,14 +18,15 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Scrollbar, Form, Select, Input } from "@ractf/ui-kit";
+import { Button, Scrollbar, Form, Select, Input, ProgressBar } from "@ractf/ui-kit";
 import { makeClass, propsToTypeClass } from "@ractf/util";
 
 import style from "./Modal.module.scss";
 
 
 const Modal = ({
-    header, children, show, onClose, onConfirm, noCancel, buttons, extraButtons, cancelLabel, okayLabel, ...props
+    header = null, cancel = true, okay = true, buttons = null,
+    onClose, onConfirm, show, noHide, children, ...props
 }) => {
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
     const { t } = useTranslation();
@@ -39,9 +40,11 @@ const Modal = ({
 
     const backClick = useCallback((e) => {
         if (e.target !== baseRef.current) return;
+        if (noHide) return;
+
         if (onClose) onClose(true);
         setDisplay(false);
-    }, [onClose]);
+    }, [onClose, noHide]);
     const cancelClick = useCallback(() => {
         if (onClose) onClose();
         setDisplay(false);
@@ -55,24 +58,46 @@ const Modal = ({
         else setDisplay(false);
     }, [onConfirm]);
 
+    const hasButtons = cancel || okay || buttons;
+
     if (!display) return null;
     return <div className={style.modalWrap} onMouseDown={backClick} ref={baseRef}>
         <div className={makeClass(style.modal, propsToTypeClass(props, style))} onClick={mainClick}>
-            {header && <div className={style.header}>{header}</div>}
+            {header && (
+                <div className={style.header}>{header}</div>
+            )}
             <div className={style.content}>
                 {props.fullHeight ? <Scrollbar>{children}</Scrollbar> : children}
             </div>
-            <div className={style.actions}>
-                {extraButtons}
-                {buttons ? buttons : <>
-                    {!noCancel && <Button onClick={cancelClick}>{cancelLabel || t("cancel")}</Button>}
-                    <Button onClick={okayClick}>{okayLabel || t("okay")}</Button>
-                </>}
-            </div>
+            {hasButtons && (
+                <div className={style.actions}>
+                    {buttons}
+                    {cancel && (
+                        <Button onClick={cancelClick}>
+                            {((typeof cancel) === "string") ? cancel : t("cancel")}
+                        </Button>
+                    )}
+                    {okay && (
+                        <Button onClick={okayClick}>
+                            {((typeof okay) === "string") ? okay : t("okay")}
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     </div>;
 };
 export default React.memo(Modal);
+
+
+export const ProgressModal = React.memo(({ header, text, progress }) => {
+    return <Modal small cancel={false} okay={false} header={"Progress"}
+        oHide progressModal centred={!!header}>
+        <p>{text}</p>
+        <ProgressBar progress={progress} />
+    </Modal>;
+});
+ProgressModal.displayName = "ProgressModal";
 
 
 export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
@@ -100,7 +125,8 @@ export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
         <Button onClick={doSubmit}>{body.okay || t("okay")}</Button>
     </>);
 
-    return <Modal onClose={() => { promise.reject(); onHide && onHide(); }} buttons={buttons}
+    return <Modal onClose={() => { promise.reject(); onHide && onHide(); }}
+        okay={false} cancel={false} buttons={buttons}
         small={body.small} centre header={inputs.length ? body.message : null}>
         {inputs.length === 0 && <p>
             {body.message}

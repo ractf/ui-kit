@@ -105,4 +105,14 @@
             text-align: center;
         }
     }
+
+    &.centred > .content {
+        text-align: center;
+    }
+
+    &.progressModal {
+        > .content > *:last-child {
+            width: 100%;
+        }
+    }
 }
