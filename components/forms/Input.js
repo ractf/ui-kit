@@ -24,9 +24,10 @@ export const InputGroup = withRactfForm(({ className, error, left, right, ...pro
 
 export const InputButton = ({ btnDisabled, ...props }) => {
     const button = useRef();
+    const disabled = btnDisabled || props.disabled;
 
-    return <InputGroup {...props} right={
-        <Button large ref={button} onClick={props.onSubmit} disabled={btnDisabled || props.disabled}>
+    return <InputGroup {...props} onSubmit={!disabled && props.onSubmit} right={
+        <Button large ref={button} onClick={props.onSubmit} disabled={disabled}>
             {props.button || "Submit"}
         </Button>
     } managed />;
@@ -131,7 +132,7 @@ export class RawInput extends PureComponent {
     currentLine = () => {
         if (!this.props.rows)
             return this.state.val;
-        
+
         const elem = this.inputRef.current;
         const lines = elem.value.substring(0, elem.selectionStart).split("\n");
         console.log(lines);
@@ -160,7 +161,7 @@ export class RawInput extends PureComponent {
 
     tabUnindent = () => {
         const elem = this.inputRef.current;
-        
+
         const selectedLines = this.getSelectedLines();
         const text = elem.value.split("\n");
         for (const i of selectedLines) {
@@ -183,7 +184,7 @@ export class RawInput extends PureComponent {
         const elem = this.inputRef.current;
         if (elem.selectionStart === elem.selectionEnd)
             return this.insertString("    ");
-        
+
         const selectedLines = this.getSelectedLines();
         const text = elem.value.split("\n");
         for (const i of selectedLines) {
