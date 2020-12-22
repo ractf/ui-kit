@@ -22,6 +22,6 @@ const Column_ = ({ className, width, smWidth, mdWidth, lgWidth, xlWidth, ...prop
         lgWidth && style["col-lg" + lgWidth],
         xlWidth && style["col-xl" + xlWidth],
         className
-    )} {...props} />
+    )} {...props} centre={undefined} />
 );
 export const Column = React.memo(Column_);

@@ -34,8 +34,8 @@ export const FormGroup = React.memo(({ children, label, htmlFor }) => (
 ));
 FormGroup.displayName = "FormGroup";
 
-export const SubtleText = React.memo(({ children }) => (
-    <div className={style.subtleText}>{children}</div>
+export const SubtleText = React.memo(({ children, ...props }) => (
+    <div className={style.subtleText} {...props}>{children}</div>
 ));
 SubtleText.displayName = "SubtleText";
 export const PageHead = React.memo(({ title, subTitle, back, children, tags }) => (
