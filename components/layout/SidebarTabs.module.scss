@@ -131,24 +131,12 @@ $sidebar_accent: map-get($colours, "accent");
             display: block;
             border-left: 4px solid transparent;
             transition: background 100ms ease-in, border-color 200ms ease-in, color 100ms ease-in;
+            position: relative;
+            display: flex;
 
-            &:hover,
-            &:focus {
-                background-color: rgba(0, 0, 0, 0.4) !important;
-                text-decoration: none;
-            }
-        }
-
-        .subMenu {
             padding: 8px 10px 8px 11px;
             padding-left: 32px;
             opacity: 0.6;
-        }
-
-        .item {
-            padding: 14px 20px 14px 21px;
-            position: relative;
-            display: flex;
 
             svg {
                 position: absolute;
@@ -157,7 +145,13 @@ $sidebar_accent: map-get($colours, "accent");
                 transform: translateY(-50%);
                 transition: transform 200ms ease-in;
             }
-            opacity: 0.6;
+
+            &:hover,
+            &:focus {
+                background-color: rgba(0, 0, 0, 0.4) !important;
+                text-decoration: none;
+            }
+
             &.active {
                 opacity: 1;
 
@@ -172,6 +166,10 @@ $sidebar_accent: map-get($colours, "accent");
                     background-color: rgba(0, 0, 0, 0.1);
                 }
             }
+        }
+
+        .subMenu {
+            padding: 14px 20px 14px 21px;
         }
 
         .children {
