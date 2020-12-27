@@ -135,7 +135,6 @@ export class RawInput extends PureComponent {
 
         const elem = this.inputRef.current;
         const lines = elem.value.substring(0, elem.selectionStart).split("\n");
-        console.log(lines);
         return lines[lines.length - 1];
     }
 
@@ -166,7 +165,6 @@ export class RawInput extends PureComponent {
         const text = elem.value.split("\n");
         for (const i of selectedLines) {
             const match = /^([\t ]{0,4})/.exec(text[i])[0];
-            console.log(match, i);
             text[i] = text[i].replace(/^([\t ]{0,4})/, "");
         }
         let newStart = 0, newEnd = -1;
@@ -206,7 +204,6 @@ export class RawInput extends PureComponent {
             e.preventDefault();
             if (this.props.rows) {
                 const line = this.currentLine();
-                console.log(line);
                 this.insertString("\n" + /^([ \t]*)/.exec(line)[0]);
             } else if (this.props.onSubmit)
                 this.props.onSubmit(this.props.val);
