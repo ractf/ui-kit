@@ -27,7 +27,7 @@ export const InputButton = ({ btnDisabled, ...props }) => {
     const disabled = btnDisabled || props.disabled;
 
     return <InputGroup {...props} onSubmit={!disabled && props.onSubmit} right={
-        <Button large ref={button} onClick={props.onSubmit} disabled={disabled}>
+        <Button ref={button} onClick={props.onSubmit} disabled={disabled}>
             {props.button || "Submit"}
         </Button>
     } managed />;

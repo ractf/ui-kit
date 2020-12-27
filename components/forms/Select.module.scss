@@ -29,7 +29,6 @@
 
             font-size: px(14);
             line-height: px(16);
-            padding: calc(#{px(6)} - 1) px(12);
             min-width: unset;
         }
     }
@@ -66,14 +65,17 @@
             background-color: $back_lift;
         }
 
-        &:after {
+        &::after {
             position: absolute;
             content: "";
-            top: calc(50% - 3px);
-            right: 12px;
-            width: 0;
-            height: 0;
-            border: 6px solid transparent;
+            top: calc(50% - #{px(2)});
+            right: px(12);
+            width: px(3);
+            height: px(3);
+            border: px(2) solid;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            border-right-color: transparent;
+            border-top-color: transparent;
         }
     }
 
@@ -88,7 +90,7 @@
 
         background: map-get($input, "background");
         color: map-get($input, "color");
-        
+
         &:hover {
             background-color: $back_lift;
         }
@@ -114,7 +116,7 @@
         flex-direction: column;
         z-index: 10;
     }
-    
+
     .items {
         overflow-y: auto;
         background-color: $background;
