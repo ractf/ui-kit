@@ -164,7 +164,6 @@ export class RawInput extends PureComponent {
         const selectedLines = this.getSelectedLines();
         const text = elem.value.split("\n");
         for (const i of selectedLines) {
-            const match = /^([\t ]{0,4})/.exec(text[i])[0];
             text[i] = text[i].replace(/^([\t ]{0,4})/, "");
         }
         let newStart = 0, newEnd = -1;
