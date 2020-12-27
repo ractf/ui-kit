@@ -50,8 +50,8 @@ const Modal = ({
         setDisplay(false);
     }, [onClose]);
     const mainClick = useCallback((e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        // e.preventDefault();
+        // e.stopPropagation();
     }, []);
     const okayClick = useCallback((e) => {
         if (onConfirm) onConfirm();
@@ -61,6 +61,7 @@ const Modal = ({
     const hasButtons = cancel || okay || buttons;
 
     if (!display) return null;
+
     return <div className={style.modalWrap} onMouseDown={backClick} ref={baseRef}>
         <div className={makeClass(style.modal, propsToTypeClass(props, style))} onClick={mainClick}>
             {header && (
@@ -73,7 +74,7 @@ const Modal = ({
                 <div className={style.actions}>
                     {buttons}
                     {cancel && (
-                        <Button onClick={cancelClick}>
+                        <Button onClick={cancelClick} lesser>
                             {((typeof cancel) === "string") ? cancel : t("cancel")}
                         </Button>
                     )}
@@ -92,7 +93,7 @@ export default React.memo(Modal);
 
 export const ProgressModal = React.memo(({ header, text, progress }) => {
     return <Modal small cancel={false} okay={false} header={"Progress"}
-        oHide progressModal centred={!!header}>
+        noHide progressModal centred={!!header}>
         <p>{text}</p>
         <ProgressBar progress={progress} />
     </Modal>;
@@ -113,19 +114,19 @@ export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
         {body.remove && <>
             <Button warning lesser onClick={() => {
                 body.remove().then(() => {
-                    promise.reject(); onHide && onHide();
+                    promise.reject(true); onHide && onHide();
                 });
             }}>Remove</Button>
             <div style={{ flexGrow: 1 }} />
         </>}
         {!body.noCancel &&
-            <Button onClick={() => { promise.reject(); onHide && onHide(); }} lesser>
+            <Button onClick={() => { promise.reject(true); onHide && onHide(); }} lesser>
                 {body.cancel || t("cancel")}
             </Button>}
         <Button onClick={doSubmit}>{body.okay || t("okay")}</Button>
     </>);
 
-    return <Modal onClose={() => { promise.reject(); onHide && onHide(); }}
+    return <Modal onClose={() => { promise.reject(false); onHide && onHide(); }}
         okay={false} cancel={false} buttons={buttons}
         small={body.small} centre header={inputs.length ? body.message : null}>
         {inputs.length === 0 && <p>

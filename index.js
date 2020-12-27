@@ -6,6 +6,7 @@ export { default as Bar } from "./components/charts/Bar";
 
 export { FormError, BareForm, default as Form } from "./components/forms/Form";
 export { default as ToggleButton } from "./components/forms/ToggleButton";
+export { default as FileUpload } from "./components/forms/FileUpload";
 export { default as Checkbox } from "./components/forms/Checkbox";
 export { default as DatePick } from "./components/forms/DatePick";
 export { default as Button } from "./components/forms/Button";

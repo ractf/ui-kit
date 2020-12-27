@@ -110,6 +110,13 @@ $spinner_color: map-get($colours, "accent");
     > *:not(:last-child) {
         margin-bottom: 0.5rem;
     }
+    > *:not(:first-child) {
+        margin-top: 0.5rem;
+    }
+
+    &:last-child {
+        margin-bottom: .5rem;
+    }
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6 {

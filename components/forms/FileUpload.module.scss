@@ -1,0 +1,30 @@
+@import "@ractf/ui-kit/Colours.scss";
+
+.hoverOverlayWrap {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.hoverOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    background-color: #0005;
+    font-size: 2.5em;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+
+    > span {
+        padding: 3rem 4rem;
+        border-radius: px(16);
+        background-color: #0005;
+        border: 2px dashed map-get($colours, "white");
+    }
+}

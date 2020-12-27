@@ -6,7 +6,7 @@ import http from "@ractf/http";
 import style from "./Form.module.scss";
 
 
-const setValue = (object, key, value, disableDotExpansion=false) => {
+const setValue = (object, key, value, disableDotExpansion = false) => {
     if (disableDotExpansion) {
         object[key] = value;
         return;
@@ -24,7 +24,7 @@ const setValue = (object, key, value, disableDotExpansion=false) => {
     }
     object[split[split.length - 1]] = value;
 };
-const getValue = (object, key, disableDotExpansion=false) => {
+const getValue = (object, key, disableDotExpansion = false) => {
     if (disableDotExpansion)
         return object[key];
 
@@ -54,7 +54,7 @@ const different = (obj1, obj2) => {
 const generateValues = (children, previous = {}, displayValues, disableDotExpansion) => {
     const values = {};
     const getValues = (children) => {
-        React.Children.toArray(children).filter(Boolean).forEach((i, n) => {
+        React.Children.toArray(children).filter(Boolean).forEach(i => {
             if (!i.props) return;
 
             getValues(i.props.children);
@@ -89,7 +89,7 @@ const getErrorDetails = (e) => {
 
 export const BareForm = React.memo(({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
-    valuesRef, onChange, transformer, disableDotExpansion
+    valuesRef, onChange, transformer, disableDotExpansion, multipart, onUploadProgress
 }) => {
     const [formState, setFormState] = useState({
         displayValues: generateValues(children, {}, true, disableDotExpansion),
@@ -159,7 +159,7 @@ export const BareForm = React.memo(({
                     return;
                 }
 
-                http.makeRequest(method, action, formData, headers).then(resp => {
+                http.makeRequest(method, action, formData, headers, {}, multipart, onUploadProgress).then(resp => {
                     setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: formData, resp: resp });
                 }).catch(e => {
