@@ -33,6 +33,7 @@
         display: none;
     }
 
+    width: 100%;
     position: relative;
     min-height: map-get($input, "min_height");
 
@@ -184,6 +185,7 @@
         line-height: map-get($input, "line_height");
         font-size: map-get($input, "font_size") !important;
         height: auto;
+        flex-shrink: 0;
     }
 
     & > * {

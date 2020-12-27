@@ -1,13 +1,37 @@
 import React, { PureComponent, createRef, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import DatePicker from "react-datepicker";
 
+import { Button, Badge } from "@ractf/ui-kit";
 import { makeClass } from "@ractf/util";
-import { Button } from "@ractf/ui-kit";
 
 import withRactfForm from "./ractfFormHoc.js";
 
+import "react-datepicker/dist/react-datepicker.css";
 import style from "./Input.module.scss";
-import Badge from "../widgets/Badge.js";
+
+
+export const DatePick = ({ initial, configSet, name, configKey }) => {
+    const [value, setValue] = useState(initial * 1000);
+
+    const onChange = value => {
+        setValue(value);
+        configSet(configKey, value.getTime() / 1000);
+    };
+
+    return <div>
+        <DatePicker showTimeSelect
+            dateFormat="yyyy-MM-dd H:mm"
+            autoComplete="off"
+            selected={value}
+            onChange={onChange}
+            style={{ zIndex: 50 }}
+            wrapperClassName={style.inputWrapper}
+            className={style.input}
+            name={name}
+        />
+    </div>;
+};
 
 
 export const InputHint = ({ children, disabled }) => (
