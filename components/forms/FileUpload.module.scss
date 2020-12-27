@@ -1,9 +1,5 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-.hoverOverlayWrap {
-    margin: 0 !important;
-    padding: 0 !important;
-}
 
 .hoverOverlay {
     position: fixed;
@@ -19,7 +15,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    pointer-events: none;
 
     > span {
         padding: 3rem 4rem;
