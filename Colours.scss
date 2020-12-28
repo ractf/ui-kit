@@ -1,9 +1,9 @@
 @import "@ractf/ui-kit/Utils.scss";
 
-$fontStack: "Lato", sans-serif;
+$fontStack: 'Lato', sans-serif;
 
-$titleStack: "Gilroy", sans-serif;
-$monoStack: "Roboto Mono", monospace;
+$titleStack: 'Montserrat', sans-serif;
+$monoStack: 'Roboto Mono', monospace;
 
 /* #region Colour definitions */
 // Background shades
@@ -21,7 +21,7 @@ $colours: (
     "grey": #e0e1e2,
     "darkGrey": #5b5b5b,
     "black": #363636,
-    
+
     "blue": #4582ec,
     "indigo": #6610f2,
     "purple": #6f42c1,
@@ -45,12 +45,12 @@ $input: (
     border_focus: 1px solid rgba($color, .4),
     border_error: 1px solid map-get($colours, "red"),
     border_error_focus: 1px solid focus(map-get($colours, "red")),
-    
-    
+
+
     //background: rgba(map-get($colours, "black"), .2),
     background: transparent,
     background_disabled: transparent,
-    
+
     color: $color,
     color_error: map-get($colours, "red"),
     color_disabled: rgba($color, .6),
