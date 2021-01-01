@@ -1,7 +1,7 @@
 @import "@ractf/ui-kit/Colours.scss";
 
 
-$edge_colour: $back_lift;
+$edge_colour: var(--col-back-lift);
 
 .tabRow {
     display: flex;
@@ -16,7 +16,7 @@ $edge_colour: $back_lift;
         display: block;
         padding: 9px 24px;
         text-decoration: none;
-        color: $color;
+        color: var(--col-color);
         outline: none;
         cursor: pointer;
 

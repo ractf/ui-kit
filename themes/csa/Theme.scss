@@ -13,10 +13,10 @@ $colours: map-merge($colours, (
     "accent": #9885b2,
 ));
 
-$background: #0d2332;
-$color: #eee;
-$back_lift: rgba(map-get($colours, "white"), 0.125);
-$back_lift_x2: rgba(map-get($colours, "white"), 0.25);
+var(--col-background): #0d2332;
+var(--col-color): #eee;
+var(--col-back-lift): rgba(var(--col-white), 0.125);
+var(--col-back-lift): rgba(var(--col-white), 0.25);
 
 @if variable-exists(types) {
     $types: map-merge(
@@ -28,30 +28,30 @@ $back_lift_x2: rgba(map-get($colours, "white"), 0.25);
                 fg2: #ddd,
             ),
             success: (
-                bg: map-get($colours, "green"),
-                fg: map-get($colours, "black"),
+                bg: var(--col-green),
+                fg: var(--col-black),
             ),
             danger: (
-                bg: map-get($colours, "red"),
-                fg: map-get($colours, "black"),
+                bg: var(--col-red),
+                fg: var(--col-black),
             ),
             info: (
-                bg: map-get($colours, "cyan"),
-                fg: map-get($colours, "black"),
+                bg: var(--col-cyan),
+                fg: var(--col-black),
             ),
             warning: (
-                bg: map-get($colours, "yellow"),
-                fg: map-get($colours, "black"),
+                bg: var(--col-yellow),
+                fg: var(--col-black),
             ),
             dark: (
-                bg: map-get($colours, "black"),
-                fg: map-get($colours, "white"),
-                fg2: map-get($colours, "darkGrey"),
+                bg: var(--col-black),
+                fg: var(--col-white),
+                fg2: var(--col-darkGrey),
             ),
             light: (
-                bg: $background,
-                fg: map-get($colours, "white"),
-                fg2: map-get($colours, "grey"),
+                bg: var(--col-background),
+                fg: var(--col-white),
+                fg2: var(--col-grey),
             ),
             ractfSidebar: (
                 bg: #1E1C34,

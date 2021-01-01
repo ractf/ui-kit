@@ -1,9 +1,9 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-$baseColor: map-get($colours, "accent");
-$valueColor: map-get($colours, "accent");
-$hoverColor: hover($color);
-$lineColor: map-get($colours, "accent");
+$baseColor: var(--col-accent);
+$valueColor: var(--col-accent);
+$hoverColor: var(--col-color);
+$lineColor: var(--col-accent);
 
 .tree {
     & > ul > li {

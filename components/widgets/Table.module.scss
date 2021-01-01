@@ -12,7 +12,7 @@
         th,
         td {
             vertical-align: top;
-            border-top: 1px solid rgba($back_lift, 0.1);
+            border-top: 1px solid var(--col-back-lift);
             margin: 0;
             padding: 0;
 
@@ -47,29 +47,29 @@
                 width: 0;
             }
             &::before {
-                border-bottom-color: rgba($color, 0.35);
+                border-bottom-color: rgba(var(--col-color), 0.35);
                 margin-top: -9px;
             }
             &::after {
-                border-top-color: rgba($color, 0.35);
+                border-top-color: rgba(var(--col-color), 0.35);
                 margin-top: 1px;
             }
 
             &:hover::before {
-                border-bottom-color: rgba($color, 0.65);
+                border-bottom-color: rgba(var(--col-color), 0.65);
             }
             &:hover::after {
-                border-top-color: rgba($color, 0.65);
+                border-top-color: rgba(var(--col-color), 0.65);
             }
         }
 
         tr {
             td {
-                background-color: $background;
-                color: $color;
+                background-color: var(--col-background);
+                color: var(--col-color);
             }
             &:hover > td {
-                background-color: hover($background);
+                background-color: var(--col-back-lift);
             }
 
             @include mapTypes(true, "> td");

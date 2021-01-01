@@ -1,7 +1,5 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-$spinner_color: map-get($colours, "accent");
-
 
 .hr {
     width: 100%;
@@ -14,7 +12,7 @@ $spinner_color: map-get($colours, "accent");
         display: block;
         content: "";
         margin-left: 10%;
-        background-color: $back_lift;
+        background-color: var(--col-back-lift);
         width: 80%;
         height: 1px;
     }
@@ -23,11 +21,7 @@ $spinner_color: map-get($colours, "accent");
 .textBlock {
     font-size: 1rem;
     // Bake the transparency
-    background-color: rgb(
-        ceil(red($background) * (1 - alpha($back_lift))) + ceil(red($back_lift) * alpha($back_lift)),
-        ceil(green($background) * (1 - alpha($back_lift))) + ceil(green($back_lift) * alpha($back_lift)),
-        ceil(blue($background) * (1 - alpha($back_lift))) + ceil(blue($back_lift) * alpha($back_lift)),
-    );
+    background-color: var(--col-back-lift);
     padding: 1rem 2rem;
     border-radius: 2px;
     white-space: pre-wrap;
@@ -50,7 +44,7 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .flashText {
-    background-color: $back_lift;
+    background-color: var(--col-back-lift);
     padding: 16px 24px;
     border-radius: .25rem;
     width: 100%;
@@ -72,7 +66,7 @@ $spinner_color: map-get($colours, "accent");
 
 .pageHead {
     padding: 0 16px;
-    border-bottom: 2px solid $back_lift;
+    border-bottom: 2px solid var(--col-back-lift);
     margin-bottom: 1rem !important;
 
     p, a {
@@ -170,7 +164,7 @@ $spinner_color: map-get($colours, "accent");
 }
 
 .loadingSpinner {
-    border: .25rem solid map-get($colours, "accent");
+    border: .25rem solid var(--col-accent);
     width: 2rem;
     height: 2rem;
     display: inline-block;
@@ -180,9 +174,9 @@ $spinner_color: map-get($colours, "accent");
 
     animation: spin .75s linear infinite;
 
-    @each $type, $color in $types {
+    @each $type in $type-names {
         &.#{$type} {
-            border-color: map-get($color, "bg");
+            border-color: var(--type-#{$type}-bg);
         }
     }
 }

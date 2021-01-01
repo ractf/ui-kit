@@ -1,33 +1,27 @@
-$colours: map-merge($colours, ("accent": #e53935));
+:root {
+    --col-accent: #e53935;
+    --col-background: #181626;
+    --col-color: #eee;
+    --col-back-lift: rgba(255, 255, 255, 0.125);
+    --col-back-lift-2x: rgba(255, 255, 255, 0.25);
+}
 
-$background: #181626;
-$color: #eee;
-$back_lift: rgba(map-get($colours, "white"), 0.125);
-$back_lift_x2: rgba(map-get($colours, "white"), 0.25);
+#root {
+    --type-primary-bg: #37344C;
+    --type-primary-fg: #fff;
+    --type-primary-fg-lesser: lighten(#37344C, 20%);
 
-@if variable-exists(types) {
-    $types: map-merge(
-        $types,
-        (
-            primary: (
-                bg: #37344C,
-                fg: #fff,
-                fg2: lighten(#37344C, 20%),
-            ),
-            dark: (
-                bg: map-get($colours, "black"),
-                fg: map-get($colours, "white"),
-                fg2: map-get($colours, "darkGrey"),
-            ),
-            light: (
-                bg: $background,
-                fg: map-get($colours, "white"),
-                fg2: map-get($colours, "grey"),
-            ),
-            ractfSidebar: (
-                bg: #1E1C34,
-                fg: #fff,
-            ),
-        )
-    );
+    --type-dark-bg: var(--col-black);
+    --type-dark-fg: var(--col-white);
+    --type-dark-fg-lesser: var(--col-darkGrey);
+
+    --type-light-bg: var(--col-background);
+    --type-light-fg: var(--col-white);
+    --type-light-fg-lesser: var(--col-grey);
+
+    --type-ractfSidebar-bg: #1E1C34;
+    --type-ractfSidebar-fg: #fff;
+}
+@if variable-exists(type-names) {
+    $type-names: append($type-names, "ractfSidebar");
 }

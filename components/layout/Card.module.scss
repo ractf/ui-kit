@@ -4,7 +4,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    border: 1px solid $back_lift !important;
+    border: 1px solid var(--col-back-lift) !important;
     border-radius: 0.25rem;
     overflow: hidden;
     margin-bottom: px(24);
@@ -14,8 +14,8 @@
     > .cardHeader {
         padding: px(10) px(16);
         margin-bottom: 0;
-        background-color: rgba($back_lift, 0.03);
-        border-bottom: 1px solid $back_lift;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid var(--col-back-lift);
         position: relative;
 
         > svg {
@@ -64,12 +64,6 @@
         color: inherit;
 
         @include mapTypes(false, "> .cardHeader", true);
-
-        @each $type, $color in $types {
-            &.#{$type} {
-                border-color: rgba(map-get($color, "bg"), 0.3) !important;
-            }
-        }
     }
     &.noPad > .cardBody > div {
         padding: 0;

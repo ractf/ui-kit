@@ -15,12 +15,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
-@function hover($col) {
-    @return darken($col, 5%);
-}
-@function focus($col) {
-    @return darken($col, 15%);
-}
 @function px($size) {
     @return ($size / 16) * 1rem;
 }
@@ -38,7 +32,7 @@
 }
 @mixin mapLesser($bg, $fg) {
     background-color: transparent;
-    border-color: rgba($bg, 0.5);
+    border-color: $bg;
     color: $fg;
 }
 @mixin mapLesserHover($bg, $fg) {
@@ -49,37 +43,25 @@
 }
 
 @mixin mapTypes($interactive: false, $selector: "", $forceBorder: false) {
-    @each $type, $color in $types {
+    @each $type in $type-names {
         &.#{$type} #{$selector} {
-            @include mapPrimary(map-get($color, "bg"), map-get($color, "fg"));
+            @include mapPrimary(var(--type-#{$type}-bg), var(--type-#{$type}-fg));
             @if ($forceBorder) {
-                border-color: map-get($color, "bg");
+                border-color: var(--type-#{$type}-bg);
             }
         }
         &.#{$type}.lesser #{$selector} {
-            @if (map-get($color, "fg2")) {
-                @include mapLesser(map-get($color, "bg"), map-get($color, "fg2"));
-            } @else {
-                @include mapLesser(map-get($color, "bg"), map-get($color, "bg"));
-            }
+            @include mapLesser(
+                var(--type-#{$type}-bg-lesser, var(--type-#{$type}-bg)),
+                var(--type-#{$type}-fg-lesser, var(--type-#{$type}-bg)),
+            );
         }
         @if ($interactive) {
-            &.#{$type}:not(.disabled):hover #{$selector},
-            &.#{$type}:not(.disabled):focus #{$selector} {
-                @include mapPrimaryHover(map-get($color, "bg"), map-get($color, "fg"));
-            }
-            &.#{$type}:not(.disabled):active #{$selector} {
-                @include mapPrimaryFocus(map-get($color, "bg"), map-get($color, "fg"));
-            }
             &.#{$type}.lesser:not(.disabled):hover #{$selector},
-            &.#{$type}.lesser:not(.disabled):focus #{$selector} {
-                @include mapLesserHover(map-get($color, "bg"), map-get($color, "fg"));
-            }
+            &.#{$type}.lesser:not(.disabled):focus #{$selector},
             &.#{$type}.lesser:not(.disabled):active #{$selector} {
-                @include mapLesserFocus(map-get($color, "bg"), map-get($color, "fg"));
+                @include mapPrimary(var(--type-#{$type}-bg), var(--type-#{$type}-fg));
             }
         }
     }
 }
-
-@mixin input-vars {}

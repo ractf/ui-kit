@@ -20,6 +20,6 @@
         padding: 3rem 4rem;
         border-radius: px(16);
         background-color: #0005;
-        border: 2px dashed map-get($colours, "white");
+        border: 2px dashed var(--col-white);
     }
 }

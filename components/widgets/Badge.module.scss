@@ -5,8 +5,8 @@
     vertical-align: middle;
     align-self: center;
 
-    background-color: $back_lift;
-    color: $color;
+    background-color: var(--col-back-lift);
+    color: var(--col-color);
 
     padding: px(6) px(12);
     line-height: 1;
@@ -33,11 +33,11 @@
             border-radius: px(7);
             top: 50%;
             transform: translateY(-50%);
-            background-color: $back_lift;
+            background-color: var(--col-back-lift);
             cursor: pointer;
 
             &:hover {
-                background-color: $back_lift_x2;
+                background-color: var(--col-back-lift-2x);
             }
 
             &::after,
@@ -50,7 +50,7 @@
                 left: px(7);
                 top: px(7);
                 transform: translate(-50%, -50%) rotate(45deg);
-                background-color: $color;
+                background-color: var(--col-color);
             }
             &::before {
                 transform: translate(-50%, -50%) rotate(-45deg);

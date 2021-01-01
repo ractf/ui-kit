@@ -1,5 +1,5 @@
 .footer {
-    background-color: $background !important;
+    background-color: var(--col-background) !important;
     padding: 60px 0 100px 0;
     @media (max-width: 750px) {
         padding: 50px 0;
@@ -7,7 +7,7 @@
 }
 
 .footRow {
-    background-color: $background !important;
+    background-color: var(--col-background) !important;
 
     .footRowInner {
         flex-direction: column;

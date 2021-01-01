@@ -37,7 +37,7 @@
 
 .modal {
     box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
-    background-color: $background;
+    background-color: var(--col-background);
     border-radius: 0.25rem;
     overflow-y: auto;
     max-height: 100%;
@@ -73,7 +73,7 @@
 
     > .header {
         padding: px(17.5) px(21);
-        border-bottom: 1px solid $back_lift;
+        border-bottom: 1px solid var(--col-back-lift);
         font-weight: 700;
         font-size: px(20);
     }
@@ -81,7 +81,7 @@
         padding: px(21);
     }
     > .actions {
-        border-top: 1px solid $back_lift;
+        border-top: 1px solid var(--col-back-lift);
         padding: px(14);
         display: flex;
         flex-direction: row;
@@ -94,7 +94,7 @@
 
     &.transparent {
         background-color: transparent;
-        color: map-get($colours, "white");
+        color: var(--col-white);
         box-shadow: none;
         > .actions,
         > .header {

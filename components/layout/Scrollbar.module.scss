@@ -2,13 +2,13 @@
 
 $bar: (
     width: 4px,
-    track: $back_lift,
-    handle: $back_lift_x2,
+    track: var(--col-back-lift),
+    handle: var(--col-back-lift-2x),
 );
 $primary: (
     width: 8px,
-    track: $back_lift,
-    handle: map-get($colours, "accent"),
+    track: var(--col-back-lift),
+    handle: var(--col-accent),
 );
 
 :global(.simplebar-content) {

@@ -1,9 +1,9 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-$pb_background: $back_lift;
-$pb_fill: map-get($colours, "accent");
-$pb_done: map-get($colours, "green");
-$pb_over: map-get($colours, "red");
+$pb_background: var(--col-back-lift);
+$pb_fill: var(--col-accent);
+$pb_done: var(--col-green);
+$pb_over: var(--col-red);
 
 .progressBar {
     height: 8px;

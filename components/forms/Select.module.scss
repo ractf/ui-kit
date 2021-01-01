@@ -12,19 +12,14 @@
         display: inline-block;
 
         .head, .items div {
-            $color: map-get($types, "primary");
-            @if (map-get($color, "fg2")) {
-                @include mapLesser(map-get($color, "bg"), map-get($color, "fg2"));
-            } @else {
-                @include mapLesser(map-get($color, "bg"), map-get($color, "bg"));
-            }
+            @include mapLesser(var(--type-primary-bg), var(--type-primary-fg-lesser, var(--type-primary-bg)));
             &:hover,
             &:focus,
             &.sOpen {
-                @include mapLesserHover(map-get($color, "bg"), map-get($color, "fg"));
+                @include mapLesserHover(var(--type-primary-bg), var(--type-primary-fg));
             }
             &:active {
-                @include mapLesserFocus(map-get($color, "bg"), map-get($color, "fg"));
+                @include mapLesserFocus(var(--type-primary-bg), var(--type-primary-fg));
             }
 
             font-size: px(14);
@@ -63,7 +58,7 @@
         position: relative;
         &.sOpen {
             border-radius: map-get($input, "radius") map-get($input, "radius") 0 0;
-            background-color: $back_lift;
+            background-color: var(--col-back-lift);
         }
 
         &::after {
@@ -93,7 +88,7 @@
         color: map-get($input, "color");
 
         &:hover {
-            background-color: $back_lift;
+            background-color: var(--col-back-lift);
         }
     }
     .items div {
@@ -107,7 +102,7 @@
     .search {
         border-radius: 0;
         border: map-get($input, "border");
-        background-color: $background;
+        background-color: var(--col-background);
     }
 
     .itemsWrap {
@@ -120,7 +115,7 @@
 
     .items {
         overflow-y: auto;
-        background-color: $background;
+        background-color: var(--col-background);
         overflow-y: auto;
         box-shadow: 0 2px 7px -3px #000;
     }

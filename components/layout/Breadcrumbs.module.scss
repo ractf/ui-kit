@@ -6,13 +6,13 @@
     flex-wrap: wrap;
     padding: 0.75rem 1rem;
     width: 100%;
-    border: 1px solid $back_lift;
+    border: 1px solid var(--col-back-lift);
     border-radius: .25rem;
     font-size: 0.93rem;
 
     .crumb {
         &.active {
-            color: map-get($colours, "darkGrey");
+            color: var(--col-darkGrey);
         }
 
         &:not(:first-child) {
@@ -20,7 +20,7 @@
             &::before {
                 display: inline-block;
                 padding-right: 0.5rem;
-                color: map-get($colours, "grey");
+                color: var(--col-grey);
                 content: "/";
             }
         }

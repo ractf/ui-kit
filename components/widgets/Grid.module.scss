@@ -11,13 +11,13 @@
         width: 100%;
     }
     td:not(:last-child) {
-        border-right: 2px solid $back_lift;
+        border-right: 2px solid var(--col-back-lift);
     }
     tr:not(:last-child) {
-        border-bottom: 2px solid $back_lift;
+        border-bottom: 2px solid var(--col-back-lift);
     }
     thead {
-        border-bottom: 4px solid $back_lift;
+        border-bottom: 4px solid var(--col-back-lift);
         font-weight: 700;
     }
 

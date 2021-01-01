@@ -24,8 +24,8 @@
         position: absolute;
         padding: px(4) px(8);
         border-radius: px(8);
-        background-color: rgba(map-get($colours, "black"), .9);
-        color: map-get($colours, "white");
+        background-color: rgba(var(--col-black), .9);
+        color: var(--col-white);
         font-size: 0.9rem;
         left: 100%;
         top: -4px;
@@ -35,7 +35,7 @@
         &::before {
             display: block;
             content: "";
-            border: 5px solid rgba(map-get($colours, "black"), .9);
+            border: 5px solid rgba(var(--col-black), .9);
             border-top-color: transparent;
             border-right-color: transparent;
             transform: translate(50%, 50%) rotate(45deg);

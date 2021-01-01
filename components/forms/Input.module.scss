@@ -11,6 +11,7 @@
     line-height: map-get($input, "line_height");
     font-size: map-get($input, "font_size");
     min-height: inherit;
+    margin: -1px;
 
     &:focus {
         border: none;
@@ -153,24 +154,24 @@
 
         &[data-val="0"] {
             width: 0%;
-            background-color: map-get($colours, "red");
+            background-color: var(--col-red);
         }
         &[data-val="1"] {
             width: 25%;
-            background-color: map-get($colours, "red");
+            background-color: var(--col-red);
         }
         &[data-val="2"] {
             width: 50%;
-            background-color: map-get($colours, "orange");
+            background-color: var(--col-orange);
         }
         &[data-val="3"] {
             width: 75%;
-            background-color: map-get($colours, "yellow");
+            background-color: var(--col-yellow);
         }
         &[data-val="4"],
         &[data-val="5"] {
             width: 100%;
-            background-color: map-get($colours, "green");
+            background-color: var(--col-green);
         }
     }
 }

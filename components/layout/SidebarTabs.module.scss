@@ -1,7 +1,7 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-$text: map-get($colours, "white");
-$sidebar_accent: map-get($colours, "accent");
+$text: var(--col-white);
+$sidebar_accent: var(--col-accent);
 
 .wrap {
     display: flex;
@@ -12,7 +12,7 @@ $sidebar_accent: map-get($colours, "accent");
     .headerBar {
         width: 100%;
         height: 60px;
-        background: $back_lift;
+        background: var(--col-back-lift);
         padding: 16px 32px;
         z-index: 50;
         display: none;
@@ -58,8 +58,8 @@ $sidebar_accent: map-get($colours, "accent");
         flex-shrink: 0;
         width: 220px;
 
-        background-color: $back_lift;
-        color: $color;
+        background-color: var(--col-back-lift);
+        color: var(--col-color);
         @include mapTypes();
         font-size: 0.95rem;
 
@@ -100,8 +100,6 @@ $sidebar_accent: map-get($colours, "accent");
             span,
             a {
                 opacity: 0.9;
-            }
-            a {
                 color: inherit;
                 &:hover {
                     color: inherit;
@@ -125,7 +123,7 @@ $sidebar_accent: map-get($colours, "accent");
             }
         }
         .item {
-            color: $color;
+            color: var(--col-color);
             text-decoration: none;
             cursor: pointer;
             display: block;

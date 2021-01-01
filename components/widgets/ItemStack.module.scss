@@ -20,12 +20,25 @@
             left: 0;
             width: 100%;
             height: px(1);
-            background: $back_lift;
+            background: var(--col-back-lift);
         }
 
+        &::after {
+            content: "";
+            display: none;
+            background-color: var(--col-back-lift);
+            opacity: .2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
         &:hover,
         &.active {
-            background-color: rgba($back_lift, 0.05);
+            &::after {
+                display: block;
+            }
         }
 
         > .label {
@@ -35,13 +48,13 @@
         }
 
         @include mapTypes($selector: "> .label");
-        @each $type, $color in $types {
+        @each $type in $type-names {
             &.#{$type} {
-                color: map-get($color, "bg");
+                color: var(--type-#{$type}-bg);
 
-                &:hover,
-                &.active {
-                    background-color: rgba(map-get($color, "bg"), 0.1);
+                &::after {
+                    background-color: var(--type-#{$type}-bg);
+                    opacity: .1;
                 }
             }
         }

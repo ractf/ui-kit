@@ -35,5 +35,6 @@ export { default as Grid } from "./components/widgets/Grid";
 export { default as Hint } from "./components/widgets/Hint";
 export * from "./components/widgets/Tree";
 
+export { default as ThemeLoader } from "./components/ThemeLoader";
 export { default as fromJson } from "./components/fromJson";
 export * from "./components/Misc";

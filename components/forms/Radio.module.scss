@@ -1,8 +1,8 @@
 @import "@ractf/ui-kit/Colours.scss";
 
-$radio_color: $back_lift;
-$radio_text: $color;
-$radio_select: map-get($colours, "accent");
+$radio_color: var(--col-back-lift);
+$radio_text: var(--col-color);
+$radio_select: var(--col-accent);
 
 .radioWrap {
     display: flex;

@@ -10,29 +10,25 @@
 }
 
 .navItem > a {
-    color: $color;
+    color: inherit;
     text-decoration: none;
     cursor: pointer;
 
     &:hover,
     &:focus {
-        color: hover($color);
-        text-decoration: none;
+        color: inherit;
+        text-decoration: underline;
     }
 }
 
-@each $type, $color in $types {
-    &.#{$type} .navItem > a {
-        color: map-get($color, "fg");
-        &:hover,
-        &:focus {
-            color: hover(map-get($color, "fg"));
-        }
-    }
-}
 
 .navMenu {
     position: relative;
+    @each $type in $type-names {
+        &.#{$type} {
+            color: var(--type-#{$type}-fg);
+        }
+    }
 
     .navItem > a::after {
         content: "";
@@ -59,9 +55,9 @@
         font-size: 1rem;
         border-radius: 2px;
 
-        background-color: $background;
-        color: $color;
-        border: 1px solid $back_lift;
+        background-color: var(--col-background);
+        color: var(--col-color);
+        border: 1px solid var(--col-back-lift);
 
         .navItem > a {
             color: inherit;
@@ -76,7 +72,7 @@
                 border-bottom: 0.3em solid transparent;
             }
         }
-        
+
         a,
         .navItem {
             display: block;
@@ -84,17 +80,15 @@
             line-height: 1.5;
             padding: 0.25rem 1.5rem;
 
-            color: $color;
             text-decoration: none;
 
             &:hover,
             &:focus,
             &:focus-within {
-                color: $color;
-                background-color: $back_lift;
-                text-decoration: none;
+                background-color: var(--col-back-lift);
             }
         }
+
     }
 }
 
@@ -117,8 +111,8 @@
     font-size: 0.93rem;
     flex-shrink: 0;
 
-    background-color: $back_lift;
-    color: $color;
+    background-color: var(--col-back-lift);
+    color: var(--col-color);
 
     @include mapTypes();
 }
@@ -139,7 +133,7 @@
     .burgerStripe {
         position: absolute;
         height: 2px;
-        background-color: $color;
+        background-color: var(--col-color);
         width: 80%;
         flex-shrink: 0;
         opacity: 1;
@@ -174,13 +168,13 @@
     }
 
     &:hover, &:focus {
-        background-color: $back_lift;
+        background-color: var(--col-back-lift);
     }
 }
 
-@each $type, $color in $types {
-    &.#{$type} .burgerStripe {
-        background-color: map-get($color, "fg");
+@each $type in $type-names {
+    &.#{$type} {
+        background-color: var(--type-#{$type}-fg);
     }
 }
 
@@ -194,6 +188,9 @@
     .navItem > a {
         margin: 0;
         padding: 0;
+    }
+    a {
+        color: inherit;
     }
 }
 
@@ -218,7 +215,7 @@
         .navGap:not(:last-child) {
             margin: .5rem 0;
             height: 1px;
-            background-color: $back_lift;
+            background-color: var(--col-back-lift);
         }
     }
     .navBurgerIcon {
@@ -229,7 +226,7 @@
         padding: 0.5rem 1rem;
 
         &:hover {
-            background-color: $back_lift;
+            background-color: var(--col-back-lift);
         }
     }
     .navMenu {
@@ -249,7 +246,7 @@
                 left: -1rem;
                 right: -1rem;
                 top: -.5rem;
-                background-color: $back_lift;
+                background-color: var(--col-back-lift);
                 border: none;
             }
         }

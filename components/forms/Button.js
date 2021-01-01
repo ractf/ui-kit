@@ -17,18 +17,15 @@ const Button = (props, ref) => {
         propsToTypeClass(props, style, "primary")
     );
 
-    const inner = <>
+    return <button className={buttonClass} disabled={props.disabled} ref={ref}
+        onClick={onClick} style={props.style}>
         {props.Icon && <props.Icon className={style.icon} />}
-        {props.children}
+        <span>{props.children}</span>
         {props.tooltip && (
             <div className={style.tooltip}>
                 {props.tooltip}
             </div>
         )}
-    </>;
-    return <button className={buttonClass} disabled={props.disabled} ref={ref}
-        onClick={onClick} style={props.style}>
-        {inner}
     </button>;
 };
 

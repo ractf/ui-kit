@@ -1,8 +1,8 @@
 @import "@ractf/ui-kit/Colours.scss";
 
 .footer {
-    background-color: map-get($colours, "black");
-    color: map-get($colours, "white");
+    background-color: var(--col-black);
+    color: var(--col-white);
     font-size: .9rem;
     width: 100%;
 
