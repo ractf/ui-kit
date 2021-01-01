@@ -4,6 +4,7 @@ import { makeClass } from "@ractf/util";
 import http from "@ractf/http";
 
 import style from "./Form.module.scss";
+import { useCallback } from "react";
 
 
 const setValue = (object, key, value, disableDotExpansion = false) => {
@@ -24,6 +25,8 @@ const setValue = (object, key, value, disableDotExpansion = false) => {
     }
     object[split[split.length - 1]] = value;
 };
+
+
 const getValue = (object, key, disableDotExpansion = false) => {
     if (disableDotExpansion)
         return object[key];
@@ -31,6 +34,7 @@ const getValue = (object, key, disableDotExpansion = false) => {
     const index = (obj, i) => typeof obj === "undefined" ? undefined : obj[i];
     return key.split(".").reduce(index, object);
 };
+
 
 const different = (obj1, obj2) => {
     const object1keys = Object.keys(obj1).sort();
@@ -51,7 +55,7 @@ const different = (obj1, obj2) => {
 };
 
 
-const generateValues = (children, previous = {}, displayValues, disableDotExpansion) => {
+const generateValues = (children, previous = {}, disableDotExpansion) => {
     const values = {};
     const getValues = (children) => {
         React.Children.toArray(children).filter(Boolean).forEach(i => {
@@ -59,7 +63,7 @@ const generateValues = (children, previous = {}, displayValues, disableDotExpans
 
             getValues(i.props.children);
             if (i.props.name && !previous.hasOwnProperty(i.props.name)) {
-                const cast = (!displayValues && i.props.cast) || (i => i);
+                const cast = i.props.cast || (i => i);
 
                 if (typeof i.props.value !== "undefined") {
                     setValue(values, i.props.name, i.props.value && cast(i.props.value), disableDotExpansion);
@@ -87,50 +91,68 @@ const getErrorDetails = (e) => {
 };
 
 
-export const BareForm = React.memo(({
+const _ManagedInput = ({ C, initial, onChange, _onChange, onSubmit, _onSubmit, error, ...props }) => {
+    const [value, setValue] = useState(initial);
+    const [localError, setError] = useState(error);
+    useEffect(() => setValue(initial), [initial]);
+    useEffect(() => setError(error), [error]);
+    const localOnChange = useCallback(value => {
+        setValue(value);
+        setError(null);
+        if (onChange)
+            onChange(_onChange, props.cast, props.name, value);
+    }, [onChange, props.name, _onChange, props.cast]);
+    const localOnSubmit = useCallback(() => {
+        if (_onSubmit)
+            _onSubmit();
+        onSubmit();
+    }, [onSubmit, _onSubmit]);
+    return <C
+        {...props} error={localError} onChange={localOnChange}
+        onSubmit={localOnSubmit} value={value} val={value} managed
+    />;
+};
+const ManagedInput = React.memo(_ManagedInput);
+
+
+const _BareForm = ({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
     valuesRef, onChange, transformer, disableDotExpansion, multipart, onUploadProgress
 }) => {
     const [formState, setFormState] = useState({
-        displayValues: generateValues(children, {}, true, disableDotExpansion),
-        values: generateValues(children, {}, false, disableDotExpansion),
         error: null, errors: {}, disabled: false
     });
     const hasCustomFormError = useRef(false);
     const required = useRef({});
     const { t } = useTranslation();
-    const lastState = useRef(formState.values);
+
+    const values = useRef({
+        ...generateValues(children, {}, disableDotExpansion)
+    });
+    const lastState = useRef(values.current);
 
     useEffect(() => {
-        setFormState(oldFormState => {
-            return {
-                ...oldFormState,
-                displayValues: {
-                    ...oldFormState.displayValues,
-                    ...generateValues(children, oldFormState.values, false, disableDotExpansion)
-                },
-                values: {
-                    ...oldFormState.values,
-                    ...generateValues(children, oldFormState.values, false, disableDotExpansion)
-                },
-            };
-        });
+        values.current = {
+            ...values.current,
+            ...generateValues(children, values.current, disableDotExpansion)
+        };
     }, [children, disableDotExpansion]);
+
     useEffect(() => {
         if (valuesRef)
-            valuesRef.current = formState.values;
-        if (onChange && different(lastState.current, formState.values)) {
-            lastState.current = formState.values;
-            onChange(formState.values);
+            valuesRef.current = values.current;
+        if (onChange && different(lastState.current, values.current)) {
+            lastState.current = values.current;
+            onChange(values.current);
         }
-    }, [valuesRef, formState.values, onChange]);
+    }, [valuesRef, onChange]);
 
     const onClick = (oldClick, e) => {
         if (oldClick) oldClick(e);
         submit();
     };
 
-    const genericValidator = (values) => {
+    const genericValidator = useCallback((values) => {
         return new Promise((resolve, reject) => {
             const errors = {};
             Object.keys(values).forEach(i => {
@@ -141,12 +163,12 @@ export const BareForm = React.memo(({
                 return reject(errors);
             resolve(values);
         });
-    };
-    const submit = (extraValues) => {
+    }, [disableDotExpansion, t]);
+    const submit = useCallback((extraValues) => {
         setFormState(oldFormState => {
             if (oldFormState.disabled) return oldFormState;
 
-            let formData = { ...oldFormState.values, ...extraValues };
+            let formData = { ...values.current, ...extraValues };
             if (transformer)
                 formData = transformer(formData);
 
@@ -194,30 +216,27 @@ export const BareForm = React.memo(({
             });
             return { ...oldFormState, disabled: !handle };
         });
-    };
-    const onSubmit = (oldSubmit, value) => {
-        if (oldSubmit) oldSubmit(value);
-        submit();
-    };
+    }, [
+        // This is a long list, but none of these values should change frequently, if at all.
+        action, genericValidator, handle, headers, method, multipart, onError, onUploadProgress,
+        postSubmit, transformer, validator
+    ]);
     if (submitRef) submitRef.current = submit;
 
-    const onChangeLocal = (oldChange, cast, name, value) => {
+    const onChangeLocal = useCallback((oldChange, cast, name, value) => {
         let casted = value;
         if (value && cast) casted = cast(value);
         if (oldChange) oldChange(value);
 
-        setFormState(oldFormState => {
-            const newErrors = { ...oldFormState.errors };
-            const newValues = { ...oldFormState.values };
-            const newDisplayValues = { ...oldFormState.displayValues };
-            setValue(newErrors, name, null, disableDotExpansion);
-            setValue(newValues, name, casted, disableDotExpansion);
-            setValue(newDisplayValues, name, value, disableDotExpansion);
-            return {
-                ...oldFormState, errors: newErrors, values: newValues, displayValues: newDisplayValues
-            };
-        });
-    };
+        const newValues = { ...values.current };
+        setValue(newValues, name, casted, disableDotExpansion);
+        values.current = newValues;
+
+        if (onChange && different(lastState.current, values.current)) {
+            lastState.current = values.current;
+            onChange(values.current);
+        }
+    }, [disableDotExpansion, onChange]);
 
     const recurseChildren = (children) => {
         const newChildren = React.Children.toArray(children).filter(Boolean);
@@ -232,12 +251,18 @@ export const BareForm = React.memo(({
             props.disabled = locked || formState.disabled || props.disabled;
             props.children = myChildren;
             if (props.name) {
-                props.onChange = onChangeLocal.bind(this, props.onChange, props.cast, props.name);
-                props.onSubmit = onSubmit.bind(this, props.onSubmit);
-                if (getValue(formState.values, props.name, disableDotExpansion) === undefined)
-                    props.val = props.value = "";
-                else
-                    props.val = props.value = getValue(formState.displayValues, props.name, disableDotExpansion);
+                // Originals
+                props._onChange = props.onChange;
+                props._onSubmit = props.onSubmit;
+                // useCallback
+                props.onChange = onChangeLocal;
+                props.onSubmit = submit;
+
+                // [] !== [], but null === null
+                if (Array.isArray(props.children) && props.children.length === 0)
+                    props.children = null;
+
+                props.initial = props.value || props.val || "";
                 props.error = getValue(formState.errors, props.name, disableDotExpansion) || props.error;
                 required.current[props.name] = props.required;
                 props.key = props.name;
@@ -246,7 +271,7 @@ export const BareForm = React.memo(({
             }
             if (props.formRequires) {
                 props.formRequires.forEach(i => {
-                    props[i] = getValue(formState.values, i, disableDotExpansion);
+                    props[i] = getValue(values.current, i, disableDotExpansion);
                 });
             }
             props.__ractf_global_error = formState.error;
@@ -259,7 +284,10 @@ export const BareForm = React.memo(({
                 props.onClick = onClick.bind(this, props.onClick);
             }
 
-            newChildren[n] = cloneElement(i, props);
+            if (props.name)
+                newChildren[n] = <ManagedInput C={i.type} {...props} />;
+            else
+                newChildren[n] = cloneElement(i, props);
         });
         return newChildren;
     };
@@ -272,8 +300,8 @@ export const BareForm = React.memo(({
             {formState.error}
         </FormError>}
     </>;
-});
-BareForm.displayName = "BareForm";
+};
+export const BareForm = React.memo(_BareForm);
 
 const Form = ({ className, ...props }) => {
     return <div className={makeClass(style.formWrapper, className)}>
@@ -282,7 +310,7 @@ const Form = ({ className, ...props }) => {
 };
 export default React.memo(Form);
 
-export const FormError = React.memo(({ children, __ractf_global_error }) => (
+const _FormError = ({ children, __ractf_global_error }) => (
     <div className={style.formError}>{__ractf_global_error || children}</div>
-));
-FormError.displayName = "FormError";
+);
+export const FormError = React.memo(_FormError);
