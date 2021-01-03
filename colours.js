@@ -1,6 +1,9 @@
-export const COLOURS = {
+import { copyObj } from "@ractf/util";
+
+
+export const BASE_COLOURS = {
     white: "#fff",
-    lightgrey: "#f2f2f2",
+    lightGrey: "#f2f2f2",
     grey: "#e0e1e2",
     darkGrey: "#5b5b5b",
     black: "#363636",
@@ -10,7 +13,7 @@ export const COLOURS = {
     purple: "#6f42c1",
     pink: "#e83e8c",
     red: "#d9534f",
-    orang: "#fd7e14",
+    orange: "#fd7e14",
     yellow: "#f0ad4e",
     green: "#02b875",
     teal: "#20c997",
@@ -24,8 +27,9 @@ export const COLOURS = {
     "back-lift": "rgba(54, 54, 54, 0.125)",
     "back-lift-2x": "rgba(54, 54, 54, 0.25)",
 };
+export const COLOURS = copyObj(BASE_COLOURS);
 
-export const TYPES = {
+export const BASE_TYPES = {
     primary: {
         fg: "--col-white",
         bg: "--col-accent",
@@ -57,8 +61,9 @@ export const TYPES = {
     },
     light: {
         fg: "--col-black",
-        bg: "--col-lightgrey",
+        bg: "--col-lightGrey",
         "fg-lesser": "--col-black",
-        "bg-lesser": "--col-lightgrey",
+        "bg-lesser": "--col-lightGrey",
     },
 };
+export const TYPES = copyObj(BASE_TYPES);

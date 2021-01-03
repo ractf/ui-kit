@@ -24,6 +24,7 @@ export * from "./components/layout/Footer";
 export * from "./components/layout/Layout";
 export * from "./components/layout/NavBar";
 
+export { default as ColourPicker, PalettePicker } from "./components/widgets/ColourPicker";
 export { default as ToggleTab, ToggleTabHolder } from "./components/widgets/ToggleTab";
 export { default as ProgressBar } from "./components/widgets/ProgressBar";
 export { default as ItemStack } from "./components/widgets/ItemStack";

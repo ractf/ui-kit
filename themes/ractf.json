@@ -1,0 +1,30 @@
+{
+    "colours": {
+        "accent": "#e53935",
+        "background": "#181626",
+        "color": "#eee",
+        "back-lift": "rgba(255, 255, 255, 0.125)",
+        "back-lift-2x": "rgba(255, 255, 255, 0.25)"
+    },
+    "types": {
+        "primary": {
+            "fg": "#fff",
+            "bg": "#37344C",
+            "fg-lesser": "#635d89"
+        },
+        "dark": {
+            "fg": "--col-white",
+            "bg": "--col-black",
+            "fg-lesser": "--col-darkGrey"
+        },
+        "light": {
+            "fg": "--col-white",
+            "bg": "--col-background",
+            "fg-lesser": "--col-grey"
+        },
+        "sidebarType": {
+            "fg": "#fff",
+            "bg": "#1E1C34"
+        }
+    }
+}

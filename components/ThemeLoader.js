@@ -1,6 +1,7 @@
 import React from "react";
 
 import { COLOURS, TYPES } from "@ractf/ui-kit/colours";
+import { mergeObj, mergeObjInto } from "@ractf/util";
 
 const makeProp = (name, value) => {
     if (value.startsWith("--"))
@@ -9,11 +10,22 @@ const makeProp = (name, value) => {
 };
 
 const ThemeLoader = ({
+    theme = null, global = false, minimal = false,
     colours = {}, types = {},
     root = [":root", "#root"]
 }) => {
-    colours = { ...COLOURS, ...colours };
-    types = { ...TYPES, ...types };
+    if (theme) {
+        colours = mergeObj(theme.colours || {}, colours);
+        types = mergeObj(theme.types || {}, types);
+    }
+    if (global) {
+        mergeObjInto(COLOURS, colours);
+        mergeObjInto(TYPES, types);
+    }
+    if (!minimal) {
+        colours = mergeObj(COLOURS, colours);
+        types = mergeObj(TYPES, types);
+    }
 
     let style = `${root[0]} {`;
     Object.keys(colours).forEach(colour => {

@@ -1,0 +1,241 @@
+@import "@ractf/ui-kit/Colours.scss";
+
+/*
+    The colour picker does *NOT* respect the site colour scheme. The
+    rationale is that if a user has messed up the colour scheme, they
+    need to be able to see the colour picker to fix it!
+*/
+
+@mixin alphaBackground {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==")
+        left center;
+}
+
+.colourPicker {
+    background-color: #fff;
+    width: 256px;
+}
+.palettePicker {
+    background-color: #fff;
+    width: 208px;
+}
+
+.colourSlab,
+.gradientWrap {
+    width: 100%;
+    height: 0;
+    padding-bottom: 65%;
+    position: relative;
+}
+
+.colourSlab {
+    font-size: px(32);
+
+    > span {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        transition: 150ms color ease;
+    }
+
+    @include alphaBackground();
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        transition: 150ms background-color ease;
+    }
+}
+
+.gradientWrap {
+    overflow: hidden;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    &::before {
+        background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    }
+    &::after {
+        background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    }
+}
+
+.marker {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, 50%);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 0 4px #000;
+}
+
+.bar {
+    width: 100%;
+    height: 10px;
+    position: relative;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.hueBar {
+    background: linear-gradient(
+        to right,
+        rgb(255, 0, 0) 0%,
+        rgb(255, 255, 0) 17%,
+        rgb(0, 255, 0) 33%,
+        rgb(0, 255, 255) 50%,
+        rgb(0, 0, 255) 67%,
+        rgb(255, 0, 255) 83%,
+        rgb(255, 0, 0) 100%
+    );
+}
+.barGradient {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: inherit;
+}
+.alphaBar {
+    @include alphaBackground();
+}
+.handle {
+    top: -1px;
+    width: 12px;
+    height: 12px;
+    background-color: #ffff;
+    border-radius: 50%;
+
+    box-shadow: 0 1px 4px #0009;
+    position: absolute;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.barsRow {
+    display: flex;
+    height: 28px;
+    margin: 8px;
+    align-items: center;
+}
+.sample {
+    position: relative;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    margin-left: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px #0002 inset, 0 0 4px #0004;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+    }
+    &::before {
+        @include alphaBackground();
+    }
+    &::after {
+        background-color: inherit;
+    }
+}
+.bars {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.palette {
+    width: 60px;
+    flex-shrink: 0;
+    display: flex;
+    margin: 4px 0 4px 4px;
+    align-items: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    &.row {
+        width: auto;
+        margin: 4px;
+
+        & > * {
+            margin: 4px;
+            width: 32px;
+            height: 32px;
+        }
+    }
+}
+.palette > * {
+    margin: 4px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.inputRow {
+    display: flex;
+    justify-content: space-between;
+    color: #000;
+    margin: 4px;
+    font-size: px(11);
+}
+.inputRow > * {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 4px;
+}
+.inputRow span {
+    color: #999;
+}
+.inputRow input {
+    width: 100%;
+    padding: 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 2px;
+
+    &:focus {
+        border-color: #aaa;
+        outline: none;
+
+        & ~ span {
+            color: #333;
+        }
+    }
+}
+
+.lower {
+    display: flex;
+}
