@@ -13,11 +13,6 @@ $back_700: #272538;
 // Light shades
 $white_100: #dfddeb;
 
-
-:root {
-
-}
-
 // @import "@ractf/ui-kit/Theme.scss";
 
 $input: (
@@ -37,7 +32,7 @@ $input: (
     tabsPadding: px(2.5) px(14),
     font_size: px(14),
     line_height: px(16),
-    radius: px(4),
+    radius: px(8),
     min_height: px(36),
 );
 

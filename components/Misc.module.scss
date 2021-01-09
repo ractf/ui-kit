@@ -20,10 +20,9 @@
 
 .textBlock {
     font-size: 1rem;
-    // Bake the transparency
     background-color: var(--col-back-lift);
     padding: 1rem 2rem;
-    border-radius: 2px;
+    border-radius: px(8);
     white-space: pre-wrap;
     word-wrap: break-word;
     line-height: 1.5;
