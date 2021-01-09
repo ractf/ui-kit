@@ -7,7 +7,8 @@ $sidebar_accent: var(--col-accent);
     display: flex;
     flex-grow: 1;
     flex-direction: row;
-    height: 100%;
+    height: 100vh;
+    width: 100%;
 
     .headerBar {
         width: 100%;
@@ -40,6 +41,7 @@ $sidebar_accent: var(--col-accent);
     .headerPad {
         display: none;
         height: 60px;
+        flex-shrink: 0;
     }
 
     @media (max-width: 800px) {
@@ -63,9 +65,9 @@ $sidebar_accent: var(--col-accent);
         @include mapTypes();
         font-size: 0.95rem;
 
-        position: fixed;
-        top: 0;
-        left: 0;
+        // position: fixed;
+        // top: 0;
+        // left: 0;
         height: 100%;
         z-index: 5;
 
@@ -195,6 +197,7 @@ $sidebar_accent: var(--col-accent);
 .burgerUnderlay {
     width: 220px;
     flex-shrink: 0;
+    display: none;
 }
 
 .burger {

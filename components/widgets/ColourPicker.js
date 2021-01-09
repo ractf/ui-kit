@@ -1,5 +1,5 @@
 import { COLOURS } from "@ractf/ui-kit/colours";
-import { colourToRGBA, rgb2hex, rgb2hsv, hsv2rgb } from "@ractf/util";
+import { colourToRGBA, rgb2hex, rgb2hsv, hsv2rgb, makeClass } from "@ractf/util";
 import React from "react";
 import { useCallback } from "react";
 import { useRef } from "react";
@@ -12,24 +12,11 @@ const DRAG_GRADIENT = "gradient";
 const DRAG_HUE = "hue";
 const DRAG_ALPHA = "alpha";
 
-const getPalette = () => [
-    COLOURS.green,
-    COLOURS.teal,
-    COLOURS.cyan,
-    COLOURS.blue,
-    COLOURS.indigo,
-    COLOURS.purple,
-    COLOURS.pink,
-    COLOURS.red,
-    COLOURS.orange,
-    COLOURS.yellow,
-    COLOURS.accent,
-    COLOURS.black,
-    COLOURS.darkGrey,
-    COLOURS.grey,
-    COLOURS.lightGrey,
-    COLOURS.white,
+const PALETTE = [
+    "green", "teal", "cyan", "blue", "indigo", "purple", "pink", "red",
+    "orange", "yellow", "black", "darkGrey", "grey", "lightGrey", "white"
 ];
+
 
 const getPos = (e, bounds) => {
     const x = Math.max(0, Math.min(1, (e.pageX - bounds.left) / bounds.width));
@@ -42,20 +29,38 @@ const clickBlock = (e) => {
     e.stopPropagation();
 };
 
-const getInputValues = (hsva, oldInputs = null, preserve = null) => {
-    const [r, g, b] = hsv2rgb(hsva[0], hsva[1], hsva[2]);
+const getInputValues = (hsvaRGB, oldInputs = null, preserve = null) => {
+    let h, s, v, a, r, g, b;
+    if (hsvaRGB.length === 7)
+        [h, s, v, a, r, g, b] = hsvaRGB;
+    else {
+        [h, s, v, a] = hsvaRGB;
+        [r, g, b] = hsv2rgb(h, s, v);
+    }
 
     const newInputs = {
         r: Math.round(r).toString(), g: Math.round(g).toString(),
-        b: Math.round(b).toString(), a: Math.round(hsva[3] * 100).toString(),
-        h: Math.round(hsva[0] * 360).toString(),
-        s: Math.round(hsva[1] * 100).toString(),
-        v: Math.round(hsva[2] * 100).toString(),
-        hex: rgb2hex(r, g, b, hsva[3] * 255)
+        b: Math.round(b).toString(), a: Math.round(a * 100).toString(),
+        h: Math.round(h * 360).toString(),
+        s: Math.round(s * 100).toString(),
+        v: Math.round(v * 100).toString(),
+        hex: rgb2hex(r, g, b, a * 255)
     };
     if (oldInputs && preserve)
         preserve.forEach(i => { newInputs[i] = oldInputs[i]; });
     return newInputs;
+};
+
+export const getForegroundColour = (bgOrR, g, b) => {
+    if (!bgOrR) return "#fff";
+
+    let r;
+    if (!(g && b))
+        [r, g, b] = colourToRGBA(bgOrR);
+    else r = bgOrR;
+
+    const intensity = (r * 0.299 + g * 0.587 + b * 0.114);
+    return intensity > 186 ? "#000" : "#fff";
 };
 
 const getInitialCPState = (value) => {
@@ -67,18 +72,18 @@ const getInitialCPState = (value) => {
         inputs: getInputValues(initialHSVA)
     };
 };
-const ColourPicker = ({ onChange, value }) => {
+const ColourPicker = ({ onChange, className, value }) => {
     const [{ hsva, inputs }, setState] = useState(getInitialCPState(value));
     const hsvaRef = useRef(hsva);
     useEffect(() => { hsvaRef.current = hsva; }, [hsva]);
-    useEffect(() => { setState(getInitialCPState(value)); }, [value]);
+    // useEffect(() => { setState(getInitialCPState(value)); }, [value]);
 
     const alphaBarRef = useRef();
     const draggingOn = useRef();
     const hueBarRef = useRef();
     const wrapRef = useRef();
 
-    const PALETTE = getPalette();
+    const localPalette = PALETTE.map(i => COLOURS[i]);
 
     const [absR, absG, absB] = hsv2rgb(hsva[0], 1, 1);
     const [r, g, b] = hsv2rgb(hsva[0], hsva[1], hsva[2]);
@@ -96,7 +101,6 @@ const ColourPicker = ({ onChange, value }) => {
             if (lastMove.current && ((new Date()) - lastMove.current) < 15)
                 return;
             lastMove.current = new Date();
-            console.log("a");
 
             let [h, s, v, a] = hsvaRef.current;
 
@@ -162,7 +166,7 @@ const ColourPicker = ({ onChange, value }) => {
         const [h, s, v] = rgb2hsv(r / 255, g / 255, b / 255);
         setState({
             hsva: [h, s, v, a / 255],
-            inputs: getInputValues([h, s, v, a / 255])
+            inputs: getInputValues([h, s, v, a / 255, r, g, b])
         });
 
         if (onChange)
@@ -181,7 +185,7 @@ const ColourPicker = ({ onChange, value }) => {
             if (!((0 <= value) && (value <= 255)) && inputName !== "hex")
                 return { hsva: oldHSVA, inputs };
 
-            const [r, g, b] = hsv2rgb(...oldHSVA);
+            let [r, g, b] = hsv2rgb(...oldHSVA);
 
             let h = oldHSVA[0], s = oldHSVA[1], v = oldHSVA[2], a = oldHSVA[3];
             switch (inputName) {
@@ -189,12 +193,15 @@ const ColourPicker = ({ onChange, value }) => {
                     a = value / 100;
                     break;
                 case "r":
+                    r = value / 255;
                     [h, s, v] = rgb2hsv(value / 255, g / 255, b / 255);
                     break;
                 case "g":
+                    g = value / 255;
                     [h, s, v] = rgb2hsv(r / 255, value / 255, b / 255);
                     break;
                 case "b":
+                    b = value / 255;
                     [h, s, v] = rgb2hsv(r / 255, g / 255, value / 255);
                     break;
                 case "h":
@@ -207,14 +214,23 @@ const ColourPicker = ({ onChange, value }) => {
                     v = value / 100;
                     break;
                 case "hex":
-                    console.log(newVal);
                     const rgb = colourToRGBA(newVal);
                     if (rgb) {
+                        [r, g, b] = rgb;
                         [h, s, v] = rgb2hsv(rgb[0] / 255, rgb[1] / 255, rgb[2] / 255);
                         a = rgb[3] / 100;
                     }
                     break;
                 default: break;
+            }
+            switch (inputName) {
+                case "h":
+                case "s":
+                case "v":
+                    [r, g, b] = hsv2rgb(h, s, v);
+                    break;
+                default:
+                    break;
             }
             h = Math.max(0, Math.min(1, h));
             s = Math.max(0, Math.min(1, s));
@@ -225,7 +241,7 @@ const ColourPicker = ({ onChange, value }) => {
                 case "g":
                 case "b":
                 case "a":
-                    inputs = getInputValues([h, s, v, a], inputs, ["r", "g", "b", "a"]);
+                    inputs = getInputValues([h, s, v, a, r, g, b], inputs, ["r", "g", "b", "a"]);
                     break;
                 case "h":
                 case "s":
@@ -233,7 +249,7 @@ const ColourPicker = ({ onChange, value }) => {
                     inputs = getInputValues([h, s, v, a], inputs, ["h", "s", "v"]);
                     break;
                 case "hex":
-                    inputs = getInputValues([h, s, v, a], inputs, ["hex"]);
+                    inputs = getInputValues([h, s, v, a, r, g, b], inputs, ["hex"]);
                     break;
                 default: break;
             }
@@ -248,7 +264,7 @@ const ColourPicker = ({ onChange, value }) => {
         });
     }, [onChange]);
 
-    return <div className={style.colourPicker} onClick={clickBlock}>
+    return <div className={makeClass(style.colourPicker, className)} onClick={clickBlock}>
         <div className={style.gradientWrap} style={{
             backgroundColor: `rgb(${absR}, ${absG}, ${absB})`
         }} ref={wrapRef}>
@@ -258,7 +274,7 @@ const ColourPicker = ({ onChange, value }) => {
         </div>
         <div className={style.lower}>
             <div className={style.palette}>
-                {PALETTE.map(i => (
+                {localPalette.map(i => (
                     <div
                         className={style.sample} style={{ backgroundColor: i }}
                         data-colour={i} onClick={setCol} key={i} />
@@ -339,12 +355,12 @@ const getInitialPPState = (value) => {
         hex: rgb2hex(initial[0], initial[1], initial[2], initial[3])
     };
 };
-const PalettePicker_ = ({ onChange, value }) => {
+const PalettePicker_ = ({ onChange, className, value }) => {
     const [{ hsva, hex }, setState] = useState(getInitialPPState(value));
     const [r, g, b] = hsv2rgb(hsva[0], hsva[1], hsva[2]);
     useEffect(() => { setState(getInitialPPState(value)); }, [value]);
 
-    const PALETTE = getPalette();
+    const localPalette = PALETTE.map(i => `--col-${i}`);
 
     const setCol = useCallback((e) => {
         const colour = e.target.getAttribute("data-colour");
@@ -355,23 +371,21 @@ const PalettePicker_ = ({ onChange, value }) => {
             hex: rgb2hex(r, g, b, a)
         });
         if (onChange)
-            onChange([r, g, b, a], [h * 360, s * 100, v * 100]);
+            onChange(colour);
     }, [onChange]);
 
-    const intensity = (r * 0.299 + g * 0.587 + b * 0.114);
-
-    return <div className={style.palettePicker} onClick={clickBlock}>
+    return <div className={makeClass(style.palettePicker, className)} onClick={clickBlock}>
         <div className={style.colourSlab} style={{
             backgroundColor: `rgba(${r}, ${g}, ${b}, ${hsva[3]})`
         }}>
             <span style={{
-                color: intensity > 186 ? "#000" : "#fff"
+                color: getForegroundColour(r, g, b)
             }}>{hex}</span>
         </div>
         <div className={`${style.palette} ${style.row}`}>
-            {PALETTE.map(i => (
+            {localPalette.map(i => (
                 <div
-                    className={style.sample} style={{ backgroundColor: i }}
+                    className={style.sample} style={{ backgroundColor: `var(${i})` }}
                     data-colour={i} onClick={setCol} key={i} />
             ))}
         </div>

@@ -67,3 +67,6 @@ export const BASE_TYPES = {
     },
 };
 export const TYPES = copyObj(BASE_TYPES);
+
+window.__ractf_colours = COLOURS;
+window.__ractf_types = TYPES;

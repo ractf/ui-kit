@@ -8,16 +8,16 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
 
-const Scrollbar = ({ children, height, primary, className }) => {
+const Scrollbar = ({ children, height, primary, style: localStyle, className }) => {
     const ref = useRef();
     useEffect(() => {
         const reCalc = () => ref.current.recalculate();
         window.addEventListener("resize", reCalc);
         return () => window.removeEventListener("resize", reCalc);
     });
-    
+
     return <SimpleBar className={makeClass(primary && style.primary, className)}
-        style={{ height: height || "100%" }} ref={ref}>
+        style={{ ...localStyle, height: height || "100%" }} ref={ref}>
         {children}
     </SimpleBar>;
 };

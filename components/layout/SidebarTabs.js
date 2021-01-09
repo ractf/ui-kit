@@ -20,7 +20,6 @@ const SideNav_ = ({ header, footer, items, children, ...props }) => {
     useEffect(() => history.listen(() => setSbOpen(false)), [history]);
 
     return <div className={makeClass(style.wrap, sbOpen && style.open)}>
-        <div className={style.headerPad} />
         <div className={makeClass(style.headerBar, propsToTypeClass(props, style))} />
 
         <div onClick={closeSb} /*{...fastClick}*/ className={style.burgerUnderlay} />
@@ -37,9 +36,12 @@ const SideNav_ = ({ header, footer, items, children, ...props }) => {
                 </div>
             </div>
         </Scrollbar>
-        <div className={style.body}>
-            {children}
-        </div>
+        <Scrollbar primary style={{ minWidth: 0, flexGrow: 1 }}>
+            <div className={style.headerPad} />
+            <div className={style.body}>
+                {children}
+            </div>
+        </Scrollbar>
     </div>;
 };
 
@@ -59,7 +61,7 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
         if (!isOpen || isClosed)
             setHeight(body.current?.offsetHeight || "auto");
         //else
-            //setHeight("auto");
+        //setHeight("auto");
     }, [body, children, isClosed, isOpen]);
     useEffect(() => {
         if (typeof isOpen !== "undefined") setIsClosed(!isOpen);
