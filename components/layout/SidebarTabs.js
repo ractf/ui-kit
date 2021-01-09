@@ -1,10 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { MdKeyboardArrowLeft, MdMenu } from "react-icons/md";
+import { MdMenu } from "react-icons/md";
 
 import { propsToTypeClass, useReactRouter, makeClass } from "@ractf/util";
 import Scrollbar from "./Scrollbar";
 
 import style from "./SidebarTabs.module.scss";
+import { FiChevronLeft } from "react-icons/fi";
 
 
 const SideNav_ = ({ header, footer, items, children, ...props }) => {
@@ -26,14 +27,16 @@ const SideNav_ = ({ header, footer, items, children, ...props }) => {
         <div onClick={toggleSb} /*{...fastClick}*/ className={style.burger}><MdMenu /></div>
         <Scrollbar className={makeClass(style.sidebar, propsToTypeClass(props, style))}>
             <div className={style.sidebarInner}>
-                <div className={style.head}>
-                    {header}
-                </div>
+                {header && (
+                    <div className={style.head}>
+                        {header}
+                    </div>
+                )}
                 {items}
-                <div className={style.skip} />
-                <div className={style.foot}>
-                    {footer}
-                </div>
+            </div>
+            <div className={style.skip} />
+            <div className={style.foot}>
+                {footer}
             </div>
         </Scrollbar>
         <Scrollbar primary style={{ minWidth: 0, flexGrow: 1 }}>
@@ -45,8 +48,11 @@ const SideNav_ = ({ header, footer, items, children, ...props }) => {
     </div>;
 };
 
-const Item = ({ className, active, ...props }) => (
-    <span {...props} className={makeClass(style.item, active && style.active, className)} />
+const Item = ({ className, active, Icon, children, ...props }) => (
+    <div {...props} className={makeClass(style.item, active && style.active, className)}>
+        {Icon && <Icon />}
+        <span>{children}</span>
+    </div>
 );
 
 const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => {
@@ -98,9 +104,10 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
     return <>
         <LinkElem
             onClick={click} to={link}
-            className={makeClass(style.item, style.subMenu, isOpen && style.active)}
+            className={makeClass(style.header, isOpen && style.active)}
         >
-            {children && children.length && <MdKeyboardArrowLeft />}{name}
+            {name}
+            {children && children.length && <FiChevronLeft />}
         </LinkElem>
         {children && children.length && (
             <div className={closedClass}>
