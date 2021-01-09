@@ -43,27 +43,6 @@
     }
 }
 
-.flashText {
-    background-color: var(--col-back-lift);
-    padding: 16px 24px;
-    border-radius: .25rem;
-    width: 100%;
-    transition: 150ms background-color ease;
-    flex: 1;
-    position: relative;
-
-    > .loadingSpinner {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 0.5em;
-        margin-top: -2.5em !important;
-    }
-
-    @include mapTypes();
-}
-
 .pageHead {
     padding: 0 16px;
     border-bottom: 2px solid var(--col-back-lift);

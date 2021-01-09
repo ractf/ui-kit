@@ -12,20 +12,6 @@ export const TextBlock = React.memo(({ children, className, ...props }) => (
 ));
 TextBlock.displayName = "TextBlock";
 
-export const FlashText = React.memo(({ children, title, button, ...props }) => {
-    const className = propsToTypeClass(props, style);
-    const inner = <div className={makeClass(style.flashText, className)}>
-        {title && <H4>{title}</H4>}
-        {children}
-    </div>;
-    if (button)
-        return <Row>
-            {inner}
-            {button}
-        </Row>;
-    return inner;
-});
-FlashText.displayName = "FlashText";
 export const FormGroup = React.memo(({ children, label, htmlFor }) => (
     <div className={style.formGroup}>
         <label htmlFor={htmlFor}>{label}</label>

@@ -2,7 +2,7 @@ import React from "react";
 import { compiler } from "markdown-to-jsx";
 
 import {
-    Row, Card, FlashText, HR, Leader, H1, H2, H3, H4, H5, H6, Button
+    Row, Card, HR, Leader, H1, H2, H3, H4, H5, H6, Button
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
@@ -110,7 +110,6 @@ const Markdown = ({ className, source, LinkElem = "a" }) => {
     const SPECIALS = {
         row: Row,
         card: Card,
-        alert: FlashText,
         leader: Leader,
         button: Button,
         hr: HR,
@@ -125,7 +124,7 @@ const Markdown = ({ className, source, LinkElem = "a" }) => {
     const createElement = (type, props, ...children) => {
         if (!WHITELIST[type])
             return null;
-        
+
         const safeProps = {};
         for (const i of WHITELIST[type])
             safeProps[i] = props[i];

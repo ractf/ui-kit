@@ -2,70 +2,128 @@
 
 .card {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--col-back-lift) !important;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    margin-bottom: px(24);
+    border-radius: px(8);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: px(24);
+    background-color: var(--col-back-lift);
+    color: var(--col-color);
+
+    &.slim {
+        padding: px(16) px(24);
+    }
+    &.lesser {
+        border: px(1) solid var(--col-back-lift);
+        padding: px(23);
+        background: transparent;
+        &.slim {
+            padding: px(15) px(23);
+        }
+    }
 
     @include mapTypes();
 
-    > .cardHeader {
-        padding: px(10) px(16);
-        margin-bottom: 0;
-        background-color: rgba(0, 0, 0, 0.03);
-        border-bottom: 1px solid var(--col-back-lift);
-        position: relative;
-
-        > svg {
-            position: absolute;
-            top: 50%;
-            width: px(16);
-            height: px(16);
-            left: px(8);
-            transform: translateY(-50%) rotate(90deg);
-            transition: transform 200ms ease-in;
-        }
-    }
-    > .cardBody {
-        flex: 1 1 auto;
-        min-height: 1px;
-        > div {
-            padding: px(16);
-        }
-        margin-top: 0;
-        transition: height 200ms, margin-top 200ms, opacity 200ms ease-in, min-height 200ms;
-        opacity: 1;
-    }
-    &.collapsible {
-        > .cardHeader {
-            cursor: pointer;
-            user-select: none;
-            padding-left: px(32);
-        }
-    }
-
-    &.isClosed {
-        > .cardBody {
-            height: 0 !important;
-            min-height: 0;
-            opacity: 0;
-            margin-top: -1px;
-        }
-
-        > .cardHeader > svg {
-            transform: translateY(-50%) rotate(0);
-        }
-    }
-
-    &.framed {
-        background-color: transparent;
-        color: inherit;
-
-        @include mapTypes(false, "> .cardHeader", true);
-    }
-    &.noPad > .cardBody > div {
+    &.noPad {
         padding: 0;
+
+        .body {
+            margin-top: 0;
+        }
+    }
+
+    .head {
+        line-height: 1;
+        font-family: $titleStack;
+        display: flex;
+        .headMain {
+            flex-grow: 1;
+            margin-right: px(16);
+        }
+        .header {
+            font-size: px(16);
+            font-weight: 600;
+        }
+        .subtitle {
+            margin-top: px(4);
+            display: flex;
+            align-items: center;
+            font-size: px(14);
+            font-weight: 500;
+            opacity: 0.7;
+        }
+    }
+    .spacer {
+        margin-top: px(8);
+    }
+}
+
+.old {
+    .card {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--col-back-lift) !important;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        margin-bottom: px(24);
+
+        @include mapTypes();
+
+        > .cardHeader {
+            padding: px(10) px(16);
+            margin-bottom: 0;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid var(--col-back-lift);
+            position: relative;
+
+            > svg {
+                position: absolute;
+                top: 50%;
+                width: px(16);
+                height: px(16);
+                left: px(8);
+                transform: translateY(-50%) rotate(90deg);
+                transition: transform 200ms ease-in;
+            }
+        }
+        > .cardBody {
+            flex: 1 1 auto;
+            min-height: 1px;
+            > div {
+                padding: px(16);
+            }
+            margin-top: 0;
+            transition: height 200ms, margin-top 200ms, opacity 200ms ease-in, min-height 200ms;
+            opacity: 1;
+        }
+        &.collapsible {
+            > .cardHeader {
+                cursor: pointer;
+                user-select: none;
+                padding-left: px(32);
+            }
+        }
+
+        &.isClosed {
+            > .cardBody {
+                height: 0 !important;
+                min-height: 0;
+                opacity: 0;
+                margin-top: -1px;
+            }
+
+            > .cardHeader > svg {
+                transform: translateY(-50%) rotate(0);
+            }
+        }
+
+        &.framed {
+            background-color: transparent;
+            color: inherit;
+
+            @include mapTypes(false, "> .cardHeader", true);
+        }
+        &.noPad > .cardBody > div {
+            padding: 0;
+        }
     }
 }

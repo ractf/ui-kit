@@ -6,7 +6,7 @@ import { H4 } from "@ractf/ui-kit";
 
 import style from "./Card.module.scss";
 
-const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
+const Card_ = ({ title, header, children, open, onOpenToggle, ...props }) => {
     const [closedClass, setClosedClass] = useState(props.startClosed ? style.isClosed : null);
     const [hideStyle, setHideStyle] = useState(props.startClosed ? { display: "none" } : null);
     const [isClosed, setIsClosed] = useState((props.collapsible && props.startClosed) ? true : false);
@@ -73,4 +73,31 @@ const Card = ({ title, header, children, open, onOpenToggle, ...props }) => {
         </div>
     </div>;
 };
+
+const Card = ({ header, subtitle, callout, className, children, ...props }) => {
+    return (
+        <div className={makeClass(
+            style.card, propsToTypeClass(props, style), className
+        )}>
+            <div className={style.head}>
+                <div className={style.headMain}>
+                    {header && (
+                        <div className={style.header}>{header}</div>
+                    )}
+                    {subtitle && (
+                        <div className={style.subtitle}>
+                            {subtitle}
+                        </div>
+                    )}
+                </div>
+                <div>{callout}</div>
+            </div>
+            {(header || subtitle || callout) && (
+                <div className={style.spacer} />
+            )}
+            {children}
+        </div>
+    );
+};
+
 export default React.memo(Card);
