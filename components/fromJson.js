@@ -29,10 +29,8 @@ const fromJson = (fields = [], data = {}) => {
                     </FormGroup>);
                     break;
                 case "select":
-                    const idx = field.options.map(i => i.key).indexOf(val);
                     retFields.push(<FormGroup key={(n++)} htmlFor={field.name} label={field.label}>
-                        <Select name={field.name} options={field.options}
-                            initial={idx !== -1 ? idx : 0} />
+                        <Select name={field.name} options={field.options} initial={val} />
                     </FormGroup>);
                     break;
                 case "label":

@@ -69,9 +69,8 @@ const generateValues = (children, previous = {}, disableDotExpansion) => {
                     setValue(values, i.props.name, i.props.value && cast(i.props.value), disableDotExpansion);
                 } else if (typeof i.props.val !== "undefined") {
                     setValue(values, i.props.name, i.props.val && cast(i.props.val), disableDotExpansion);
-                } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== undefined
-                    && Object.hasOwnProperty(i.props.options, i.props.initial)) {
-                    setValue(values, i.props.name, i.props.options[i.props.initial].key, disableDotExpansion);
+                } else if (typeof i.props.initial !== "undefined" && typeof i.props.options !== "undefined") {
+                    setValue(values, i.props.name, i.props.initial, disableDotExpansion);
                 } else {
                     setValue(values, i.props.name, "", disableDotExpansion);
                 }
@@ -108,7 +107,7 @@ const _ManagedInput = ({ C, initial, onChange, _onChange, onSubmit, _onSubmit, e
         onSubmit();
     }, [onSubmit, _onSubmit]);
     return <C
-        {...props} error={localError} onChange={localOnChange}
+        {...props} error={localError} onChange={localOnChange} initial={initial}
         onSubmit={localOnSubmit} value={value} val={value} managed
     />;
 };
@@ -262,7 +261,11 @@ const _BareForm = ({
                 if (Array.isArray(props.children) && props.children.length === 0)
                     props.children = null;
 
-                props.initial = props.value || props.val || "";
+                props.initial = (
+                    (typeof props.initial !== "undefined")
+                    ? props.initial
+                    : (props.value || props.val || "")
+                );
                 props.error = getValue(formState.errors, props.name, disableDotExpansion) || props.error;
                 required.current[props.name] = props.required;
                 props.key = props.name;

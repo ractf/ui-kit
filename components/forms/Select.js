@@ -9,7 +9,11 @@ import { RawInput } from "./Input";
 export default forwardRef(({ name, options = [], initial, mini, pill, hasFilter, onChange }, ref) => {
     if (options.length > 0 && (typeof options[0] !== "object"))
         options = options.map(i => ({ key: i, value: i }));
-    const [selected, setSelected] = useState(options[(initial && initial > -1) ? initial : 0]);
+    const [selected, setSelected] = useState(() => {
+        const idx = options.map(i => i.key).indexOf(initial);
+        if (idx > -1) return options[idx];
+        return options[0];
+    });
     const [state, setState] = useState({ open: false, filter: "", itemsStyle: {} });
     const items = useRef();
     const head = useRef();
