@@ -51,3 +51,4 @@ export const Wordmark = basicComponent(style.wordmark, "Wordmark");
 export const Container = basicComponent(style.container, "Container");
 
 export const Spinner = () => <div className={style.loadingSpinner}/>;
+export const ModalSpinner = () => <div className={style.modalSpinner}><Spinner /></div>;

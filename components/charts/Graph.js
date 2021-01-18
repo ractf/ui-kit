@@ -2,8 +2,7 @@ import React from "react";
 import { Scatter } from "react-chartjs-2";
 
 import { plotHoc, getPalette } from "./common.js";
-import { transparentize } from "polished";
-import { cssVar } from "@ractf/util";
+import { cssVar, transparentize } from "@ractf/util";
 
 
 const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, percent }) => {
@@ -72,10 +71,11 @@ const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, per
         if (!("pointHitRadius" in i)) i.pointHitRadius = 20;
 
         const colour = palette[n % palette.length];
+        console.log(colour,palette);
         if (!("borderColor" in i)) i.borderColor = colour;
         if (!("pointBackgroundColor" in i)) i.pointBackgroundColor = colour;
         if (!("pointBorderColor" in i)) i.pointBorderColor = colour;
-        if (!("backgroundColor" in i)) i.backgroundColor = filled ? transparentize(.8, colour) : colour;
+        if (!("backgroundColor" in i)) i.backgroundColor = filled ? transparentize(colour, .8) : colour;
         if (!("fill" in i)) i.fill = filled ? "zero" : false;
     });
 

@@ -8,14 +8,16 @@
     color: var(--col-color);
     height: 100%;
 
-    &.slim {
-        padding: px(16) px(24);
-    }
     &.lesser {
         border: px(1) solid var(--col-back-lift);
         background: transparent;
         &.slim {
-            padding: px(15) px(23);
+            .body {
+                padding: 0 px(23) px(15);
+            }
+            .head {
+                padding: px(15) px(23) 0;
+            }
         }
 
         .body {
@@ -31,6 +33,14 @@
         }
 
         @include mapTypes(true, "> .collapse", false, false);
+    }
+    &.slim {
+        .body {
+            padding: 0 px(24) px(16);
+        }
+        .head {
+            padding: px(16) px(24) 0;
+        }
     }
 
     @include mapTypes();
