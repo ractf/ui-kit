@@ -1,9 +1,8 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import colours from "@ractf/ui-kit/Colours.scss";
-
-import { plotHoc, palette } from "./common.js";
+import { plotHoc, getPalette } from "./common.js";
+import { cssVar } from "@ractf/util";
 
 
 const Pie = plotHoc(({ data, labels, colors, noAnimate, percent }) => {
@@ -11,7 +10,7 @@ const Pie = plotHoc(({ data, labels, colors, noAnimate, percent }) => {
         legend: {
             position: "bottom",
             labels: {
-                fontColor: colours.color,
+                fontColor: cssVar("--col-color"),
             },
         },
         maintainAspectRatio: false,
@@ -30,7 +29,8 @@ const Pie = plotHoc(({ data, labels, colors, noAnimate, percent }) => {
         options.animation = { duration: 0 };
 
     data = { data };
-    if (!("borderColor" in data)) data.borderColor = colours.background;
+    const palette = getPalette();
+    if (!("borderColor" in data)) data.borderColor = cssVar("--col-background");
     if (!("backgroundColor" in data)) data.backgroundColor = colors || palette;
     if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = colors || palette;
 

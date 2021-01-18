@@ -44,20 +44,8 @@ $type-names: [
 // @import "@ractf/ui-kit/Theme.scss";
 
 :export {
-    green: var(--col-green);
-    red: var(--col-red);
-
     bg_l5: desaturate(lighten(#000, 56%), 12%);
-
-    fontStack: $fontStack;
     monoStack: $monoStack;
-
-    color: var(--col-color);
-    background: var(--col-background);
-    backLift: var(--col-back-lift);
-    // @each $name, $colour in $colours {
-    //     #{$name}: $colour;
-    // }
 }
 
 // @import "@ractf/ui-kit/Theme.scss";

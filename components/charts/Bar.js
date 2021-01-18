@@ -1,9 +1,8 @@
 import React from "react";
 import { Bar as CJSBar } from "react-chartjs-2";
 
-import colours from "@ractf/ui-kit/Colours.scss";
-
-import { plotHoc, palette } from "./common.js";
+import { plotHoc, getPalette } from "./common.js";
+import { cssVar } from "@ractf/util/index.js";
 
 
 const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel, percent }) => {
@@ -48,10 +47,11 @@ const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel, perc
     const labels = Object.keys(data);
     data = labels.map(i => data[i]);
 
+    const palette = getPalette();
     const paddedColours = data.map((_, n) => (colors || palette)[n % (colors || palette).length]);
 
     data = { data };
-    if (!("borderColor" in data)) data.borderColor = colours.background;
+    if (!("borderColor" in data)) data.borderColor = cssVar("--col-background");
     if (!("backgroundColor" in data)) data.backgroundColor = paddedColours;
     if (!("hoverBackgroundColor" in data)) data.hoverBackgroundColor = paddedColours;
     if (!("fillColor" in data)) data.fillColor = paddedColours;

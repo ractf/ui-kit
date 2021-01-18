@@ -82,7 +82,6 @@ const Card = ({
     // const [open, setOpen] = useState(true);
 
     const [closedClass, setClosedClass] = useState(startClosed ? style.isClosed : null);
-    const [hideStyle, setHideStyle] = useState(startClosed ? { display: "none" } : null);
     const [isClosed, setIsClosed] = useState((collapsible && startClosed) ? true : false);
     const [height, setHeight] = useState("auto");
     const body = useRef();
@@ -110,14 +109,12 @@ const Card = ({
         if (isClosed) {
             setHeight(body.current?.offsetHeight || "auto");
         } else {
-            setHideStyle(null);
             setTimeout(() => {
                 setHeight(body.current?.offsetHeight || "auto");
             }, 20);
         }
         const to = setTimeout(() => {
             setHeight("auto");
-            setHideStyle(isClosed ? { display: "none" } : null);
             // Ensure scrollbars update!
             window.dispatchEvent(new Event("resize"));
         }, next);
@@ -131,7 +128,6 @@ const Card = ({
     }, [height, setClosedClass, isClosed]);
 
     return (
-        <div style={{ flexGrow: 1 }}>
             <div className={makeClass(
                 style.card, closedClass, propsToTypeClass(props, style), className
             )} {...props}>
@@ -142,7 +138,7 @@ const Card = ({
                     </div>
                 )}
                 <div className={style.shrinker} style={{ height }}>
-                    <div ref={body} style={hideStyle}>
+                    <div ref={body}>
                         <div className={style.head}>
                             <div className={style.headMain}>
                                 {header && (
@@ -165,7 +161,6 @@ const Card = ({
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 

@@ -1,31 +1,32 @@
 import React from "react";
 import { Scatter } from "react-chartjs-2";
 
-import colours from "@ractf/ui-kit/Colours.scss";
-
-import { plotHoc, palette } from "./common.js";
+import { plotHoc, getPalette } from "./common.js";
 import { transparentize } from "polished";
+import { cssVar } from "@ractf/util";
 
 
 const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, percent }) => {
+    const hasLabels = (data || []).map(i => i && !!i.label).reduce((a, b) => a || b, false);
     const options = {
         legend: {
             position: "bottom",
             labels: {
-                fontColor: colours.color,
+                fontColor: cssVar("--col-color"),
             },
+            display: hasLabels,
         },
         scales: {
             xAxes: [{
                 gridLines: {
-                    borderColor: colours.color,
+                    borderColor: cssVar("--col-color"),
                     tickMarkLength: 15,
-                    color: colours.backLift,
+                    color: cssVar("--col-back-lift"),
                 },
                 ticks: {
                     color: "#f0f",
                     padding: 100,
-                    fontColor: colours.color,
+                    fontColor: cssVar("--col-color"),
                 },
                 scaleLabel: {
                     display: !!xLabel,
@@ -34,12 +35,12 @@ const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, per
             }],
             yAxes: [{
                 gridLines: {
-                    borderColor: colours.color,
+                    borderColor: cssVar("--col-color"),
                     drawTicks: false,
-                    color: colours.backLift,
+                    color: cssVar("--col-back-lift"),
                 },
                 ticks: {
-                    fontColor: colours.color,
+                    fontColor: cssVar("--col-color"),
                     padding: 8,
                 },
                 scaleLabel: {
@@ -65,6 +66,7 @@ const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, per
     if (noAnimate)
         options.animation = { duration: 0 };
 
+    const palette = getPalette();
     data.forEach((i, n) => {
         if (!("lineTension" in i)) i.lineTension = 0;
         if (!("pointHitRadius" in i)) i.pointHitRadius = 20;

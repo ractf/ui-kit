@@ -1,20 +1,19 @@
 import React from "react";
-import { makeClass } from "@ractf/util";
+import { cssVar, makeClass } from "@ractf/util";
 
 import style from "./Charts.module.scss";
-import colours from "@ractf/ui-kit/Colours.scss";
 
-export const palette = [
-    colours.blue,
-    colours.orange,
-    colours.green,
-    colours.red,
-    colours.purple,
-    colours.pink,
-    colours.teal,
-    colours.yellow,
-    colours.cyan,
-    colours.indigo,
+export const getPalette = () => [
+    cssVar("--col-blue"),
+    cssVar("--col-orange"),
+    cssVar("--col-green"),
+    cssVar("--col-red"),
+    cssVar("--col-purple"),
+    cssVar("--col-pink"),
+    cssVar("--col-teal"),
+    cssVar("--col-yellow"),
+    cssVar("--col-cyan"),
+    cssVar("--col-indigo"),
 ];
 
 export const plotHoc = (Plot) => {

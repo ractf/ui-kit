@@ -124,7 +124,7 @@
         flex-grow: 1;
         flex-shrink: 1;
         width: calc(100% - #{px(16)});
-        flex-basis: 30%;
+        flex-basis: px(250);
         margin-bottom: px(16);
         margin-right: px(16);
     }
