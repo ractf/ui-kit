@@ -4,7 +4,9 @@
         "background": "#181626",
         "color": "#eee",
         "back-lift": "rgba(255, 255, 255, 0.125)",
-        "back-lift-2x": "rgba(255, 255, 255, 0.25)"
+        "back-lift-2x": "rgba(255, 255, 255, 0.25)",
+        "darkGrey": "#353341",
+        "grey": "#4E4D59"
     },
     "types": {
         "primary": {

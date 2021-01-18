@@ -1,5 +1,5 @@
 import React from "react";
-import { makeClass, basicComponent, propsToTypeClass } from "@ractf/util";
+import { makeClass, basicComponent } from "@ractf/util";
 
 import { Row } from "@ractf/ui-kit";
 

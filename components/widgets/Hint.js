@@ -1,11 +1,11 @@
 import React from "react";
-import { FaRegQuestionCircle } from "react-icons/fa";
+import { FiHelpCircle } from "react-icons/fi";
 
 import style from "./Hint.module.scss";
 
 const Hint = ({ children }) => {
     return <span className={style.hint}>
-        <FaRegQuestionCircle />
+        <FiHelpCircle />
         <div className={style.hintInner}>
             {children}
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FaFolder, FaFolderOpen, FaRegFolder, FaPencilAlt, FaReceipt } from "react-icons/fa";
+import { FiFolder, FiFolderPlus, FiFolderMinus, FiEdit2, FiType } from "react-icons/fi";
 
 import { appContext } from "ractf";
 
@@ -20,7 +20,7 @@ export const Tree = ({ name, children, startOpen }) => {
         <i />
         <span className={style.parent} onClick={() => setOpen(!open)}>
             <i className={style.treeItem}>{
-                children.length === 0 ? <FaRegFolder /> : open ? <FaFolderOpen /> : <FaFolder />
+                children.length === 0 ? <FiFolder /> : open ? <FiFolderMinus /> : <FiFolderPlus />
             }</i>
             {name}
         </span>
@@ -53,7 +53,7 @@ export const TreeValue = ({ name, value, setValue }) => {
     return <li onClick={setValue ? openEdit : null}>
         <i />
         <span className={style.parent}>
-            <i className={style.treeItem}>{setValue ? <FaPencilAlt /> : <FaReceipt />}</i>
+            <i className={style.treeItem}>{setValue ? <FiEdit2 /> : <FiType />}</i>
             {name}
         </span>
         <span className={style.value}>{

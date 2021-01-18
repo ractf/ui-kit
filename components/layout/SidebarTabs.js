@@ -78,9 +78,9 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
         if (isClosed) {
             setHeight(body.current?.offsetHeight || "auto");
         } else {
-            setTimeout(() => {
+            // setTimeout(() => {
                 setHeight(body.current?.offsetHeight || "auto");
-            }, 20);
+            // }, 20);
         }
         const to = setTimeout(() => {
             setHeight("auto");
@@ -92,9 +92,7 @@ const SubMenu = ({ name, children, isOpen, link, toggle, LinkElem = "div" }) => 
 
     useEffect(() => {
         if (height !== "auto" && body.current?.parentElement?.style.height !== "auto")
-            setTimeout(() => {
-                setClosedClass(isClosed ? style.isClosed : null);
-            }, 50);
+            setClosedClass(isClosed ? style.isClosed : null);
     }, [height, setClosedClass, isClosed]);
     const click = useCallback((e) => {
         if (toggle) toggle(!isClosed);

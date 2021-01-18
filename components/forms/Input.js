@@ -1,5 +1,5 @@
 import React, { PureComponent, createRef, useRef, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import DatePicker from "react-datepicker";
 
 import { Button, Badge } from "@ractf/ui-kit";
@@ -284,7 +284,7 @@ export class RawInput extends PureComponent {
                 <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
             )}
             {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
-                {this.state.showPass ? <FaEyeSlash /> : <FaEye />}
+                {this.state.showPass ? <FiEyeOff /> : <FiEye />}
             </div> : null}
             {this.props.zxcvbn &&
                 <div className={style.inputStrength}

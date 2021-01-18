@@ -42,7 +42,7 @@
     @include mapPrimaryFocus($bg, $fg);
 }
 
-@mixin mapTypes($interactive: false, $selector: "", $forceBorder: false) {
+@mixin mapTypes($interactive: false, $selector: "", $forceBorder: false, $doLesser: true) {
     @each $type in $type-names {
         &.#{$type} #{$selector} {
             @include mapPrimary(var(--type-#{$type}-bg), var(--type-#{$type}-fg));
@@ -50,16 +50,18 @@
                 border-color: var(--type-#{$type}-bg);
             }
         }
-        &.#{$type}.lesser #{$selector} {
-            @include mapLesser(
-                var(--type-#{$type}-bg-lesser, var(--type-#{$type}-bg)),
-                var(--type-#{$type}-fg-lesser, var(--type-#{$type}-bg)),
-            );
+        @if ($doLesser) {
+            &.#{$type}.lesser #{$selector} {
+                @include mapLesser(
+                    var(--type-#{$type}-bg-lesser, var(--type-#{$type}-bg)),
+                    var(--type-#{$type}-fg-lesser, var(--type-#{$type}-bg))
+                );
+            }
         }
         @if ($interactive) {
-            &.#{$type}.lesser:not(.disabled):hover #{$selector},
-            &.#{$type}.lesser:not(.disabled):focus #{$selector},
-            &.#{$type}.lesser:not(.disabled):active #{$selector} {
+            &.#{$type}.lesser:not(.disabled)#{$selector}:hover,
+            &.#{$type}.lesser:not(.disabled)#{$selector}:focus,
+            &.#{$type}.lesser:not(.disabled)#{$selector}:active {
                 @include mapPrimary(var(--type-#{$type}-bg), var(--type-#{$type}-fg));
             }
         }

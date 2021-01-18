@@ -30,13 +30,12 @@ $sidebar_accent: var(--col-accent);
     transition: 100ms ease background-color;
 
     &.active {
-        background-color: #aa3132;
+        background-color: var(--col-accent);
     }
     &:not(.active):hover,
     &:not(.active):focus {
         background-color: var(--col-back-lift);
     }
-
     > svg {
         width: px(18);
         height: px(18);
@@ -46,6 +45,10 @@ $sidebar_accent: var(--col-accent);
         margin-left: px(21);
     }
 }
+:focus > .item:not(.active) {
+    background-color: var(--col-back-lift);
+}
+
 .head {
     padding: px(8);
     margin-bottom: px(20);
@@ -80,7 +83,8 @@ $sidebar_accent: var(--col-accent);
         transform: translateY(-50%) rotate(-90deg);
     }
 
-    &:hover,&:focus {
+    &:hover,
+    &:focus {
         background-color: rgba(0, 0, 0, 0.1);
     }
 }
