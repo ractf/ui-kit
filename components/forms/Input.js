@@ -1,3 +1,20 @@
+// Copyright (C) 2020-2021 Really Awesome Technology Ltd
+//
+// This file is part of RACTF.
+//
+// RACTF is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// RACTF is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
+
 import React, { PureComponent, createRef, useRef, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import DatePicker from "react-datepicker";
@@ -57,9 +74,14 @@ export const InputButton = ({ btnDisabled, ...props }) => {
     } managed />;
 };
 
-export const InputTags = ({ disabled, val, onChange }) => {
+export const InputTags = ({ disabled, val, limit, onChange }) => {
     const [newTag, setNewTag] = useState("");
     val = val || [];
+
+    const limitFilter = (limit || []).filter(i => val.indexOf(i) === -1);
+    const suggestions = limitFilter.filter(i => i.toLowerCase().indexOf(newTag.toLowerCase()) !== -1);
+    const hasSuggestions = suggestions.length > 0;
+    const valid = !limit || hasSuggestions || !newTag;
 
     const onKeyDown = (e) => {
         if (disabled)
@@ -67,8 +89,11 @@ export const InputTags = ({ disabled, val, onChange }) => {
 
         if (e.keyCode === 13 || e.keyCode === 188) {
             e.preventDefault();
-            onChange([...val, newTag]);
-            setNewTag("");
+            const toInsert = limit ? suggestions[0] : newTag;
+            if (valid && toInsert) {
+                onChange([...val, toInsert]);
+                setNewTag("");
+            }
         } else if (e.keyCode === 32) {
             if (newTag.length === 0)
                 e.preventDefault();
@@ -92,9 +117,18 @@ export const InputTags = ({ disabled, val, onChange }) => {
         };
     };
 
-    return <div className={makeClass(style.inputTags, disabled && style.disabled)}>
+    return <div className={makeClass(
+        style.inputTags, !valid && style.invalid,
+        hasSuggestions && style.hasSuggestions, disabled && style.disabled
+    )}>
         {val.map((i, n) => <Badge key={n + i} onClose={remove(n)} x>{i}</Badge>)}
         <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyDown={onKeyDown} />
+
+        {hasSuggestions && (<div className={style.tagsDropdown}>
+            {suggestions.map(
+                i => <div key={i}>{i}</div>
+            )}
+        </div>)}
     </div>;
 };
 
