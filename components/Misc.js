@@ -16,8 +16,8 @@
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import { makeClass, basicComponent } from "@ractf/util";
 
+import { makeClass, basicComponent } from "@ractf/util";
 import { Row } from "@ractf/ui-kit";
 
 import style from "./Misc.module.scss";

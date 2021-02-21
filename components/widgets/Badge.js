@@ -1,4 +1,5 @@
 import React from "react";
+
 import { makeClass, propsToTypeClass } from "@ractf/util";
 
 import style from "./Badge.module.scss";

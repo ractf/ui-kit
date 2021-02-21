@@ -1,10 +1,12 @@
+
 import React, { useRef, useEffect } from "react";
 
 import { makeClass } from "@ractf/util";
 
+import SimpleBar from "simplebar-react";
+
 import style from "./Scrollbar.module.scss";
 
-import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
 

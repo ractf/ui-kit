@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+
 import { propsToTypeClass, makeClass } from "@ractf/util";
 
 import style from "./Button.module.scss";

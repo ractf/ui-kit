@@ -1,7 +1,9 @@
 import React from "react";
+
 import { makeClass } from "@ractf/util";
 
 import style from "./Breadcrumbs.module.scss";
+
 
 export const Crumb = ({ className, active, children }) => {
     return <span className={makeClass(style.crumb, active && style.active, className)}>{children}</span>;

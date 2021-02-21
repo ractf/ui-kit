@@ -1,8 +1,10 @@
+
 import React from "react";
 import { Scatter } from "react-chartjs-2";
 
-import { plotHoc, getPalette } from "./common.js";
 import { cssVar, transparentize } from "@ractf/util";
+
+import { plotHoc, getPalette } from "./common.js";
 
 
 const Graph = plotHoc(({ data, filled, timeGraph, xLabel, yLabel, noAnimate, percent }) => {

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+
 import { makeClass } from "@ractf/util";
 
 import style from "./TabbedView.module.scss";

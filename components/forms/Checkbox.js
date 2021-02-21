@@ -3,7 +3,6 @@ import React from "react";
 import { makeClass } from "@ractf/util";
 
 import withRactfForm from "./ractfFormHoc.js";
-
 import style from "./Checkbox.module.scss";
 
 

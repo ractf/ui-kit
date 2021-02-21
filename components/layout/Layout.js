@@ -1,4 +1,5 @@
 import React from "react";
+
 import { makeClass } from "@ractf/util";
 
 import style from "./Layout.module.scss";

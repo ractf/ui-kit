@@ -1,6 +1,6 @@
 import React from "react";
-import { makeClass, propsToTypeClass } from "@ractf/util";
 
+import { makeClass, propsToTypeClass } from "@ractf/util";
 import { H5 } from "@ractf/ui-kit";
 
 import style from "./Footer.module.scss";

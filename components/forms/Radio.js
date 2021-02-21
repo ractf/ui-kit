@@ -4,7 +4,6 @@ import { makeClass } from "@ractf/util";
 import { Row } from "@ractf/ui-kit";
 
 import withRactfForm from "./ractfFormHoc.js";
-
 import style from "./Radio.module.scss";
 
 

@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from "react";
 import { FiFolder, FiFolderPlus, FiFolderMinus, FiEdit2, FiType } from "react-icons/fi";
 
@@ -11,7 +12,6 @@ export const TreeWrap = ({ children }) => {
         <ul>{children}</ul>
     </div>;
 };
-
 
 export const Tree = ({ name, children, startOpen }) => {
     const [open, setOpen] = useState(!!startOpen);
@@ -27,7 +27,6 @@ export const Tree = ({ name, children, startOpen }) => {
         {children && open && <ul>{children}</ul>}
     </li>;
 };
-
 
 export const TreeValue = ({ name, value, setValue }) => {
     const app = useContext(appContext);

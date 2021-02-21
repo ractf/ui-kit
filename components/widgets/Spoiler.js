@@ -1,8 +1,11 @@
+
 import React, { useState, useEffect, useCallback } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
+
 import { makeClass } from "@ractf/util";
 
 import style from "./Spoiler.module.scss";
+
 
 const Spoiler = ({ title, children, open }) => {
     const [isOpen, setIsOpen] = useState(!!open);

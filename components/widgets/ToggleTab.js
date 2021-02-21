@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
 
-import style from "./ToggleTab.module.scss";
 import { makeClass, basicComponent, propsToTypeClass } from "@ractf/util";
+
+import style from "./ToggleTab.module.scss";
 
 
 export const ToggleTabHolder = basicComponent(style.holder, "ToggleTabHolder");

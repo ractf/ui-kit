@@ -2,6 +2,7 @@ import React from "react";
 
 import style from "./ractfFormHoc.module.scss";
 
+
 const withRactfForm = BaseComponent => ({ error, ...props }) => {
     if (!props.managed) throw Error("Form element must be managed!");
     if (!props.name) console.warn("Component missing name");

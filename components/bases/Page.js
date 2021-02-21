@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { makeClass } from "@ractf/util";
 
 import style from "./Page.module.scss";

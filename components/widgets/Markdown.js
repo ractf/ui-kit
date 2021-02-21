@@ -1,14 +1,15 @@
+
 import React from "react";
-import { compiler } from "markdown-to-jsx";
 
 import {
     Row, Card, HR, Leader, H1, H2, H3, H4, H5, H6, Button
 } from "@ractf/ui-kit";
 import { TYPES, makeClass } from "@ractf/util";
 
+import { compiler } from "markdown-to-jsx";
+
 import style from "./Markdown.module.scss";
 import gridStyle from "./Grid.module.scss";
-
 
 // https://help.blackboard.com/Learn/Administrator/Hosting/Security/
 //   Key_Security_Features/System_and_Information_Integrity/Safe_HTML
@@ -79,7 +80,6 @@ const WHITELIST = {
 };
 
 const PROTOCOLS = ["http", "https", "mailto", "tel"];
-
 
 const uriTransformer = uri => {
     const url = (uri || "").trim();

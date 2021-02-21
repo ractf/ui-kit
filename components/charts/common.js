@@ -1,7 +1,9 @@
 import React from "react";
+
 import { cssVar, makeClass } from "@ractf/util";
 
 import style from "./Charts.module.scss";
+
 
 export const getPalette = () => [
     cssVar("--col-blue"),

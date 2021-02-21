@@ -1,8 +1,10 @@
+
 import React from "react";
 import { Bar as CJSBar } from "react-chartjs-2";
 
-import { plotHoc, getPalette } from "./common.js";
 import { cssVar } from "@ractf/util/index.js";
+
+import { plotHoc, getPalette } from "./common.js";
 
 
 const Bar = plotHoc(({ data, colors, noAnimate, yMin, yMax, xLabel, yLabel, percent }) => {

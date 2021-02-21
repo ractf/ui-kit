@@ -16,14 +16,13 @@
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { PureComponent, createRef, useRef, useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import DatePicker from "react-datepicker";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-import { Button, Badge } from "@ractf/ui-kit";
 import { makeClass } from "@ractf/util";
+import { Button, Badge } from "@ractf/ui-kit";
 
 import withRactfForm from "./ractfFormHoc.js";
-
 import "react-datepicker/dist/react-datepicker.css";
 import style from "./Input.module.scss";
 
@@ -49,7 +48,6 @@ export const DatePick = ({ initial, configSet, name, configKey }) => {
         />
     </div>;
 };
-
 
 export const InputHint = ({ children, disabled }) => (
     <div className={makeClass(style.inputHint, disabled && style.disabled)}>{children}</div>
@@ -131,7 +129,6 @@ export const InputTags = ({ disabled, val, limit, onChange }) => {
         </div>)}
     </div>;
 };
-
 
 export class RawInput extends PureComponent {
     isInput = true;

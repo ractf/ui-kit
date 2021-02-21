@@ -89,7 +89,6 @@ const Modal = ({
 };
 export default React.memo(Modal);
 
-
 export const ProgressModal = React.memo(({ header, text, progress }) => {
     return <Modal small cancel={false} okay={false} header={"Progress"}
         noHide progressModal centred={!!header}>
@@ -98,7 +97,6 @@ export const ProgressModal = React.memo(({ header, text, progress }) => {
     </Modal>;
 });
 ProgressModal.displayName = "ProgressModal";
-
 
 export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
     const { t } = useContext(UiKitContext);

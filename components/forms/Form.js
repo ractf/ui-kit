@@ -16,6 +16,7 @@
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { cloneElement, useState, useRef, useEffect, useContext, useCallback } from "react";
+
 import { UiKitContext } from "@ractf/ui-kit";
 import { makeClass } from "@ractf/util";
 import * as http from "@ractf/util/http";
@@ -42,7 +43,6 @@ const setValue = (object, key, value, disableDotExpansion = false) => {
     object[split[split.length - 1]] = value;
 };
 
-
 const getValue = (object, key, disableDotExpansion = false) => {
     if (disableDotExpansion)
         return object[key];
@@ -50,7 +50,6 @@ const getValue = (object, key, disableDotExpansion = false) => {
     const index = (obj, i) => typeof obj === "undefined" ? undefined : obj[i];
     return key.split(".").reduce(index, object);
 };
-
 
 const different = (obj1, obj2) => {
     const object1keys = Object.keys(obj1).sort();
@@ -69,7 +68,6 @@ const different = (obj1, obj2) => {
         return true;
     return false;
 };
-
 
 const generateValues = (children, previous = {}, disableDotExpansion) => {
     const values = {};
@@ -97,14 +95,12 @@ const generateValues = (children, previous = {}, disableDotExpansion) => {
     return values;
 };
 
-
 const getErrorDetails = (e) => {
     if (!(e.response && e.response.data)) return {};
     if (typeof e.response.data.d !== "object") return {};
 
     return e.response.data.d;
 };
-
 
 const _ManagedInput = ({ C, initial, onChange, _onChange, onSubmit, _onSubmit, error, ...props }) => {
     const [value, setValue] = useState(initial);
@@ -128,7 +124,6 @@ const _ManagedInput = ({ C, initial, onChange, _onChange, onSubmit, _onSubmit, e
     />;
 };
 const ManagedInput = React.memo(_ManagedInput);
-
 
 const _BareForm = ({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,

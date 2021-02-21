@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { MdMenu } from "react-icons/md";
+import { FiChevronLeft } from "react-icons/fi";
 
 import { propsToTypeClass, makeClass, useReactRouter } from "@ractf/util";
-import Scrollbar from "./Scrollbar";
 
+import Scrollbar from "./Scrollbar";
 import style from "./SidebarTabs.module.scss";
-import { FiChevronLeft } from "react-icons/fi";
 
 
 const SideNav_ = ({ header, footer, items, children, ...props }) => {

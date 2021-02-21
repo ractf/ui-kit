@@ -1,8 +1,10 @@
 import React, { useRef, useCallback, useEffect, useState } from "react";
+
 import { COLOURS } from "@ractf/ui-kit/colours";
 import { colourToRGBA, rgb2hex, rgb2hsv, hsv2rgb, makeClass } from "@ractf/util";
 
 import style from "./ColourPicker.module.scss";
+
 
 const DRAG_GRADIENT = "gradient";
 const DRAG_HUE = "hue";
@@ -12,7 +14,6 @@ const PALETTE = [
     "green", "teal", "cyan", "blue", "indigo", "purple", "pink", "red",
     "orange", "yellow", "black", "darkGrey", "grey", "lightGrey", "white"
 ];
-
 
 const getPos = (e, bounds) => {
     const x = Math.max(0, Math.min(1, (e.pageX - bounds.left) / bounds.width));

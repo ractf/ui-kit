@@ -1,8 +1,10 @@
+
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import { plotHoc, getPalette } from "./common.js";
 import { cssVar } from "@ractf/util";
+
+import { plotHoc, getPalette } from "./common.js";
 
 
 const Pie = plotHoc(({ data, labels, colors, noAnimate, percent }) => {
