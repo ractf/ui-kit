@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { FiFolder, FiFolderPlus, FiFolderMinus, FiEdit2, FiType } from "react-icons/fi";
 
-import { appContext } from "@ractf/shell-util";
+import { UiKitModals } from "@ractf/ui-kit";
 
 import style from "./Tree.module.scss";
 
@@ -29,21 +29,21 @@ export const Tree = ({ name, children, startOpen }) => {
 };
 
 export const TreeValue = ({ name, value, setValue }) => {
-    const app = useContext(appContext);
+    const modals = useContext(UiKitModals);
     const openEdit = () => {
-        app.promptConfirm(
+        modals.promptConfirm(
             { message: name, small: true },
             [{ name: "val", val: JSON.stringify(value) }]
         ).then(({ val }) => {
             try {
                 val = JSON.parse(val);
             } catch (e) {
-                return app.alert("Failed to parse value");
+                return modals.alert("Failed to parse value");
             }
             if ((typeof val) !== (typeof value))
-                return app.alert("Cannot change data type");
+                return modals.alert("Cannot change data type");
             if ((typeof setValue) !== "function")
-                return app.alert("setValue is not a function");
+                return modals.alert("setValue is not a function");
 
             setValue(val);
         });

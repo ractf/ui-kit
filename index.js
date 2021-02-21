@@ -15,7 +15,9 @@ export { default as Select } from "./components/forms/Select";
 export { default as Radio } from "./components/forms/Radio";
 export * from "./components/forms/Input";
 
-export { default as Modal, ModalForm, ModalPrompt, ProgressModal } from "./components/layout/Modal";
+export {
+    default as Modal, ModalForm, ModalPrompt, UiKitModals, ModalMount
+} from "./components/layout/Modal";
 export { TabbedView, InnerTabs, Tab } from "./components/layout/TabbedView";
 export { default as Scrollbar } from "./components/layout/Scrollbar";
 export { Breadcrumbs, Crumb, } from "./components/layout/Breadcrumbs";

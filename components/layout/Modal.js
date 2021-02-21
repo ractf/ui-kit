@@ -79,7 +79,7 @@ const Modal = ({
                     )}
                     {okay && (
                         <Button onClick={okayClick}>
-                            {((typeof okay) === "string") ? okay :t("okay")}
+                            {((typeof okay) === "string") ? okay : t("okay")}
                         </Button>
                     )}
                 </div>
@@ -88,15 +88,6 @@ const Modal = ({
     </div>;
 };
 export default React.memo(Modal);
-
-export const ProgressModal = React.memo(({ header, text, progress }) => {
-    return <Modal small cancel={false} okay={false} header={"Progress"}
-        noHide progressModal centred={!!header}>
-        <p>{text}</p>
-        <ProgressBar progress={progress} />
-    </Modal>;
-});
-ProgressModal.displayName = "ProgressModal";
 
 export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
     const { t } = useContext(UiKitContext);
@@ -162,3 +153,77 @@ export const ModalForm = React.memo(({ children, handle, ...props }) => {
     </Modal>;
 });
 ModalForm.displayName = "ModalForm";
+
+export const UiKitModals = React.createContext({
+    alert: () => () => { new Promise(); },
+    promptConfirm: () => { new Promise(); },
+    showProgress: () => { new Promise(); },
+});
+export const ModalMount = ({ children }) => {
+    const [modals, setModals] = useState([]);
+    const progressModal = useRef();
+
+    const closeModal = useCallback((modal) => {
+        setModals(old => old.filter(i => i !== modal));
+    }, []);
+
+    const promptConfirm = useCallback((body, inputs = 0) => {
+        if (inputs === 0) inputs = [];
+        if (!body.message) body = { message: body, small: true };
+
+        return new Promise((resolveOuter, rejectOuter) => {
+            let modal;
+
+            const innerPromise = new Promise((resolve, reject) => {
+                modal = {
+                    isProgress: false,
+                    body: body,
+                    promise: { resolve: resolve, reject: reject },
+                    inputs: inputs
+                };
+                setModals(old => [...old, modal]);
+            });
+
+            innerPromise.then(values => {
+                closeModal(modal);
+                resolveOuter(values);
+            }).catch(values => {
+                closeModal(modal);
+                rejectOuter(values);
+            });
+        });
+    }, [closeModal]);
+    const showProgress = useCallback((text, progress) => {
+        if (!text && progressModal.current) {
+            closeModal(progressModal.current);
+            progressModal.current = null;
+        } else if (text) {
+            const modal = {
+                isProgress: true, text: text, progress: progress
+            };
+            setModals(old => [...old, modal]);
+            progressModal.current = modal;
+        }
+    }, [closeModal]);
+    const alert = useCallback((message) => {
+        return promptConfirm({ message: message, noCancel: true, small: true });
+    }, [promptConfirm]);
+
+    return <UiKitModals.Provider value={{ alert, promptConfirm, showProgress }}>
+        {children}
+        {modals.map(i => {
+            if (i.isProgress) {
+                return <Modal small cancel={false} okay={false} header={"Progress"}
+                    noHide progressModal>
+                    <p>{i.text}</p>
+                    <ProgressBar progress={i.progress} />
+                </Modal>;
+            }
+            return <ModalPrompt
+                body={i.body}
+                promise={i.promise}
+                inputs={i.inputs}
+            />;
+        })}
+    </UiKitModals.Provider>;
+};
