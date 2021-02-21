@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import {
-    useReactRouter, basicComponent, getHeight, makeClass, propsToTypeClass
+    basicComponent, getHeight, makeClass, propsToTypeClass, useReactRouter
 } from "@ractf/util";
 
 import style from "./NavBar.module.scss";

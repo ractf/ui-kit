@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { FiFolder, FiFolderPlus, FiFolderMinus, FiEdit2, FiType } from "react-icons/fi";
 
-import { appContext } from "ractf";
+import { appContext } from "@ractf/shell-util";
 
 import style from "./Tree.module.scss";
 

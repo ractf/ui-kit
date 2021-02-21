@@ -1,10 +1,6 @@
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import { COLOURS } from "@ractf/ui-kit/colours";
 import { colourToRGBA, rgb2hex, rgb2hsv, hsv2rgb, makeClass } from "@ractf/util";
-import React from "react";
-import { useCallback } from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 
 import style from "./ColourPicker.module.scss";
 

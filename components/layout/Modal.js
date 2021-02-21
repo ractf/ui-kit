@@ -15,10 +15,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect, useCallback, useRef, useContext } from "react";
 
-import { Button, Scrollbar, Form, Select, Input, ProgressBar } from "@ractf/ui-kit";
+import { UiKitContext, Button, Scrollbar, Form, Select, Input, ProgressBar } from "@ractf/ui-kit";
 import { makeClass, propsToTypeClass } from "@ractf/util";
 
 import style from "./Modal.module.scss";
@@ -28,8 +27,8 @@ const Modal = ({
     header = null, cancel = true, okay = true, buttons = null,
     onClose, onConfirm, show, noHide, children, ...props
 }) => {
+    const { t } = useContext(UiKitContext);
     const [display, setDisplay] = useState(((typeof show) === "undefined") ? true : show);
-    const { t } = useTranslation();
     const baseRef = useRef();
     useEffect(() => {
         if ((typeof show) !== "undefined")
@@ -80,7 +79,7 @@ const Modal = ({
                     )}
                     {okay && (
                         <Button onClick={okayClick}>
-                            {((typeof okay) === "string") ? okay : t("okay")}
+                            {((typeof okay) === "string") ? okay :t("okay")}
                         </Button>
                     )}
                 </div>
@@ -102,7 +101,7 @@ ProgressModal.displayName = "ProgressModal";
 
 
 export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
-    const { t } = useTranslation();
+    const { t } = useContext(UiKitContext);
     const submit = useRef();
     const doSubmit = useCallback(() => {
         if (submit.current)

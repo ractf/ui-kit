@@ -1,3 +1,5 @@
+export * from "./components/Context";
+
 export { default as Page } from "./components/bases/Page";
 
 export { default as Graph } from "./components/charts/Graph";

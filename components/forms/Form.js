@@ -15,13 +15,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with RACTF.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { cloneElement, useState, useRef, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import React, { cloneElement, useState, useRef, useEffect, useContext, useCallback } from "react";
+import { UiKitContext } from "@ractf/ui-kit";
 import { makeClass } from "@ractf/util";
 import * as http from "@ractf/util/http";
 
 import style from "./Form.module.scss";
-import { useCallback } from "react";
 
 
 const setValue = (object, key, value, disableDotExpansion = false) => {
@@ -135,12 +134,12 @@ const _BareForm = ({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
     valuesRef, onChange, transformer, disableDotExpansion, multipart, onUploadProgress
 }) => {
+    const { t } = useContext(UiKitContext);
     const [formState, setFormState] = useState({
         error: null, errors: {}, disabled: false
     });
     const hasCustomFormError = useRef(false);
     const required = useRef({});
-    const { t } = useTranslation();
 
     const values = useRef({
         ...generateValues(children, {}, disableDotExpansion)
