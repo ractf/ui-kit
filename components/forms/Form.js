@@ -194,11 +194,8 @@ const _BareForm = ({
                     setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: formData, resp: resp });
                 }).catch(e => {
-                    let errorStr = http.getError(e);
+                    const errorStr = http.getError(e);
                     const errors = getErrorDetails(e);
-                    if (Object.keys(errors).length > 0 && errorStr === "invalid") {
-                        errorStr = null;
-                    }
                     let shouldError = true;
                     if (onError)
                         if (onError({
@@ -294,7 +291,7 @@ const _BareForm = ({
             props.__ractf_global_error = formState.error;
             props.managed = 1;
 
-            if (i.type === Form.Error)
+            if (i.type === FormErrorType)
                 hasCustomFormError.current = true;
 
             if (props.submit) {
@@ -333,6 +330,8 @@ Form.Error = ({ children, __ractf_global_error }) => (
     <div className={style.formError}>{__ractf_global_error || children}</div>
 );
 Form.Error.displayName = "Form.Error";
+// https://github.com/gaearon/react-hot-loader/issues/304
+const FormErrorType = (<Form.Error />).type;
 
 Form.Group = ({ children, label, htmlFor }) => (
     <div className={style.formGroup}>
