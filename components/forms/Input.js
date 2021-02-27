@@ -287,44 +287,49 @@ export class RawInput extends PureComponent {
                 && style.invalid),
         );
 
-        return <div className={inputClass} onClick={this.click}>
-            {this.props.rows ?
-                <textarea
-                    onKeyDown={this.keyDown}
-                    ref={this.inputRef}
-                    value={this.props.val}
-                    onChange={this.handleChange}
-                    rows={this.state.rows}
-                    autofill={this.props.autofill}
-                    className={makeClass(style.textarea, this.props.monospace && style.monospaced)}
-                    autoFocus={this.props.autoFocus}
-                    disabled={this.props.disabled || this.props.readonly} />
-                : <input
-                    onKeyDown={this.keyDown}
-                    ref={this.inputRef}
-                    value={this.props.val}
-                    type={
-                        (this.props.password && !this.state.showPass) ? "password" : "text"
-                    }
-                    onChange={this.handleChange}
-                    autofill={this.props.autofill}
-                    className={makeClass(style.input, this.props.monospace && style.monospaced)}
-                    autoFocus={this.props.autoFocus}
-                    disabled={this.props.disabled || this.props.readonly} />}
-            {this.props.limit && (
-                <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
-            )}
-            {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
-                {this.state.showPass ? <FiEyeOff /> : <FiEye />}
-            </div> : null}
-            {this.props.zxcvbn &&
-                <div className={style.inputStrength}
+        return <>
+            <div className={inputClass} onClick={this.click}>
+                {this.props.rows ?
+                    <textarea
+                        onKeyDown={this.keyDown}
+                        ref={this.inputRef}
+                        value={this.props.val}
+                        onChange={this.handleChange}
+                        rows={this.state.rows}
+                        autofill={this.props.autofill}
+                        className={makeClass(style.textarea, this.props.monospace && style.monospaced)}
+                        autoFocus={this.props.autoFocus}
+                        disabled={this.props.disabled || this.props.readonly} />
+                    : <input
+                        onKeyDown={this.keyDown}
+                        ref={this.inputRef}
+                        value={this.props.val}
+                        type={
+                            (this.props.password && !this.state.showPass) ? "password" : "text"
+                        }
+                        onChange={this.handleChange}
+                        autofill={this.props.autofill}
+                        className={makeClass(style.input, this.props.monospace && style.monospaced)}
+                        autoFocus={this.props.autoFocus}
+                        disabled={this.props.disabled || this.props.readonly} />}
+                {this.props.limit && (
+                    <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>
+                )}
+                {this.props.password ? <div className={style.styledEye} onClick={this.togglePwd}>
+                    {this.state.showPass ? <FiEyeOff /> : <FiEye />}
+                </div> : null}
+                {this.props.placeholder && (!this.props.val || this.props.val.length === 0) &&
+                    <div className={makeClass(style.placeholder, this.props.monospace && style.monospaced)}>
+                        <span>{this.props.placeholder}</span></div>}
+            </div>
+            {this.props.zxcvbn && (
+                <div className={style.strength}
                     data-val={(this.props.val && this.props.val.length)
-                        ? this.props.zxcvbn(this.props.val).score + 1 : 0} />}
-            {this.props.placeholder && (!this.props.val || this.props.val.length === 0) &&
-                <div className={makeClass(style.placeholder, this.props.monospace && style.monospaced)}>
-                    <span>{this.props.placeholder}</span></div>}
-        </div>;
+                        ? this.props.zxcvbn(this.props.val).score + 1 : 0}>
+                    <div /><div /><div /><div /><div />
+                </div>
+            )}
+        </>;
     }
 }
 export const Input = withRactfForm(RawInput);

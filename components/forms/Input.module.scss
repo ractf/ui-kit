@@ -159,35 +159,47 @@
             text-overflow: ellipsis;
         }
     }
+}
 
-    .inputStrength {
-        position: absolute;
-        height: 1px;
-        background-color: #000;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        transition: width 200ms ease-out, color 200ms ease;
+.strength {
+    display: flex;
+    margin-top: px(8);
 
-        &[data-val="0"] {
-            width: 0%;
+    & > * {
+        width: 20%;
+        margin: 0 px(4);
+        height: px(4);
+        border-radius: px(2);
+        background-color: var(--col-back-lift);
+        transition: 150ms background-color ease;
+    }
+
+    &[data-val="1"] {
+        & > div:nth-child(1) {
             background-color: var(--col-red);
         }
-        &[data-val="1"] {
-            width: 25%;
-            background-color: var(--col-red);
-        }
-        &[data-val="2"] {
-            width: 50%;
+    }
+    &[data-val="2"] {
+        & > div:nth-child(1),
+        & > div:nth-child(2) {
             background-color: var(--col-orange);
         }
-        &[data-val="3"] {
-            width: 75%;
+    }
+    &[data-val="3"] {
+        & > div:nth-child(1),
+        & > div:nth-child(2),
+        & > div:nth-child(3) {
             background-color: var(--col-yellow);
         }
-        &[data-val="4"],
-        &[data-val="5"] {
-            width: 100%;
+    }
+    &[data-val="4"],
+    &[data-val="5"] {
+        & > div:not(:last-child) {
+            background-color: var(--col-green);
+        }
+    }
+    &[data-val="5"] {
+        & > div:last-child {
             background-color: var(--col-green);
         }
     }
