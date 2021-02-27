@@ -357,6 +357,7 @@ export class RawInput extends PureComponent {
                     <textarea
                         onKeyDown={this.keyDown}
                         ref={this.inputRef}
+                        name={this.props.name}
                         value={this.props.val}
                         onChange={this.handleChange}
                         rows={this.state.rows}
@@ -369,6 +370,7 @@ export class RawInput extends PureComponent {
                     : <input
                         onKeyDown={this.keyDown}
                         ref={this.inputRef}
+                        name={this.props.name}
                         value={this.props.val}
                         type={
                             (this.props.password && !this.state.showPass) ? "password" : "text"
