@@ -1,3 +1,6 @@
+@import "@ractf/ui-kit/Colours.scss";
+
+
 .formWrapper {
     flex-grow: 1;
 
@@ -6,7 +9,7 @@
         font-size: 0.9em;
         text-align: left;
         margin: 0.3em 8px;
-        margin-bottom: 0.5em !important;
+        margin-bottom: px(8) !important;
         margin-top: 16px;
         display: block;
         &:first-child {
@@ -16,9 +19,63 @@
 }
 
 .formError {
-    color: #ac3232;
+    color: var(--col-red);
     font-weight: 500;
-    font-size: 1.2em;
+    font-size: 1em;
     white-space: pre-wrap;
     line-height: 1.5;
+    margin-top: px(-8) !important;
+}
+
+.formGroup {
+    margin-bottom: px(16);
+
+    > label {
+        display: block;
+        opacity: .9;
+        position: relative;
+    }
+
+    > *:not(:last-child) {
+        margin-bottom: px(8);
+    }
+    > *:not(:first-child) {
+        margin-top: px(8);
+    }
+
+    &:last-child {
+        margin-bottom: px(8);
+    }
+}
+
+.formRow {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-right: px(-8);
+    margin-bottom: px(-8) !important;
+
+    > * {
+        margin-right: px(8);
+        margin-bottom: px(8);
+    }
+    > .formGroup {
+        flex-grow: 1;
+    }
+
+    > .formRow {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+:global(.debug) {
+    .formRow {
+        outline: 1px solid #0ff;
+        background-color: #0ff1;
+    }
+    .formGroup {
+        outline: 1px solid #f0f;
+        background-color: #f0f1;
+    }
 }

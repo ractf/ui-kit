@@ -17,8 +17,7 @@
 
 import React, { cloneElement, useState, useRef, useEffect, useContext, useCallback } from "react";
 
-import { UiKitContext } from "@ractf/ui-kit";
-import { makeClass } from "@ractf/util";
+import { UiKitContext, Container } from "@ractf/ui-kit";
 import * as http from "@ractf/util/http";
 
 import style from "./Form.module.scss";
@@ -195,7 +194,11 @@ const _BareForm = ({
                     setFormState(ofs => ({ ...ofs, disabled: false, errors: {}, error: null }));
                     if (postSubmit) postSubmit({ form: formData, resp: resp });
                 }).catch(e => {
-                    const errorStr = http.getError(e);
+                    let errorStr = http.getError(e);
+                    const errors = getErrorDetails(e);
+                    if (Object.keys(errors).length > 0 && errorStr === "invalid") {
+                        errorStr = null;
+                    }
                     let shouldError = true;
                     if (onError)
                         if (onError({
@@ -209,7 +212,7 @@ const _BareForm = ({
                             shouldError = false;
                     setFormState(ofs => ({
                         ...ofs,
-                        errors: getErrorDetails(e),
+                        errors: errors,
                         disabled: false,
                         error: shouldError ? errorStr : null
                     }));
@@ -274,8 +277,8 @@ const _BareForm = ({
 
                 props.initial = (
                     (typeof props.initial !== "undefined")
-                    ? props.initial
-                    : (props.value || props.val || "")
+                        ? props.initial
+                        : (props.value || props.val || "")
                 );
                 props.error = getValue(formState.errors, props.name, disableDotExpansion) || props.error;
                 required.current[props.name] = props.required;
@@ -291,7 +294,7 @@ const _BareForm = ({
             props.__ractf_global_error = formState.error;
             props.managed = 1;
 
-            if (i.type === FormError)
+            if (i.type === Form.Error)
                 hasCustomFormError.current = true;
 
             if (props.submit) {
@@ -310,21 +313,38 @@ const _BareForm = ({
     const components = recurseChildren(children);
     return <>
         {components}
-        {!hasCustomFormError.current && formState.error && <FormError>
+        {!hasCustomFormError.current && formState.error && <Form.Error>
             {formState.error}
-        </FormError>}
+        </Form.Error>}
     </>;
 };
-export const BareForm = React.memo(_BareForm);
+export const BareForm = _BareForm;
 
-const Form = ({ className, ...props }) => {
-    return <div className={makeClass(style.formWrapper, className)}>
+const Form = ({ className, centre, ...props }) => {
+    return <Container.Form full centre={centre} className={className}>
         <BareForm {...props} />
-    </div>;
+    </Container.Form>;
 };
-export default React.memo(Form);
+export default Form;
 
-const _FormError = ({ children, __ractf_global_error }) => (
+// Disable false positive
+// eslint-disable-next-line react/display-name
+Form.Error = ({ children, __ractf_global_error }) => (
     <div className={style.formError}>{__ractf_global_error || children}</div>
 );
-export const FormError = React.memo(_FormError);
+Form.Error.displayName = "Form.Error";
+
+Form.Group = ({ children, label, htmlFor }) => (
+    <div className={style.formGroup}>
+        <label htmlFor={htmlFor}>{label}</label>
+        {children}
+    </div>
+);
+Form.Group.displayName = "Form.Group";
+
+Form.Row = ({ children }) => (
+    <div className={style.formRow}>
+        {children}
+    </div>
+);
+Form.Row.displayName = "Form.Row";

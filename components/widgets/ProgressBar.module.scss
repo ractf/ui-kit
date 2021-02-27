@@ -9,9 +9,10 @@ $pb_over: var(--col-red);
     height: 8px;
     border-radius: 4px;
     background-color: $pb_background;
+    margin-top: px(4);
+    margin-bottom: px(8);
     width: 100%;
     position: relative;
-    width: 200px;
     flex-grow: 1;
 
     &.thick {

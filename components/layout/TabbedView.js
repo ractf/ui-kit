@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 
+import { Container } from "@ractf/ui-kit";
 import { makeClass } from "@ractf/util";
 
 import style from "./TabbedView.module.scss";
@@ -51,10 +52,12 @@ const InnerTabs_ = ({ active, setActive, callback, neverUnmount, children }) => 
             <div className={style.tabTrailer} />
         </nav>
         {neverUnmount
-            ? keys.map(i => <div key={i} style={{ display: i === active ? "block" : "none" }}>
+            ? keys.map(i => <Container full key={i} style={{ display: i === active ? "block" : "none" }}>
                 {React.cloneElement(tabs[i][0])}
-            </div>)
-            : tabs[active] && React.cloneElement(tabs[active][0], { key: active })}
+            </Container>)
+            : tabs[active] && <Container full>
+                {React.cloneElement(tabs[active][0], { key: active })}
+            </Container>}
     </>;
 };
 export const InnerTabs = React.memo(InnerTabs_);

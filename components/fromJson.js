@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-    FormGroup, Input, Select, HR, Spoiler
+    Form, Input, Select, HR, Spoiler
 } from "@ractf/ui-kit";
 import { NUMBER_RE } from "@ractf/util";
 
@@ -21,17 +21,17 @@ const fromJson = (fields = [], data = {}) => {
                 case "text":
                 case "number":
                     const format = field.type === "number" ? NUMBER_RE : field.regex || /.+/;
-                    retFields.push(<FormGroup htmlFor={field.name} label={field.label} key={(n++)}>
+                    retFields.push(<Form.Group htmlFor={field.name} label={field.label} key={(n++)}>
                         <Input val={val !== undefined ? val.toString() : undefined} name={field.name}
                             placeholder={field.label} format={format} cast={field.type === "number" ? parseFloat : null}
                             rows={field.type === "multiline" || field.type === "code" ? 5 : ""}
                             monospace={field.type === "code"} />
-                    </FormGroup>);
+                    </Form.Group>);
                     break;
                 case "select":
-                    retFields.push(<FormGroup key={(n++)} htmlFor={field.name} label={field.label}>
+                    retFields.push(<Form.Group key={(n++)} htmlFor={field.name} label={field.label}>
                         <Select name={field.name} options={field.options} initial={val} />
-                    </FormGroup>);
+                    </Form.Group>);
                     break;
                 case "label":
                     retFields.push(<div key={(n++)}>{field.label}</div>);

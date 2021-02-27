@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
 
-import { makeClass } from "@ractf/util";
-
-import style from "./Page.module.scss";
+import { Container } from "@ractf/ui-kit";
 
 
-const Page = ({ centre, title, noWrap, children, className }) => {
+const Page = ({ title, noWrap, children, ...props }) => {
     useEffect(() => {
         if (title) document.title = title;
     }, [title]);
 
     if (noWrap) return children;
 
-    return <div className={makeClass(style.pageContent, centre && style.centre, className)}>
+    return <Container {...props}>
         {children}
-    </div>;
+    </Container>;
 };
-export default React.memo(Page);
+export default Page;

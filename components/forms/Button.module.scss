@@ -16,6 +16,9 @@
     outline: none;
     position: relative;
 
+    &.fullWidth {
+        width: 100%;
+    }
     &.large {
         padding: px(14) px(27);
         font-size: px(16);

@@ -4,9 +4,9 @@ import { FiChevronDown } from "react-icons/fi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { makeClass, propsToTypeClass } from "@ractf/util";
-import { H4 } from "@ractf/ui-kit";
 
 import style from "./Card.module.scss";
+import { Container } from "./Layout";
 
 
 export const Card_ = ({ title, header, children, open, onOpenToggle, ...props }) => {
@@ -65,9 +65,9 @@ export const Card_ = ({ title, header, children, open, onOpenToggle, ...props })
         <div className={style.cardBody} style={{ height }}>
             <div ref={body}>
                 {title && (
-                    <H4 className={style.cardTitle}>
+                    <h4 className={style.cardTitle}>
                         {title}
-                    </H4>
+                    </h4>
                 )}
                 <div className={style.cardText} style={hideStyle}>
                     {children}
@@ -157,9 +157,9 @@ const Card = ({
                         {(header || subtitle || callout) && children && (
                             <div className={style.spacer} />
                         )}
-                        <div className={makeClass(style.body, bodyClass)} style={{ maxHeight }}>
+                        <Container className={makeClass(style.body, bodyClass)} style={{ maxHeight }}>
                             {children}
-                        </div>
+                        </Container>
                     </div>
                 </div>
             </div>

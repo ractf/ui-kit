@@ -2,13 +2,14 @@
 
 .leader {
     background-color: var(--col-back-lift);
-    padding: 16px 24px;
+    padding: px(16) px(24);
     border-radius: 2px;
     width: 100%;
     cursor: pointer;
     transition: 150ms background-color ease;
     display: block;
     color: var(--col-color);
+    margin-bottom: px(8);
 
     &.leaderGreen {
         color: var(--col-white);

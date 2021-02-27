@@ -1,5 +1,110 @@
 @import "@ractf/ui-kit/Colours.scss";
 
+:global(.debug) {
+    .container {
+        outline: 1px solid #f00;
+        background-color: #f001;
+    }
+    .containerRow {
+        outline: 1px solid #0f0;
+        background-color: #0f01;
+    }
+    .flexRow {
+        outline: 1px solid #00f;
+        background-color: #00f1;
+    }
+    .flexColumn {
+        outline: 1px solid #ff0;
+        background-color: #ff01;
+    }
+}
+
+.container {
+    width: 100%;
+    padding-right: px(16);
+    padding-left: px(16);
+    margin-right: auto;
+    margin-left: auto;
+
+    &.right {
+        text-align: right;
+    }
+    &.spaced:not(:last-child) {
+        margin-bottom: px(8);
+    }
+
+    & > :last-child {
+        margin-bottom: 0;
+    }
+
+    &.toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: px(-8);
+        margin-bottom: px(-8);
+        &.spaced {
+            margin-bottom: 0;
+        }
+        width: auto;
+        > * {
+            margin-right: px(8);
+            margin-bottom: px(8);
+        }
+        > .container.toolbar {
+            margin-right: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    &.full {
+        margin-left: px(-16);
+        margin-right: px(-16);
+        width: calc(100% + #{px(32)});
+    }
+
+    &.centre {
+        text-align: center;
+        justify-content: center;
+    }
+
+    &:not(.full) {
+        @media (min-width: 576px) {
+            max-width: 540px;
+        }
+        @media (min-width: 768px) {
+            max-width: 720px;
+        }
+        @media (min-width: 992px) {
+            max-width: 960px;
+        }
+        @media (min-width: 1200px) {
+            max-width: 1140px;
+        }
+    }
+}
+.containerRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: px(-16);
+    margin-left: px(-16);
+    margin-top: px(-16);
+    padding-bottom: 0;
+}
+.containerCol {
+    position: relative;
+    width: 100%;
+    padding-right: px(16);
+    padding-left: px(16);
+}
+.containerForm {
+    > *:not(:first-child) {
+        margin-top: px(8);
+    }
+    &:not(:last-child) {
+        margin-bottom: px(16);
+    }
+}
+
 .flexRow {
     display: flex;
     justify-content: flex-start;
@@ -67,10 +172,7 @@
     flex-shrink: 0;
     flex-basis: 100%;
     margin: 0;
-    padding: 0 1rem 1rem;
-    &:last-child {
-        padding-bottom: 0;
-    }
+    padding: px(16) px(16) 0;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -88,16 +190,20 @@
         flex-grow: 0;
     }
 
-    > *:not(.flexRow) {
-        margin-top: px(4);
-        margin-bottom: px(4);
+    > :first-child {
+        margin-top: 0;
+    }
+    > :last-child {
+        margin-bottom: 0;
+        &.container.toolbar {
+            margin-bottom: px(-8);
+        }
+    }
 
-        &:first-child {
-            margin-top: 0;
-        }
-        &:last-child {
-            margin-bottom: 0;
-        }
+    > .container {
+        margin-left: px(-16);
+        margin-right: px(-16);
+        width: calc(100% + #{px(32)});
     }
 
     @include colBlock("col", 0);

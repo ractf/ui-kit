@@ -5,6 +5,38 @@ import { makeClass } from "@ractf/util";
 import style from "./Layout.module.scss";
 
 
+export const Container = ({
+    children, className, toolbar, spaced, centre, right, full, ...props
+}) => {
+    return <div className={makeClass(
+        style.container,
+        toolbar && style.toolbar,
+        spaced && style.spaced,
+        centre && style.centre,
+        right && style.right,
+        full && style.full,
+        className
+    )} children={children} {...props} />;
+};
+Container.Row = ({ children, right, className }) => {
+    return <div className={makeClass(
+        style.containerRow,
+        className
+    )} children={children} />;
+};
+Container.Row.displayName = "Container.Row";
+Container.Col = ({ children, className }) => {
+    return <div className={makeClass(style.containerCol, className)} children={children} />;
+};
+Container.Col.displayName = "Container.Col";
+
+Container.Form = ({ children, className, ...props }) => {
+    return <Container className={makeClass(style.containerForm, className)}
+        {...props} children={children} />;
+};
+Container.Form.displayName = "Container.Form";
+
+
 export const Row = ({ left, centre, vCentre, right, tight, className, ...props }) => (
     <div className={makeClass(style.flexRow, right && style.frRight, left && style.frLeft,
         centre && style.centre, tight && style.frTight, vCentre && style.vCentre, className)} {...props} />

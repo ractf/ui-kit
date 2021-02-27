@@ -1,7 +1,6 @@
 import React from "react";
 
 import { makeClass, propsToTypeClass } from "@ractf/util";
-import { H5 } from "@ractf/ui-kit";
 
 import style from "./Footer.module.scss";
 
@@ -20,9 +19,9 @@ export const FootRow = React.memo(FootRow_);
 
 const FootCol_ = ({ title, className, children }) => (
     <div className={makeClass(style.footCol, className)}>
-        <H5 className={style.footColTitle}>
+        <h5 className={style.footColTitle}>
             {title}
-        </H5>
+        </h5>
         {children}
     </div>
 );
