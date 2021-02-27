@@ -72,7 +72,7 @@ export const InputButton = ({ btnDisabled, ...props }) => {
     } managed />;
 };
 
-export const InputTags = ({ disabled, val, limit, onChange }) => {
+export const InputTags = ({ disabled, val, limit, onChange, className }) => {
     const [newTag, setNewTag] = useState("");
     val = val || [];
 
@@ -117,7 +117,8 @@ export const InputTags = ({ disabled, val, limit, onChange }) => {
 
     return <div className={makeClass(
         style.inputTags, !valid && style.invalid,
-        hasSuggestions && style.hasSuggestions, disabled && style.disabled
+        hasSuggestions && style.hasSuggestions, disabled && style.disabled,
+        className
     )}>
         {val.map((i, n) => <Badge key={n + i} onClose={remove(n)} x>{i}</Badge>)}
         <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyDown={onKeyDown} />
@@ -129,6 +130,62 @@ export const InputTags = ({ disabled, val, limit, onChange }) => {
         </div>)}
     </div>;
 };
+
+const InputPin_ = ({ digits = 6, value = "", onChange, onSubmit, className }) => {
+    const [current, setCurrent] = useState(0);
+
+    const localOnChange = (n, val) => {
+        if (onChange)
+            onChange([
+                ...value.slice(0, n),
+                val.slice(val.length - 1, val.length),  // Last character
+                "",  // Clear next character
+                ...value.slice(n + 2, value.length)
+            ].join(""));
+        if (val.length !== 0)
+            setCurrent(Math.min(digits - 1, n + 1));
+        if (n === digits - 1 && onSubmit)
+            onSubmit(value);
+    };
+    const onKeyDown = (n, e, val) => {
+        if (e.keyCode === 8 && !val.length)
+            setCurrent(Math.max(0, n - 1));
+    };
+    const onFocus = (n) => {
+        if (onChange)
+            onChange([
+                ...value.slice(0, n),
+                "",
+                ...value.slice(n + 1, value.length)
+            ].join(""));
+    };
+    const onPaste = (e) => {
+        const clipboardData = e.clipboardData || window.clipboardData;
+        const text = clipboardData.getData("Text");
+        if (text && text.length) {
+            if (onChange)
+                onChange(text.slice(0, digits));
+            setCurrent(Math.min(digits - 1, text.length));
+
+            if (text.length <= digits && onSubmit)
+                onSubmit(text.slice(0, digits));
+        }
+    };
+
+    return <div>
+        {(new Array(digits).fill(null)).map((_, n) => (
+            <RawInput key={n}
+                autoFocus={current === n}
+                className={makeClass(style.inputPin, className)}
+                onKeyDown={onKeyDown.bind(null, n)}
+                onChange={localOnChange.bind(null, n)}
+                onFocus={onFocus.bind(null, n)}
+                onPaste={onPaste}
+                val={value[n] || ""} />
+        ))}
+    </div>;
+};
+export const InputPin = withRactfForm(InputPin_);
 
 export class RawInput extends PureComponent {
     isInput = true;
@@ -268,11 +325,18 @@ export class RawInput extends PureComponent {
             else
                 this.tabIndent();
         }
+        if (this.props.onKeyDown)
+            this.props.onKeyDown(e, this.props.val);
     }
 
     click = (e) => {
         e.preventDefault();
         e.stopPropagation();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.autoFocus && this.props.autoFocus)
+            this.inputRef.current.focus();
     }
 
     render() {
@@ -299,6 +363,8 @@ export class RawInput extends PureComponent {
                         autofill={this.props.autofill}
                         className={makeClass(style.textarea, this.props.monospace && style.monospaced)}
                         autoFocus={this.props.autoFocus}
+                        onFocus={this.props.onFocus}
+                        onPaste={this.props.onPaste}
                         disabled={this.props.disabled || this.props.readonly} />
                     : <input
                         onKeyDown={this.keyDown}
@@ -311,6 +377,8 @@ export class RawInput extends PureComponent {
                         autofill={this.props.autofill}
                         className={makeClass(style.input, this.props.monospace && style.monospaced)}
                         autoFocus={this.props.autoFocus}
+                        onFocus={this.props.onFocus}
+                        onPaste={this.props.onPaste}
                         disabled={this.props.disabled || this.props.readonly} />}
                 {this.props.limit && (
                     <div className={style.lengthCounter}>{this.props.val?.length}/{this.props.limit}</div>

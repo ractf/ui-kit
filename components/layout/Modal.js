@@ -127,9 +127,13 @@ export const ModalPrompt = React.memo(({ body, promise, onHide, inputs }) => {
                     if (i.label) parts.push(
                         <label htmlFor={i.name}>{i.label}</label>
                     );
-                    if (i.options) parts.push(
+                    if (i.Component) parts.push(
+                        <i.Component key={n} {...i} />
+                    );
+                    else if (i.options) parts.push(
                         <Select key={n} {...i} />
-                    ); else parts.push(
+                    );
+                    else parts.push(
                         <Input key={n} {...i} />
                     );
                     return parts;

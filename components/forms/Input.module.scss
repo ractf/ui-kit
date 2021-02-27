@@ -40,6 +40,22 @@
     }
 }
 
+.inputPin {
+    display: inline-block;
+    margin: 0 px(4);
+    &:first-child {
+        margin-left: 0;
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+    width: px(30) !important;
+    & > input {
+        text-align: center;
+        padding: px(9.5) px(7);
+    }
+}
+
 .textarea {
     resize: vertical;
 }
