@@ -331,6 +331,10 @@
     box-shadow: 0 2px 7px -3px #000;
     font-size: map-get($input, "font_size");
 
+    &:focus, &:focus-within {
+        display: flex !important;
+    }
+
     div {
         border: map-get($input, "border");
         width: 100%;

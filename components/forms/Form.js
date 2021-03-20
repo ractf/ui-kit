@@ -124,6 +124,17 @@ const _ManagedInput = ({ C, initial, onChange, _onChange, onSubmit, _onSubmit, e
 };
 const ManagedInput = React.memo(_ManagedInput);
 
+const ReceiveWrap = ({ C, _values, receive, ...props }) => {
+    const [value, setValue] = useState(_values.current?.[receive]);
+    const testVal = _values.current?.[receive];
+    useEffect(() => {
+        setValue(_values.current?.[receive]);
+    }, [testVal, receive, setValue, _values]);
+    return <C
+        {...props} value={value} val={value} managed
+    />;
+};
+
 const _BareForm = ({
     children, handle, action, method = "POST", headers, postSubmit, validator, onError, locked, submitRef,
     valuesRef, onChange, transformer, disableDotExpansion, multipart, onUploadProgress
@@ -280,6 +291,12 @@ const _BareForm = ({
                 props.error = getValue(formState.errors, props.name, disableDotExpansion) || props.error;
                 required.current[props.name] = props.required;
                 props.key = props.name;
+            } else if (props.receive) {
+                if (Array.isArray(props.children) && props.children.length === 0)
+                    props.children = null;
+
+                props.error = getValue(formState.errors, props.receive, disableDotExpansion) || props.error;
+                props.key = props.receive;
             } else {
                 props.val = props.value = "";
             }
@@ -300,6 +317,8 @@ const _BareForm = ({
 
             if (props.name)
                 newChildren[n] = <ManagedInput C={i.type} {...props} />;
+            else if (props.receive)
+                newChildren[n] = <ReceiveWrap C={i.type} {...props} _values={values} />;
             else
                 newChildren[n] = cloneElement(i, props);
         });

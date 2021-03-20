@@ -107,6 +107,10 @@ export const InputTags = ({ disabled, val, limit, onChange, className }) => {
             }
         }
     };
+    const addTag = (tag) => {
+        onChange([...val, tag]);
+        setNewTag("");
+    };
     const remove = (index) => {
         return () => {
             const newTags = [...val];
@@ -125,7 +129,7 @@ export const InputTags = ({ disabled, val, limit, onChange, className }) => {
 
         {hasSuggestions && (<div className={style.tagsDropdown}>
             {suggestions.map(
-                i => <div key={i}>{i}</div>
+                i => <div key={i} onMouseDown={() => addTag(i)}>{i}</div>
             )}
         </div>)}
     </div>;

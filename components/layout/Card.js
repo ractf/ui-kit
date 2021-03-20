@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-import { makeClass, propsToTypeClass } from "@ractf/util";
+import { makeClass, propsToTypeClass, propsNotTypeClass } from "@ractf/util";
 
 import style from "./Card.module.scss";
 import { Container } from "./Layout";
@@ -132,7 +132,7 @@ const Card = ({
     return (
             <div className={makeClass(
                 style.card, closedClass, propsToTypeClass(props, style), className
-            )} {...props}>
+            )} {...propsNotTypeClass(props, style)}>
                 {collapsible && (
                     <div className={makeClass(style.collapse, isClosed && style.closed)} onClick={toggleOpen}>
                         <FiChevronDown />

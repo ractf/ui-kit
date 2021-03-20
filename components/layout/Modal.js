@@ -183,7 +183,8 @@ export const ModalMount = ({ children }) => {
                     isProgress: false,
                     body: body,
                     promise: { resolve: resolve, reject: reject },
-                    inputs: inputs
+                    inputs: inputs,
+                    _id: Math.random()
                 };
                 setModals(old => [...old, modal]);
             });
@@ -203,7 +204,8 @@ export const ModalMount = ({ children }) => {
             progressModal.current = null;
         } else if (text) {
             const modal = {
-                isProgress: true, text: text, progress: progress
+                isProgress: true, text: text, progress: progress,
+                _id: Math.random()
             };
             setModals(old => [...old, modal]);
             progressModal.current = modal;
@@ -218,12 +220,13 @@ export const ModalMount = ({ children }) => {
         {modals.map(i => {
             if (i.isProgress) {
                 return <Modal small cancel={false} okay={false} header={"Progress"}
-                    noHide progressModal>
+                    noHide progressModal key={i._id}>
                     <p>{i.text}</p>
                     <ProgressBar progress={i.progress} />
                 </Modal>;
             }
             return <ModalPrompt
+                key={i._id}
                 body={i.body}
                 promise={i.promise}
                 inputs={i.inputs}
