@@ -157,9 +157,9 @@ const Card = ({
                         {(header || subtitle || callout) && children && (
                             <div className={style.spacer} />
                         )}
-                        <Container className={makeClass(style.body, bodyClass)} style={{ maxHeight }}>
+                        <div className={makeClass(style.body, bodyClass)} style={{ maxHeight }}>
                             {children}
-                        </Container>
+                        </div>
                     </div>
                 </div>
             </div>
