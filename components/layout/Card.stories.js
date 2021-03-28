@@ -9,6 +9,14 @@ export default {
     title: "Card",
     component: UIKitCard,
     argTypes: {
+        active_state: {
+            name: "Active state",
+            control: {
+                type: "select",
+                default: "primary",
+                options: TYPES
+            }
+        },
         header: {
             name: "Header",
             control: "text"
@@ -20,14 +28,6 @@ export default {
         callout: {
             name: "Callout",
             control: "text"
-        },
-        active_state: {
-            name: "Active state",
-            control: {
-                type: "select",
-                default: "primary",
-                options: TYPES
-            }
         },
         lesser: {
             name: "Lesser",

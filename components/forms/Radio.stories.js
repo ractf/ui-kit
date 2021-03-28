@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Form } from "@ractf/ui-kit";
-
 import UIKitRadio from "./Radio";
 
 

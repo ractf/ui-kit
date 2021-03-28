@@ -6,7 +6,6 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { makeClass, propsToTypeClass, propsNotTypeClass } from "@ractf/util";
 
 import style from "./Card.module.scss";
-import { Container } from "./Layout";
 
 
 export const Card_ = ({ title, header, children, open, onOpenToggle, ...props }) => {

@@ -19,8 +19,8 @@ export {
     default as Modal, ModalForm, ModalPrompt, UiKitModals, ModalMount
 } from "./components/layout/Modal";
 export { TabbedView, InnerTabs, Tab } from "./components/layout/TabbedView";
+export { default as Breadcrumbs } from "./components/layout/Breadcrumbs";
 export { default as Scrollbar } from "./components/layout/Scrollbar";
-export { Breadcrumbs, Crumb, } from "./components/layout/Breadcrumbs";
 export { default as Leader } from "./components/layout/Leader";
 export { default as Card } from "./components/layout/Card";
 export * from "./components/layout/SidebarTabs";
