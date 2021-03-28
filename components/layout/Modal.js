@@ -199,10 +199,11 @@ export const ModalMount = ({ children }) => {
         });
     }, [closeModal]);
     const showProgress = useCallback((text, progress) => {
-        if (!text && progressModal.current) {
+        if (progressModal.current) {
             closeModal(progressModal.current);
             progressModal.current = null;
-        } else if (text) {
+        }
+        if (text) {
             const modal = {
                 isProgress: true, text: text, progress: progress,
                 _id: Math.random()
