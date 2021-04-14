@@ -24,7 +24,7 @@
         position: absolute;
         padding: px(4) px(8);
         border-radius: px(8);
-        background-color: rgba(var(--col-black), .9);
+        background-color: var(--col-black);
         color: var(--col-white);
         font-size: 0.9rem;
         left: 100%;
@@ -35,7 +35,7 @@
         &::before {
             display: block;
             content: "";
-            border: 5px solid rgba(var(--col-black), .9);
+            border: 5px solid var(--col-black);
             border-top-color: transparent;
             border-right-color: transparent;
             transform: translate(50%, 50%) rotate(45deg);
