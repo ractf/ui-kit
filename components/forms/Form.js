@@ -252,12 +252,14 @@ const _BareForm = ({
         const newValues = { ...values.current };
         setValue(newValues, name, casted, disableDotExpansion);
         values.current = newValues;
+        if (valuesRef)
+            valuesRef.current = newValues;
 
         if (onChange && different(lastState.current, values.current)) {
             lastState.current = values.current;
             onChange(values.current);
         }
-    }, [disableDotExpansion, onChange]);
+    }, [disableDotExpansion, onChange, valuesRef]);
 
     const recurseChildren = (children) => {
         const newChildren = React.Children.toArray(children).filter(Boolean);
