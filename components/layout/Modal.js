@@ -213,7 +213,7 @@ export const ModalMount = ({ children }) => {
         }
     }, [closeModal]);
     const alert = useCallback((message) => {
-        return promptConfirm({ message: message, noCancel: true, small: true });
+        return promptConfirm({ message: message, noCancel: true, small: true }).catch(() => {});
     }, [promptConfirm]);
 
     return <UiKitModals.Provider value={{ alert, promptConfirm, showProgress }}>
