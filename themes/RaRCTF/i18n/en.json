@@ -1,0 +1,12 @@
+{
+    "challenge": {
+        "has_solve": "First blood by {{name}}, {{count}} solve in total",
+        "has_solve_plural": "First blood by {{name}}, {{count}} solves in total"
+    },
+    "auth": {
+        "register": "Register for RaRCTF",
+        "login": "Login to RaRCTF",
+        "welcome": "Welcome to RaRCTF!"
+    },
+    "copyright_note": "Challenges by WinRARs"
+}
