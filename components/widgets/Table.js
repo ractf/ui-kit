@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import style from "./Table.module.scss";
 
 
-const Table = ({ sorter, headings, data, noSort }) => {
+const Table = ({ sorter, headings, data, noSort, onHeaderClick }) => {
     const [sortMode, setSortMode] = useState(null);
     let sorterFunc;
     if (!noSort)
@@ -30,7 +30,10 @@ const Table = ({ sorter, headings, data, noSort }) => {
         <thead>
             <tr className={style.heading}>
                 {headings.map((i, n) => (
-                    <th key={n} onClick={noSort || toggleSort(n)} className={noSort ? "" : style.sortable}>
+                    <th key={n} onClick={() => {
+                        if (!noSort) { toggleSort(n); };
+                        if (onHeaderClick) { onHeaderClick(i); };
+                    }} className={noSort ? "" : style.sortable}>
                         <span>{i}</span>
                     </th>
                 ))}
