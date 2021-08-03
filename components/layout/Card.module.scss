@@ -132,6 +132,12 @@
         min-height: 0;
         opacity: 0;
     }
+
+    &.warning {
+        .body {
+            color: var(--type-warning-fg);
+        }
+    }
 }
 
 .old {
