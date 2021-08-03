@@ -78,7 +78,7 @@ export const Card_ = ({ title, header, children, open, onOpenToggle, ...props })
 
 const Card = ({
     header, headerClass, subtitle, subtitleClass, callout, className, children,
-    maxHeight, bodyClass, open, collapsible, startClosed, ...props
+    maxHeight, bodyClass, open, collapsible, startClosed, onOpenToggle, ...props
 }) => {
     // const [open, setOpen] = useState(true);
 
@@ -105,7 +105,7 @@ const Card = ({
         if (typeof open !== "undefined") setIsClosed(!open);
     }, [open]);
     useEffect(() => {
-        // if (onOpenToggle) onOpenToggle(!isClosed);
+        if (onOpenToggle) onOpenToggle(!isClosed);
         const next = isClosed ? 200 : 220;
         if (isClosed) {
             setHeight(body.current?.offsetHeight || "auto");
@@ -120,7 +120,7 @@ const Card = ({
             window.dispatchEvent(new Event("resize"));
         }, next);
         return () => clearTimeout(to);
-    }, [isClosed]);
+    }, [isClosed, onOpenToggle]);
     useEffect(() => {
         if (height !== "auto" && body.current?.parentElement?.style.height !== "auto")
             setTimeout(() => {
