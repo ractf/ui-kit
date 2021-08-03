@@ -118,6 +118,11 @@ $sidebar_accent: var(--col-accent);
         p {
             opacity: 0.6;
         }
+
+        img {
+            margin-right: 8px;
+            width: px(16);
+        }
     }
 
     span,
@@ -128,11 +133,6 @@ $sidebar_accent: var(--col-accent);
             color: inherit;
             text-decoration: underline;
         }
-    }
-
-    img {
-        margin-right: 8px;
-        width: px(16);
     }
 }
 
