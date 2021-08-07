@@ -30,10 +30,8 @@ const Table = ({ sorter, headings, data, noSort, onHeaderClick }) => {
         <thead>
             <tr className={style.heading}>
                 {headings.map((i, n) => (
-                    <th key={n} onClick={() => {
-                        if (!noSort) { toggleSort(n); };
-                        if (onHeaderClick) { onHeaderClick(i); };
-                    }} className={noSort ? "" : style.sortable}>
+                    <th key={n} onClick={onHeaderClick ? () => {onHeaderClick(i); } : (noSort || toggleSort(n))}
+                    className={noSort ? "" : style.sortable}>
                         <span>{i}</span>
                     </th>
                 ))}
@@ -45,7 +43,7 @@ const Table = ({ sorter, headings, data, noSort, onHeaderClick }) => {
 
                 return <tr key={n} className={style[meta.type] || ""}>
                     {i.slice(0, headings.length).map((j, m) => (
-                        <td key={m}>{(typeof j === "string") ? <span>{j}</span> : j}</td>
+                        <td key={m}>{(typeof j === "string" || typeof j === "number") ? <span>{j}</span> : j}</td>
                     ))}
                 </tr>;
             })}
