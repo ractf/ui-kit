@@ -1,0 +1,8 @@
+{
+    "auth": {
+        "register": "Register for Yet Another CTF",
+        "login": "Login to Yet Another CTF",
+        "welcome": "Welcome to Yet Another CTF!"
+    },
+    "copyright_note": "Challenges by WMG Cyber Society"
+}
