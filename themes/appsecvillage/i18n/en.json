@@ -1,0 +1,8 @@
+{
+    "auth": {
+        "register": "Register for the AppSec Village Sandbox CTF",
+        "login": "Login to the AppSec Village Sandbox CTF",
+        "welcome": "Welcome to the AppSec Village Sandbox CTF!"
+    },
+    "copyright_note": "Challenges by AppSec Village Team. Hosting with ❤️ by RACTF."
+}
