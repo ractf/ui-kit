@@ -1,0 +1,8 @@
+{
+    "auth": {
+        "register": "Register for the T3N4CI0US CTF 2022 - Escape",
+        "login": "Login to the T3N4CI0US CTF 2022 - Escape",
+        "welcome": "Welcome to the T3N4CI0US CTF 2022 - Escape!"
+    },
+    "copyright_note": "Challenges by T3N4CI0US, Hosting with ❤️ by RACTF."
+}
