@@ -1,0 +1,8 @@
+{
+    "auth": {
+        "register": "Register for Warwick Intake CTF 2022",
+        "login": "Login to Warwick Intake CTF 2022",
+        "welcome": "Welcome to Warwick Intake CTF 2022!"
+    },
+    "copyright_note": "Challenges by WMG Cyber Society"
+}
