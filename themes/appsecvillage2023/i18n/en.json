@@ -1,0 +1,8 @@
+{
+    "auth": {
+        "register": "Register for the AppSec Village CTF Squared 2023",
+        "login": "Login to the AppSec Village CTF Squared 2023",
+        "welcome": "Welcome to the AppSec Village CTF Squared 2023!"
+    },
+    "copyright_note": "Challenges by AppSec Village Team. Hosting with ❤️ by RACTF."
+}
